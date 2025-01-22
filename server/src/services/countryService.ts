@@ -7,32 +7,31 @@ const API_URL = "https://restcountries.com/v3.1/all";
 // Function to fetch data and save it to MongoDB if not already present
 export const fetchCountriesData = async () => {
   try {
-    const response = await axios.get<ICountry[]>(API_URL);
-    const countries = response.data;
-
-    // Transform the data to match the schema
-    const formattedCountries = countries.map((country: any) => ({
-      name: country.name.common,
-      flag: country.flags?.png || "",
-      population: country.population || 0,
-      region: country.region || "Unknown",
-    }));
-
     // Check if the data already exists in the database
     const existingCountries = await Country.find({});
 
-    // If there are no countries in the database, insert the fetched data
     if (existingCountries.length === 0) {
       console.log("No countries in the database. Adding new data...");
-      await Country.insertMany(formattedCountries); // Insert the fetched countries into MongoDB
+      const response = await axios.get<ICountry[]>(API_URL);
+      const countries = response.data;
+
+      // Transform the data to match the schema
+      const formattedCountries = countries.map((country: any) => ({
+        name: country.name.common,
+        flag: country.flags?.png || "",
+        population: country.population || 0,
+        region: country.region || "Unknown",
+      }));
+
+      await Country.insertMany(formattedCountries);
       console.log("Countries added to the database!");
+      return formattedCountries; // Return the inserted data instead of fetching it again
     } else {
       console.log("Countries data already exists in the database!");
+      return existingCountries; // Return existing countries if data exists
     }
-    const allCountries = await Country.find({});
-    return allCountries;
   } catch (error) {
-    console.error("Error fetching countries data:", error);
+    console.error("Error fetching countries data:");
     throw error;
   }
 };
@@ -58,7 +57,7 @@ export const saveCountry = async (data: ICountry) => {
     const newCountry = new Country(data);
     await newCountry.save();
     console.log("Country successfully added!");
-    return newCountry; 
+    return newCountry;
   } catch (error) {
     console.error("Error saving country to the database:", error);
     throw new Error("Failed to save country to the database");

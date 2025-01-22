@@ -13,7 +13,7 @@ export const getCountries = async (req: Request, res: Response) => {
     const countries = await fetchCountriesData();
     res.status(200).json(countries);
   } catch (error) {
-    res.status(500).send("Error fetching countries data.");
+    res.status(500).json({ message: "Error fetching countries data." });
   }
 };
 // Get a single country by ID
@@ -60,16 +60,4 @@ export const deleteCountry = async (req: Request, res: Response) => {
   }
 };
 
-// Save countries fetched from an external API, only if they don't already exist
-export const saveExternalCountries = async (req: Request, res: Response) => {
-  try {
-    const countries = await fetchCountriesData();
-    res
-      .status(200)
-      .json({ message: "Countries fetched and saved successfully", countries });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error saving countries from external API", error });
-  }
-};
+
