@@ -1,0 +1,19 @@
+.data-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  
+    .data-item {
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+    }
+  
+    .error {
+      color: red;
+      font-size: 1.2rem;
+    }
+  }
+  

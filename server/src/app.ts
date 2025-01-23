@@ -14,9 +14,9 @@ const app = express();
 // Middleware for CORS
 app.use(
   cors({
-    origin: "http://localhost:3000", // Allow requests from this origin (Frontend)
-    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+    origin: ["http://localhost:5173", "http://localhost:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE"], 
+    allowedHeaders: ["Content-Type", "Authorization"], 
   })
 );
 
@@ -45,3 +45,4 @@ if (require.main === module) {
 
   startServer();
 }
+//npx ts-node src/app.ts  
