@@ -10,6 +10,7 @@ export const fetchCountriesData = async () => {
     // Check if the data already exists in the database
     const existingCountries = await Country.find({});
 
+    
     if (existingCountries.length === 0) {
       console.log("No countries in the database. Adding new data...");
       const response = await axios.get<ICountry[]>(API_URL);

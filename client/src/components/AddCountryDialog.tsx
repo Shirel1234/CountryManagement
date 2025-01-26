@@ -1,0 +1,105 @@
+// AddCountryDialog.jsx
+import React from "react";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  TextField,
+} from "@mui/material";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
+interface AddCountryDialogProps {
+  open: boolean;
+  onClose: () => void;
+  onAdd: (country: { name: string; flag: string; population: number; region: string }) => void;
+}
+
+const AddCountryDialog: React.FC<AddCountryDialogProps> = ({ open, onClose, onAdd }) => {
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      flag: "",
+      population: 0,
+      region: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required("Name is required"),
+      flag: Yup.string().required("Flag URL is required"),
+      population: Yup.number()
+        .required("Population is required")
+        .min(1, "Population must be greater than 0"),
+      region: Yup.string().required("Region is required"),
+    }),
+    onSubmit: (values) => {
+      onAdd(values);
+      formik.resetForm();
+      onClose();
+    },
+  });
+
+  return (
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>Add Country</DialogTitle>
+      <DialogContent>
+        <form onSubmit={formik.handleSubmit}>
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Name"
+            name="name"
+            value={formik.values.name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.name && Boolean(formik.errors.name)}
+            helperText={formik.touched.name && formik.errors.name}
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Flag URL"
+            name="flag"
+            value={formik.values.flag}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.flag && Boolean(formik.errors.flag)}
+            helperText={formik.touched.flag && formik.errors.flag}
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Population"
+            name="population"
+            type="number"
+            value={formik.values.population}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.population && Boolean(formik.errors.population)}
+            helperText={formik.touched.population && formik.errors.population}
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Region"
+            name="region"
+            value={formik.values.region}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.region && Boolean(formik.errors.region)}
+            helperText={formik.touched.region && formik.errors.region}
+          />
+          <DialogActions>
+            <Button onClick={onClose}>Cancel</Button>
+            <Button type="submit" variant="contained" color="primary">
+              Add
+            </Button>
+          </DialogActions>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default AddCountryDialog;

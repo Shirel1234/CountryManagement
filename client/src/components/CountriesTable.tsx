@@ -1,45 +1,61 @@
-import React, { useState } from 'react';
-import { 
-  DataGrid, 
-  GridColDef, 
-  GridActionsCellItem 
-} from '@mui/x-data-grid';
-import { 
-  Dialog, 
-  DialogTitle, 
-  DialogContent, 
-  DialogContentText, 
-  DialogActions, 
-  Button, 
-  Box 
-} from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { useFetchData } from '../hooks/useFetchData';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { ICountry } from '../types/country';
-import { deleteCountry } from '../services/apiService';
+import React, { useState } from "react";
+import { DataGrid, GridColDef, GridActionsCellItem } from "@mui/x-data-grid";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+  Box,
+  IconButton,
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { useNavigate } from "react-router-dom";
+import { useFetchData } from "../hooks/useFetchData";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ICountry } from "../types/country";
+import { addCountry, deleteCountry } from "../services/apiService";
+import AddCountryDialog from "./AddCountryDialog";
+import AddIcon from "@mui/icons-material/Add";
+import { showErrorToast, showSuccessToast } from "./Toast";
 
 const CountriesTable: React.FC = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<ICountry | null>(null);
 
   // Fetch data hook
   const { data: countries, isLoading } = useFetchData();
+  // Add Country Mutation
+  const addMutation = useMutation({
+    mutationFn: (newCountry: Omit<ICountry, "_id">) => addCountry(newCountry),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["data"] });
+      setAddDialogOpen(false);
+      showSuccessToast("Country added successfully!");
+    },
+    onError: (error) => {
+      console.error("Add failed:", error);
+      showErrorToast("Failed to add country.");
+    },
+  });
 
   // Delete mutation
   const deleteMutation = useMutation({
     mutationFn: (id: string) => deleteCountry(id),
     onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ['data'] });
+      queryClient.invalidateQueries({ queryKey: ["data"] });
       setDeleteConfirmOpen(false);
+      showSuccessToast("Country deleted successfully!");
     },
     onError: (error) => {
-      console.error('Delete failed:', error);
-      // Handle error (e.g., show error toast)
-    }
+      console.error("Delete failed:", error);
+      showErrorToast("Failed to delete country.");
+    },
   });
 
   // Open delete confirmation dialog
@@ -51,38 +67,42 @@ const CountriesTable: React.FC = () => {
   // Confirm delete action
   const handleDeleteConfirm = () => {
     if (selectedCountry) {
-      deleteMutation.mutate(selectedCountry._id);
+      deleteMutation.mutate(String(selectedCountry._id));
     }
   };
 
   // Edit handler (navigate to edit form)
-//   const handleEditClick = (country: ICountry) => {
-    // Implement navigation to edit form
-    // Example: navigate(`/edit-country/${country._id}`)
-//   };
+  const handleEditClick = (country: ICountry) => {
+    navigate(`/edit-country/${country._id}`);
+  };
 
   const columns: GridColDef[] = [
-    { 
-      field: 'name', 
-      headerName: 'Country Name', 
-      flex: 1 
-    },
-    { 
-      field: 'capital', 
-      headerName: 'Capital', 
-      flex: 1 
-    },
-    { 
-      field: 'region', 
-      headerName: 'Region', 
-      flex: 1 
+    {
+      field: "name",
+      headerName: "Country Name",
+      flex: 1,
     },
     {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Actions',
+      field: "flag",
+      headerName: "Flag",
+      flex: 1,
+    },
+    {
+      field: "population",
+      headerName: "Population",
+      flex: 1,
+    },
+    {
+      field: "region",
+      headerName: "Region",
+      flex: 1,
+    },
+    {
+      field: "actions",
+      type: "actions",
+      headerName: "Actions",
       width: 100,
-      cellClassName: 'actions',
+      cellClassName: "actions",
       getActions: (params) => {
         const country = params.row as ICountry;
         return [
@@ -90,7 +110,7 @@ const CountriesTable: React.FC = () => {
             icon={<EditIcon />}
             label="Edit"
             className="textPrimary"
-            //onClick={() => handleEditClick(country)}
+            onClick={() => handleEditClick(country)}
             color="inherit"
           />,
           <GridActionsCellItem
@@ -98,7 +118,7 @@ const CountriesTable: React.FC = () => {
             label="Delete"
             onClick={() => handleDeleteClick(country)}
             color="error"
-          />
+          />,
         ];
       },
     },
@@ -118,11 +138,7 @@ const CountriesTable: React.FC = () => {
       </DialogContent>
       <DialogActions>
         <Button onClick={() => setDeleteConfirmOpen(false)}>Cancel</Button>
-        <Button 
-          onClick={handleDeleteConfirm} 
-          color="error" 
-          variant="contained"
-        >
+        <Button onClick={handleDeleteConfirm} color="error" variant="contained">
           Delete
         </Button>
       </DialogActions>
@@ -130,7 +146,7 @@ const CountriesTable: React.FC = () => {
   );
 
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
+    <Box sx={{ height: 800, width: "100%" }}>
       <DataGrid
         rows={countries || []}
         columns={columns}
@@ -139,6 +155,16 @@ const CountriesTable: React.FC = () => {
         pageSizeOptions={[5, 10, 25]}
         checkboxSelection
         disableRowSelectionOnClick
+      />
+      <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
+        <IconButton color="primary" onClick={() => setAddDialogOpen(true)}>
+          <AddIcon />
+        </IconButton>
+      </Box>
+      <AddCountryDialog
+        open={addDialogOpen}
+        onClose={() => setAddDialogOpen(false)}
+        onAdd={(newCountry) => addMutation.mutate(newCountry)}
       />
       <DeleteConfirmDialog />
     </Box>
