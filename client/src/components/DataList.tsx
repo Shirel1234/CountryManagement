@@ -22,15 +22,6 @@ const DataList: React.FC = () => {
       </p>
     );
   return <CountriesTable />;
-  // return (
-  //   <div className="data-list">
-  //     {data?.map((item) => (
-  //       <div key={item._id} className="data-item">
-  //         {item.name}
-  //       </div>
-  //     ))}
-  //   </div>
-  // );
 };
 
 export default DataList;
