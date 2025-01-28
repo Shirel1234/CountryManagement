@@ -7,10 +7,8 @@ const API_URL = "https://restcountries.com/v3.1/all";
 // Function to fetch data and save it to MongoDB if not already present
 export const fetchCountriesData = async () => {
   try {
-    // Check if the data already exists in the database
     const existingCountries = await Country.find({});
 
-    
     if (existingCountries.length === 0) {
       console.log("No countries in the database. Adding new data...");
       const response = await axios.get<ICountry[]>(API_URL);
@@ -26,10 +24,10 @@ export const fetchCountriesData = async () => {
 
       await Country.insertMany(formattedCountries);
       console.log("Countries added to the database!");
-      return formattedCountries; // Return the inserted data instead of fetching it again
+      return formattedCountries;
     } else {
       console.log("Countries data already exists in the database!");
-      return existingCountries; // Return existing countries if data exists
+      return existingCountries;
     }
   } catch (error) {
     console.error("Error fetching countries data:");
@@ -43,7 +41,7 @@ export const fetchCountryById = async (id: string) => {
     const country = await Country.findById(id);
     if (!country) {
       console.error("Country not found with the provided ID:", id);
-      throw new Error("Country not found with the provided ID.");
+      return null;
     }
     return country;
   } catch (error) {
@@ -60,7 +58,7 @@ export const saveCountry = async (data: ICountry) => {
     console.log("Country successfully added!");
     return newCountry;
   } catch (error) {
-    console.error("Error saving country to the database:", error);
+    console.error("Error saving country to the database:");
     throw new Error("Failed to save country to the database");
   }
 };

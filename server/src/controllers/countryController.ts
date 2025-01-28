@@ -21,7 +21,11 @@ export const getCountryById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const country = await fetchCountryById(id);
-    res.status(200).json(country);
+    if (!country) {
+      res.status(404).json({ error: "Country not found" });
+    } else {
+      res.status(200).json(country);
+    }
   } catch (error) {
     res.status(500).json({ message: "Error fetching country data", error });
   }
@@ -36,7 +40,6 @@ export const createCountry = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Failed to create country", error });
   }
 };
-
 // Update a country by ID
 export const updateCountry = async (req: Request, res: Response) => {
   try {
@@ -48,16 +51,17 @@ export const updateCountry = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Failed to update country", error });
   }
 };
-
 // Delete a country by ID
 export const deleteCountry = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const result = await removeCountry(id);
-    res.status(200).json(result);
+    if (!result) {
+      res.status(404).json({ error: "Country not found" });
+    } else {
+      res.status(204).send();
+    }
   } catch (error) {
     res.status(500).json({ message: "Failed to delete country", error });
   }
 };
-
-

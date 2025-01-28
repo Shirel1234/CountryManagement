@@ -6,5 +6,6 @@ module.exports = {
         "^.+\\.ts$": "ts-jest",
       },
     moduleDirectories: ["node_modules", "src"],
+    maxWorkers: 1,
   };
   

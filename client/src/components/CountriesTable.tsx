@@ -1,15 +1,7 @@
+// components/CountriesTable.tsx
 import React, { useState } from "react";
 import { DataGrid, GridColDef, GridActionsCellItem } from "@mui/x-data-grid";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Button,
-  Box,
-  IconButton,
-} from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +12,10 @@ import { addCountry, deleteCountry } from "../services/apiService";
 import AddCountryDialog from "./AddCountryDialog";
 import AddIcon from "@mui/icons-material/Add";
 import { showErrorToast, showSuccessToast } from "./Toast";
+import { useSetRecoilState } from "recoil";
+import { selectedCountryState } from "../state/atoms";
+import DeleteConfirmDialog from "./DeleteConfirmDialog";
+import "../styles/CountriesTable.scss";
 
 const CountriesTable: React.FC = () => {
   const queryClient = useQueryClient();
@@ -27,9 +23,11 @@ const CountriesTable: React.FC = () => {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<ICountry | null>(null);
+  const setSelectedCountryState = useSetRecoilState(selectedCountryState);
 
   // Fetch data hook
   const { data: countries, isLoading } = useFetchData();
+
   // Add Country Mutation
   const addMutation = useMutation({
     mutationFn: (newCountry: Omit<ICountry, "_id">) => addCountry(newCountry),
@@ -73,7 +71,10 @@ const CountriesTable: React.FC = () => {
 
   // Edit handler (navigate to edit form)
   const handleEditClick = (country: ICountry) => {
-    navigate(`/edit-country/${country._id}`);
+    setSelectedCountryState(country);
+    setTimeout(() => {
+      navigate(`/edit-country/${country._id}`);
+    }, 0);
   };
 
   const columns: GridColDef[] = [
@@ -86,6 +87,22 @@ const CountriesTable: React.FC = () => {
       field: "flag",
       headerName: "Flag",
       flex: 1,
+      renderCell: (params) => (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          <img
+            src={params.value}
+            alt={`${params.row.name} flag`}
+            style={{ height: "30px", width: "50px", objectFit: "cover" }}
+          />
+        </div>
+      ),
     },
     {
       field: "population",
@@ -124,29 +141,8 @@ const CountriesTable: React.FC = () => {
     },
   ];
 
-  // Delete Confirmation Dialog
-  const DeleteConfirmDialog = () => (
-    <Dialog
-      open={deleteConfirmOpen}
-      onClose={() => setDeleteConfirmOpen(false)}
-    >
-      <DialogTitle>Delete Confirmation</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          Are you sure you want to delete {selectedCountry?.name}?
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={() => setDeleteConfirmOpen(false)}>Cancel</Button>
-        <Button onClick={handleDeleteConfirm} color="error" variant="contained">
-          Delete
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
-
   return (
-    <Box sx={{ height: 800, width: "100%" }}>
+    <Box sx={{ height: 700, width: "100%" }}>
       <DataGrid
         rows={countries || []}
         columns={columns}
@@ -166,7 +162,12 @@ const CountriesTable: React.FC = () => {
         onClose={() => setAddDialogOpen(false)}
         onAdd={(newCountry) => addMutation.mutate(newCountry)}
       />
-      <DeleteConfirmDialog />
+      <DeleteConfirmDialog
+        open={deleteConfirmOpen}
+        selectedCountry={selectedCountry}
+        onClose={() => setDeleteConfirmOpen(false)}
+        onDelete={handleDeleteConfirm}
+      />
     </Box>
   );
 };

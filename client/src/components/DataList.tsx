@@ -6,7 +6,7 @@ import "../styles/DataList.scss";
 import CountriesTable from "./CountriesTable";
 
 const DataList: React.FC = () => {
-  const {isLoading, isError, isSuccess, error } = useFetchData();
+  const { isLoading, isError, isSuccess, error } = useFetchData();
 
   useEffect(() => {
     if (isSuccess) showSuccessToast("Data loaded successfully!");
