@@ -1,3 +1,4 @@
+import { connectDB, clearDB, closeDB } from "../mocks/mongoose";
 import {
   fetchCountriesData,
   saveCountry,
@@ -5,57 +6,88 @@ import {
   modifyCountry,
   removeCountry,
 } from "../../src/services/countryService";
-import Country from "../../src/lib/models/countryModel";
-import { deleteCountry } from "../../src/controllers/countryController";
-import { mockRequest, mockResponse } from "jest-mock-express";
-
-// Mock the Country model
-jest.mock("../../src/lib/models/countryModel");
+import { afterAll, beforeAll, describe, expect, it } from "@jest/globals";
+import { afterEach } from "node:test";
+import { ICountry } from "../../src/types/country";
 
 describe("Country Service Tests", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
+  beforeAll(async () => {
+    await connectDB();
   });
 
-  it("should fetch countries data from the external API and save to DB if empty", async () => {
-    (Country.find as jest.Mock).mockResolvedValueOnce([]);
-    (Country.insertMany as jest.Mock).mockResolvedValueOnce([]);
+  afterEach(async () => {
+    await clearDB();
+  });
 
-    const countries = await fetchCountriesData();
+  afterAll(async () => {
+    await closeDB();
+  });
 
-    expect(Country.find).toHaveBeenCalledTimes(1);
-    expect(Country.insertMany).toHaveBeenCalledTimes(1);
-    expect(countries).toBeDefined();
+  it("should save a new country", async () => {
+    const countryData = {
+      name: "Testland",
+      flag: "test.png",
+      population: 1000,
+      region: "Test Region",
+    };
+    const savedCountry = await saveCountry(countryData as ICountry);
+    expect(savedCountry.name).toBe("Testland");
+    expect(savedCountry.flag).toBe("test.png");
   });
 
   it("should fetch a country by ID", async () => {
-    const mockCountry = { _id: "123", name: "Test Country" };
-    (Country.findById as jest.Mock).mockResolvedValueOnce(mockCountry);
+    const countryData = {
+      name: "Testland",
+      flag: "test.png",
+      population: 1000,
+      region: "Test Region",
+    };
+    const savedCountry = await saveCountry(countryData as ICountry);
 
-    const result = await fetchCountryById("123");
-
-    expect(Country.findById).toHaveBeenCalledWith("123");
-    expect(result).toEqual(mockCountry);
+    const fetchedCountry = await fetchCountryById(savedCountry._id.toString());
+    expect(fetchedCountry?.name).toBe("Testland");
   });
 
-  it("should save a new country to the database", async () => {
-    const mockData = { name: "Test Country" };
-    const mockCountry = { _id: "123", ...mockData };
-
-    // Mock the constructor to return the mockCountry object when a new instance is created
-    const mockSave = jest.fn().mockResolvedValue(mockCountry);
-    const MockedCountry = jest.fn().mockImplementation(() => ({
-      save: mockSave,
-      _id: mockCountry._id,
-      name: mockCountry.name,
-    }));
-
-    (Country as unknown as jest.Mock) = MockedCountry;
-    const result = await saveCountry(mockData as any);
-    const { save, ...resultWithoutSave } = result;
-
-    expect(resultWithoutSave).toEqual({ _id: "123", name: "Test Country" });
-    expect(mockSave).toHaveBeenCalledTimes(1); // Ensure save method is called once
+  it("should throw an error when fetching a non-existent country", async () => {
+    await expect(fetchCountryById("nonexistentId")).rejects.toThrowError();
   });
-  
+
+  it("should modify an existing country", async () => {
+    const countryData = {
+      name: "Oldland",
+      flag: "old.png",
+      population: 5000,
+      region: "Old Region",
+    };
+    const savedCountry = await saveCountry(countryData as ICountry);
+
+    const updatedData = {
+      name: "Newland",
+      flag: "new.png",
+      population: 7000,
+      region: "New Region",
+    };
+    const updatedCountry = await modifyCountry(
+      savedCountry._id.toString(),
+      updatedData
+    );
+
+    expect(updatedCountry?.name).toBe("Newland");
+  });
+
+  it("should remove an existing country", async () => {
+    const countryData = {
+      name: "Testland",
+      flag: "test.png",
+      population: 1000,
+      region: "Test Region",
+    };
+    const savedCountry = await saveCountry(countryData as ICountry);
+
+    const deletedCountry = await removeCountry(savedCountry._id.toString());
+    expect(deletedCountry?.name).toBe("Testland");
+
+    const fetchedCountry = await fetchCountryById(savedCountry._id.toString());
+    expect(fetchedCountry).toBeNull();
+  });
 });

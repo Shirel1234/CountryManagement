@@ -1,5 +1,5 @@
-import mongoose, { Schema } from 'mongoose';
-import { ICountry } from '../../types/country';
+import mongoose, { Schema } from "mongoose";
+import { ICountry } from "../../types/country";
 
 const countrySchema: Schema = new Schema({
   name: { type: String, required: true },
@@ -8,6 +8,6 @@ const countrySchema: Schema = new Schema({
   region: { type: String, required: true },
 });
 
-const Country = mongoose.model<ICountry>('Country', countrySchema);
+const Country = mongoose.model<ICountry>("Country", countrySchema);
 
 export default Country;

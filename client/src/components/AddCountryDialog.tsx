@@ -14,10 +14,19 @@ import * as Yup from "yup";
 interface AddCountryDialogProps {
   open: boolean;
   onClose: () => void;
-  onAdd: (country: { name: string; flag: string; population: number; region: string }) => void;
+  onAdd: (country: {
+    name: string;
+    flag: string;
+    population: number;
+    region: string;
+  }) => void;
 }
 
-const AddCountryDialog: React.FC<AddCountryDialogProps> = ({ open, onClose, onAdd }) => {
+const AddCountryDialog: React.FC<AddCountryDialogProps> = ({
+  open,
+  onClose,
+  onAdd,
+}) => {
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -76,7 +85,9 @@ const AddCountryDialog: React.FC<AddCountryDialogProps> = ({ open, onClose, onAd
             value={formik.values.population}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.population && Boolean(formik.errors.population)}
+            error={
+              formik.touched.population && Boolean(formik.errors.population)
+            }
             helperText={formik.touched.population && formik.errors.population}
           />
           <TextField

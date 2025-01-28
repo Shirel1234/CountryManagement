@@ -1,27 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  TextField,
-  Button,
-  Container,
-  Typography,
-  Modal,
-  Box,
-} from "@mui/material";
+import { TextField, Button, Container, Typography } from "@mui/material";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import "../styles/EditCountryForm.scss";
 import { getCountryById, updateCountry } from "../services/apiService";
 import { ICountry } from "../types/country";
 import { showErrorToast, showSuccessToast } from "./Toast";
+import { useQueryClient } from "@tanstack/react-query";
+import ConfirmLeaveDialog from "./ConfirmLeaveDialog";
 
 const EditCountryForm: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-
   const [country, setCountry] = useState<ICountry | null>(null);
   const [isFormModified, setIsFormModified] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const queryClient = useQueryClient();
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCountry = async () => {
@@ -46,9 +41,11 @@ const EditCountryForm: React.FC = () => {
   });
 
   const handleSubmit = async (values: ICountry) => {
+
     try {
       await updateCountry(id, values);
       showSuccessToast("Country updated successfully!");
+      queryClient.invalidateQueries({ queryKey: ["data"] });
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -71,8 +68,16 @@ const EditCountryForm: React.FC = () => {
 
   const handleCloseModal = () => setOpenModal(false);
 
+  const handleGoBack = () => {
+    navigate("/");
+  };
+
   return (
     <Container className="edit-country-form">
+      <button className="go-back-button" onClick={handleGoBack}>
+        ← Go Back
+      </button>
+
       <Typography variant="h4" gutterBottom>
         Edit Country
       </Typography>
@@ -131,49 +136,35 @@ const EditCountryForm: React.FC = () => {
                   fullWidth
                   margin="normal"
                 />
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  disabled={!dirty || !isValid}
-                >
-                  Save Changes
-                </Button>
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  onClick={handleCancel}
-                  disabled={!dirty}
-                >
-                  Cancel
-                </Button>
+                <div className="buttons-container">
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    disabled={!dirty || !isValid}
+                  >
+                    Save Changes
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={handleCancel}
+                    disabled={!dirty}
+                  >
+                    Cancel
+                  </Button>
+                </div>
               </Form>
             );
           }}
         </Formik>
       )}
 
-      <Modal open={openModal} onClose={handleCloseModal}>
-        <Box className="modal-box">
-          <Typography variant="h6" gutterBottom>
-            Are you sure you want to leave without saving?
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleConfirmCancel}
-          >
-            Yes, discard changes
-          </Button>
-          <Button
-            variant="outlined"
-            color="secondary"
-            onClick={handleCloseModal}
-          >
-            No, keep editing
-          </Button>
-        </Box>
-      </Modal>
+      <ConfirmLeaveDialog
+        open={openModal}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmCancel}
+      />
     </Container>
   );
 };

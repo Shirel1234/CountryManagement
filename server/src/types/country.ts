@@ -1,7 +1,8 @@
 import { Document } from "mongoose";
 export interface ICountry extends Document {
-    name: string;
-    flag: string;
-    population: number;
-    region: string;
-  }
+  _id: string | undefined;
+  name: string;
+  flag: string;
+  population: number;
+  region: string;
+}
