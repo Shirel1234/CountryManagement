@@ -16,6 +16,7 @@ import { useSetRecoilState } from "recoil";
 import { selectedCountryState } from "../state/atoms";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
 import "../styles/CountriesTable.scss";
+import { AxiosError } from "axios";
 
 const CountriesTable: React.FC = () => {
   const queryClient = useQueryClient();
@@ -36,9 +37,14 @@ const CountriesTable: React.FC = () => {
       setAddDialogOpen(false);
       showSuccessToast("Country added successfully!");
     },
-    onError: (error) => {
+    onError: (error: unknown) => {
       console.error("Add failed:", error);
-      showErrorToast("Failed to add country.");
+      const axiosError = error as AxiosError;
+      if (axiosError.response?.status === 400) {
+        showErrorToast("Invalid input detected. Please check your data.");
+      } else {
+        showErrorToast("An unexpected error occurred. Please try again.");
+      }
     },
   });
 

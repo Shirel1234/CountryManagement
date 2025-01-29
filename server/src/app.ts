@@ -1,9 +1,12 @@
 import express, { Request, Response, NextFunction } from "express";
+import xssClean from "xss-clean";
 import dotenv from "dotenv";
 import countryRoutes from "./routes/countryRoutes";
 import connect from "./lib/db/mongodb";
 import path from "path";
 import cors from "cors";
+import checkSQLInjection from "./middlewares/checkSQLInjectionMiddleware";
+
 
 // Load environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, "../src/config/.env") });
@@ -22,6 +25,12 @@ app.use(
 
 // Middleware for parsing JSON bodies
 app.use(express.json());
+
+// Use SQL Injection Middleware
+app.use(checkSQLInjection);
+
+// XSS Protection Middleware
+app.use(xssClean()); 
 
 // Use country routes
 app.use("/api", countryRoutes);
