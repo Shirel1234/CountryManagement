@@ -2,6 +2,8 @@ import express, { Request, Response, NextFunction } from "express";
 import xssClean from "xss-clean";
 import dotenv from "dotenv";
 import countryRoutes from "./routes/countryRoutes";
+import userRoutes from "./routes/userRoutes"
+import authRoutes from "./routes/authRoutes"
 import connect from "./lib/db/mongodb";
 import path from "path";
 import cors from "cors";
@@ -34,6 +36,10 @@ app.use(xssClean());
 
 // Use country routes
 app.use("/api", countryRoutes);
+// Use user routes
+app.use("/api", userRoutes);
+// Use auth routes
+app.use("/auth", authRoutes);
 
 export default app;
 
