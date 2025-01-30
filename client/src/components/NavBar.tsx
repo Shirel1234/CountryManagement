@@ -11,11 +11,7 @@ const NavBar: React.FC = () => {
       <div className="navbar-content">
         <h1 className="navbar-title">Country Manager</h1>
         <span className="navbar-status">
-          {selectedCountry ? (
-            <p>{selectedCountry.name}</p>
-          ) : (
-            <p>No country in edit mode</p>
-          )}
+          {selectedCountry ? <p>{selectedCountry.name}</p> : <p></p>}
         </span>
       </div>
     </nav>

@@ -9,6 +9,8 @@ import { ICountry } from "../types/country";
 import { showErrorToast, showSuccessToast } from "./Toast";
 import { useQueryClient } from "@tanstack/react-query";
 import ConfirmLeaveDialog from "./ConfirmLeaveDialog";
+import { useSetRecoilState } from "recoil";
+import { selectedCountryState } from "../state/atoms";
 
 const EditCountryForm: React.FC = () => {
   const [country, setCountry] = useState<ICountry | null>(null);
@@ -17,6 +19,7 @@ const EditCountryForm: React.FC = () => {
   const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const setSelectedCountryState = useSetRecoilState(selectedCountryState);
 
   useEffect(() => {
     const fetchCountry = async () => {
@@ -41,11 +44,11 @@ const EditCountryForm: React.FC = () => {
   });
 
   const handleSubmit = async (values: ICountry) => {
-
     try {
       await updateCountry(id, values);
       showSuccessToast("Country updated successfully!");
       queryClient.invalidateQueries({ queryKey: ["data"] });
+      setSelectedCountryState(null);
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -57,18 +60,21 @@ const EditCountryForm: React.FC = () => {
     if (isFormModified) {
       setOpenModal(true);
     } else {
+      setSelectedCountryState(null);
       navigate("/");
     }
   };
 
   const handleConfirmCancel = () => {
     setOpenModal(false);
+    setSelectedCountryState(null);
     navigate("/");
   };
 
   const handleCloseModal = () => setOpenModal(false);
 
   const handleGoBack = () => {
+    setSelectedCountryState(null);
     navigate("/");
   };
 
