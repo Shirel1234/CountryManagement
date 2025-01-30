@@ -57,13 +57,14 @@ const AddCountryDialog: React.FC<AddCountryDialogProps> = ({
           <TextField
             fullWidth
             margin="normal"
-            label="Name"
+            label="country name"
             name="name"
             value={formik.values.name}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.name && Boolean(formik.errors.name)}
             helperText={formik.touched.name && formik.errors.name}
+            id="country-name"
           />
           <TextField
             fullWidth
@@ -75,6 +76,7 @@ const AddCountryDialog: React.FC<AddCountryDialogProps> = ({
             onBlur={formik.handleBlur}
             error={formik.touched.flag && Boolean(formik.errors.flag)}
             helperText={formik.touched.flag && formik.errors.flag}
+            id="flag-url"
           />
           <TextField
             fullWidth
@@ -89,6 +91,7 @@ const AddCountryDialog: React.FC<AddCountryDialogProps> = ({
               formik.touched.population && Boolean(formik.errors.population)
             }
             helperText={formik.touched.population && formik.errors.population}
+            id="population"
           />
           <TextField
             fullWidth
@@ -100,10 +103,16 @@ const AddCountryDialog: React.FC<AddCountryDialogProps> = ({
             onBlur={formik.handleBlur}
             error={formik.touched.region && Boolean(formik.errors.region)}
             helperText={formik.touched.region && formik.errors.region}
+            id="region"
           />
           <DialogActions>
             <Button onClick={onClose}>Cancel</Button>
-            <Button type="submit" variant="contained" color="primary">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              data-testid="add-country-button"
+            >
               Add
             </Button>
           </DialogActions>

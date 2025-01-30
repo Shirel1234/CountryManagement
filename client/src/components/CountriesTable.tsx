@@ -130,6 +130,7 @@ const CountriesTable: React.FC = () => {
         const country = params.row as ICountry;
         return [
           <GridActionsCellItem
+            data-testid="edit-button"
             icon={<EditIcon />}
             label="Edit"
             className="textPrimary"
@@ -137,6 +138,7 @@ const CountriesTable: React.FC = () => {
             color="inherit"
           />,
           <GridActionsCellItem
+            data-testid="delete-button"
             icon={<DeleteIcon />}
             label="Delete"
             onClick={() => handleDeleteClick(country)}
@@ -148,33 +150,38 @@ const CountriesTable: React.FC = () => {
   ];
 
   return (
-    <Box sx={{ height: 700, width: "100%" }}>
-      <DataGrid
-        rows={countries || []}
-        columns={columns}
-        getRowId={(row) => row._id}
-        loading={isLoading}
-        pageSizeOptions={[5, 10, 25]}
-        checkboxSelection
-        disableRowSelectionOnClick
-      />
-      <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
-        <IconButton color="primary" onClick={() => setAddDialogOpen(true)}>
-          <AddIcon />
-        </IconButton>
+    <div data-testid="countries-table">
+      <Box sx={{ height: 700, width: "100%" }}>
+        <DataGrid
+          rows={countries || []}
+          columns={columns}
+          getRowId={(row) => row._id}
+          loading={isLoading}
+          pageSizeOptions={[5, 10, 25]}
+          disableRowSelectionOnClick
+        />
+        <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
+          <IconButton
+            color="primary"
+            onClick={() => setAddDialogOpen(true)}
+            data-testid="add-button"
+          >
+            <AddIcon />
+          </IconButton>
+        </Box>
+        <AddCountryDialog
+          open={addDialogOpen}
+          onClose={() => setAddDialogOpen(false)}
+          onAdd={(newCountry) => addMutation.mutate(newCountry)}
+        />
+        <DeleteConfirmDialog
+          open={deleteConfirmOpen}
+          selectedCountry={selectedCountry}
+          onClose={() => setDeleteConfirmOpen(false)}
+          onDelete={handleDeleteConfirm}
+        />
       </Box>
-      <AddCountryDialog
-        open={addDialogOpen}
-        onClose={() => setAddDialogOpen(false)}
-        onAdd={(newCountry) => addMutation.mutate(newCountry)}
-      />
-      <DeleteConfirmDialog
-        open={deleteConfirmOpen}
-        selectedCountry={selectedCountry}
-        onClose={() => setDeleteConfirmOpen(false)}
-        onDelete={handleDeleteConfirm}
-      />
-    </Box>
+    </div>
   );
 };
 

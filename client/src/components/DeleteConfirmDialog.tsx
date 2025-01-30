@@ -1,6 +1,13 @@
 // components/DeleteConfirmDialog.tsx
 import React from "react";
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+} from "@mui/material";
 import { ICountry } from "../types/country";
 
 interface DeleteConfirmDialogProps {
@@ -10,7 +17,12 @@ interface DeleteConfirmDialogProps {
   onDelete: () => void;
 }
 
-const DeleteConfirmDialog: React.FC<DeleteConfirmDialogProps> = ({ open, selectedCountry, onClose, onDelete }) => {
+const DeleteConfirmDialog: React.FC<DeleteConfirmDialogProps> = ({
+  open,
+  selectedCountry,
+  onClose,
+  onDelete,
+}) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Delete Confirmation</DialogTitle>
@@ -21,7 +33,12 @@ const DeleteConfirmDialog: React.FC<DeleteConfirmDialogProps> = ({ open, selecte
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={onDelete} color="error" variant="contained">
+        <Button
+          onClick={onDelete}
+          color="error"
+          variant="contained"
+          data-testid="confirm-delete"
+        >
           Delete
         </Button>
       </DialogActions>
