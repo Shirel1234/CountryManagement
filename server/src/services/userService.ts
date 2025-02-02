@@ -1,6 +1,5 @@
 import { User } from "../lib/models/userModel";
 import { IUser } from "../types/user";
-import jwt from "jsonwebtoken";
 
 //Function to fetch data and save it to MongoDB if not already present
 export const fetchUsersData = async () => {

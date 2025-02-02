@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchData } from "../services/apiService";
+import { fetchCountries } from "../services/countryService";
 
 export const useFetchData = () => {
     return useQuery({
-      queryKey: ["data"], 
-      queryFn: fetchData, 
+      queryKey: ["countries"], 
+      queryFn: fetchCountries, 
       retry: 2,           
       staleTime: 5 * 60 * 1000, 
     });
