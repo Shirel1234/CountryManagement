@@ -4,13 +4,14 @@ import { TextField, Button, Container, Typography } from "@mui/material";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import "../styles/EditCountryForm.scss";
-import { getCountryById, updateCountry } from "../services/apiService";
+import { getCountryById, updateCountry } from "../services/countryService";
 import { ICountry } from "../types/country";
 import { showErrorToast, showSuccessToast } from "./Toast";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import ConfirmLeaveDialog from "./ConfirmLeaveDialog";
 import { useSetRecoilState } from "recoil";
 import { selectedCountryState } from "../state/atoms";
+import logim from "../utils/logim";
 
 const EditCountryForm: React.FC = () => {
   const [country, setCountry] = useState<ICountry | null>(null);
@@ -28,7 +29,11 @@ const EditCountryForm: React.FC = () => {
           const data = await getCountryById(id);
           setCountry(data);
         } catch (error) {
-          console.error("Error fetching country:", error);
+          logim.error(
+            `Error fetching country: ${
+              error instanceof Error ? error.message : error
+            }`
+          );
         }
       }
     };
@@ -43,18 +48,31 @@ const EditCountryForm: React.FC = () => {
       .positive("Population must be a positive number"),
   });
 
-  const handleSubmit = async (values: ICountry) => {
-    try {
-      await updateCountry(id, values);
+  const updateMutation = useMutation({
+    mutationFn: (values: ICountry) => updateCountry(id, values),
+    onSuccess: (updatedCountry) => {
+      // Update the cache
+      queryClient.setQueryData(
+        ["countries"],
+        (oldData: ICountry[] | undefined) => {
+          return oldData
+            ? oldData.map((country) =>
+                country._id === updatedCountry._id
+                  ? { ...country, ...updatedCountry }
+                  : country
+              )
+            : [];
+        }
+      );
       showSuccessToast("Country updated successfully!");
-      queryClient.invalidateQueries({ queryKey: ["data"] });
       setSelectedCountryState(null);
       navigate("/");
-    } catch (error) {
-      console.error(error);
+    },
+    onError: (error) => {
+      logim.error(`Failed to update the country: ${(error as Error).message}`);
       showErrorToast("Failed to update the country.");
-    }
-  };
+    },
+  });
 
   const handleCancel = () => {
     if (isFormModified) {
@@ -91,7 +109,7 @@ const EditCountryForm: React.FC = () => {
         <Formik
           initialValues={country}
           validationSchema={validationSchema}
-          onSubmit={handleSubmit}
+          onSubmit={updateMutation.mutate}
           enableReinitialize
         >
           {({ values, handleChange, handleBlur, isValid, dirty }) => {

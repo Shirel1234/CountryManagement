@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useFetchData } from "../hooks/useFetchData";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ICountry } from "../types/country";
-import { addCountry, deleteCountry } from "../services/apiService";
+import { addCountry, deleteCountry } from "../services/countryService";
 import AddCountryDialog from "./AddCountryDialog";
 import AddIcon from "@mui/icons-material/Add";
 import { showErrorToast, showSuccessToast } from "./Toast";
@@ -17,6 +17,7 @@ import { selectedCountryState } from "../state/atoms";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
 import "../styles/CountriesTable.scss";
 import { AxiosError } from "axios";
+import logim from "../utils/logim";
 
 const CountriesTable: React.FC = () => {
   const queryClient = useQueryClient();
@@ -32,13 +33,19 @@ const CountriesTable: React.FC = () => {
   // Add Country Mutation
   const addMutation = useMutation({
     mutationFn: (newCountry: Omit<ICountry, "_id">) => addCountry(newCountry),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["data"] });
+    onSuccess: (newCountry) => {
+      queryClient.setQueryData(
+        ["countries"],
+        (oldData: ICountry[] | undefined) => {
+          return oldData ? [...oldData, newCountry] : [newCountry];
+        }
+      );
       setAddDialogOpen(false);
+      logim.info("Country added successfully!");
       showSuccessToast("Country added successfully!");
     },
     onError: (error: unknown) => {
-      console.error("Add failed:", error);
+      logim.error(`Add failed: ${(error as Error).message}`);
       const axiosError = error as AxiosError;
       if (axiosError.response?.status === 400) {
         showErrorToast("Invalid input detected. Please check your data.");
@@ -49,15 +56,25 @@ const CountriesTable: React.FC = () => {
   });
 
   // Delete mutation
-  const deleteMutation = useMutation({
-    mutationFn: (id: string) => deleteCountry(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["data"] });
+  const deleteMutation = useMutation<void, Error, string>({
+    mutationFn: (countryId: string) => deleteCountry(countryId),
+    onSuccess: (_data, variables) => {
+      const countryId = variables;
+      queryClient.setQueryData(
+        ["countries"],
+        (oldData: ICountry[] | undefined) => {
+          return oldData
+            ? oldData.filter((country) => country._id !== countryId)
+            : [];
+        }
+      );
       setDeleteConfirmOpen(false);
+      logim.info("Country deleted successfully!");
       showSuccessToast("Country deleted successfully!");
     },
     onError: (error) => {
-      console.error("Delete failed:", error);
+      logim.error(`Delete failed: ${(error as Error).message}`);
+
       showErrorToast("Failed to delete country.");
     },
   });
@@ -121,6 +138,33 @@ const CountriesTable: React.FC = () => {
       flex: 1,
     },
     {
+      field: "cities",
+      headerName: "Cities",
+      flex: 1,
+      renderCell: (params) => (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          <ul style={{ margin: 0, padding: 0, listStyleType: "none" }}>
+            {params.value && params.value.length > 0 ? (
+              params.value.map((city: string, index: number) => (
+                <li key={index} style={{ fontSize: "12px", color: "#555" }}>
+                  {city}
+                </li>
+              ))
+            ) : (
+              <li>No cities available</li>
+            )}
+          </ul>
+        </div>
+      ),
+    },
+    {
       field: "actions",
       type: "actions",
       headerName: "Actions",
@@ -172,7 +216,13 @@ const CountriesTable: React.FC = () => {
         <AddCountryDialog
           open={addDialogOpen}
           onClose={() => setAddDialogOpen(false)}
-          onAdd={(newCountry) => addMutation.mutate(newCountry)}
+          onAdd={(newCountry) => {
+            const countryWithCities = {
+              ...newCountry,
+              cities: newCountry.cities || [],
+            };
+            addMutation.mutate(countryWithCities);
+          }}
         />
         <DeleteConfirmDialog
           open={deleteConfirmOpen}

@@ -1,7 +1,8 @@
 import axios from "axios";
 import { ICountry } from "../types/country";
+import logim from "../utils/logim";
 
-export const fetchData = async (): Promise<ICountry[]> => {
+export const fetchCountries = async (): Promise<ICountry[]> => {
   try {
     const response = await axios.get("http://localhost:5000/api/countries", {
       headers: {
@@ -10,11 +11,12 @@ export const fetchData = async (): Promise<ICountry[]> => {
     });
     return response.data;
   } catch (error) {
-    console.error("Error fetching data:", error);
+    logim.error(
+      `Error fetching data: ${error instanceof Error ? error.message : error}`
+    );
     throw error;
   }
 };
-
 export const deleteCountry = async (id: string): Promise<void> => {
   try {
     await axios.delete(`http://localhost:5000/api/countries/${id}`, {
@@ -23,11 +25,14 @@ export const deleteCountry = async (id: string): Promise<void> => {
       },
     });
   } catch (error) {
-    console.error("Error deleting country:", error);
+    logim.error(
+      `Error fetching country: ${
+        error instanceof Error ? error.message : error
+      }`
+    );
     throw error;
   }
 };
-
 export const getCountryById = async (
   id: string | undefined
 ): Promise<ICountry> => {
@@ -45,7 +50,11 @@ export const getCountryById = async (
     );
     return response.data;
   } catch (error) {
-    console.error("Error fetching country by id:", error);
+    logim.error(
+      `Error fetching country by id: ${
+        error instanceof Error ? error.message : error
+      }`
+    );
     throw error;
   }
 };
@@ -65,11 +74,17 @@ export const updateCountry = async (
     );
     return response.data;
   } catch (error) {
-    console.error("Error updating country:", error);
+    logim.error(
+      `Error updating country: ${
+        error instanceof Error ? error.message : error
+      }`
+    );
     throw error;
   }
 };
-export const addCountry = async (newCountry: Omit<ICountry, "_id">): Promise<ICountry> => {
+export const addCountry = async (
+  newCountry: Omit<ICountry, "_id">
+): Promise<ICountry> => {
   try {
     const response = await axios.post(
       "http://localhost:5000/api/countries",
@@ -82,7 +97,9 @@ export const addCountry = async (newCountry: Omit<ICountry, "_id">): Promise<ICo
     );
     return response.data;
   } catch (error) {
-    console.error("Error adding country:", error);
+    logim.error(
+      `Error adding country: ${error instanceof Error ? error.message : error}`
+    );
     throw error;
   }
 };

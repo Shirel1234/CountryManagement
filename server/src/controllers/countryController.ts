@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import {
+  addCityToCountry,
   fetchCountriesData,
   fetchCountryById,
   modifyCountry,
+  removeCityFromCountry,
   removeCountry,
   saveCountry,
 } from "../services/countryService";
@@ -63,5 +65,27 @@ export const deleteCountry = async (req: Request, res: Response) => {
     }
   } catch (error) {
     res.status(500).json({ message: "Failed to delete country", error });
+  }
+};
+// Add city to country
+export const addCity = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { city } = req.body;
+    const updatedCountry = await addCityToCountry(id, city);
+    res.status(200).json(updatedCountry);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to add city", error });
+  }
+};
+// Remove city from country
+export const removeCity = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { city } = req.body;
+    const updatedCountry = await removeCityFromCountry(id, city);
+    res.status(200).json(updatedCountry);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to remove city", error });
   }
 };

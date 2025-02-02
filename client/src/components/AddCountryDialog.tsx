@@ -19,6 +19,7 @@ interface AddCountryDialogProps {
     flag: string;
     population: number;
     region: string;
+    cities: string[];
   }) => void;
 }
 
@@ -33,6 +34,7 @@ const AddCountryDialog: React.FC<AddCountryDialogProps> = ({
       flag: "",
       population: 0,
       region: "",
+      cities: [],
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),

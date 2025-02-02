@@ -20,6 +20,7 @@ export const fetchCountriesData = async () => {
         flag: country.flags?.png || "",
         population: country.population || 0,
         region: country.region || "Unknown",
+        cities: country.capital || [],
       }));
 
       await Country.insertMany(formattedCountries);
@@ -34,7 +35,6 @@ export const fetchCountriesData = async () => {
     throw error;
   }
 };
-
 // Fetch a country by ID
 export const fetchCountryById = async (id: string) => {
   try {
@@ -49,7 +49,6 @@ export const fetchCountryById = async (id: string) => {
     throw new Error("Failed to fetch country by ID.");
   }
 };
-
 // Save a new country to the database
 export const saveCountry = async (data: ICountry) => {
   try {
@@ -62,7 +61,6 @@ export const saveCountry = async (data: ICountry) => {
     throw new Error("Failed to save country to the database");
   }
 };
-
 // Update a country by ID
 export const modifyCountry = async (
   id: string,
@@ -83,7 +81,6 @@ export const modifyCountry = async (
     throw new Error("Failed to update country.");
   }
 };
-
 // Delete a country by ID
 export const removeCountry = async (id: string) => {
   try {
@@ -97,5 +94,44 @@ export const removeCountry = async (id: string) => {
   } catch (error) {
     console.error("Error deleting country:", error);
     throw new Error("Failed to delete country.");
+  }
+};
+// Add cities to a country
+export const addCityToCountry = async (id: string, city: string) => {
+  try {
+    const country = await Country.findById(id);
+    if (!country) {
+      console.error("Country not found with the provided ID:", id);
+      throw new Error("Country not found.");
+    }
+    
+    country.cities.push(city); // Add the city to the cities array
+    await country.save();
+    console.log("City added to the country!");
+    return country;
+  } catch (error) {
+    console.error("Error adding city to country:", error);
+    throw new Error("Failed to add city to country.");
+  }
+};
+// Remove city from a country
+export const removeCityFromCountry = async (id: string, city: string) => {
+  try {
+    const country = await Country.findById(id);
+    if (!country) {
+      console.error("Country not found with the provided ID:", id);
+      throw new Error("Country not found.");
+    }
+
+    const cityIndex = country.cities.indexOf(city);
+    if (cityIndex > -1) {
+      country.cities.splice(cityIndex, 1); // Remove the city
+      await country.save();
+      console.log("City removed from the country!");
+    }
+    return country;
+  } catch (error) {
+    console.error("Error removing city from country:", error);
+    throw new Error("Failed to remove city from country.");
   }
 };
