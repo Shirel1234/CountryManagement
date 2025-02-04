@@ -1,5 +1,4 @@
 import express, { Request, Response, NextFunction } from "express";
-import xssClean from "xss-clean";
 import dotenv from "dotenv";
 import countryRoutes from "./routes/countryRoutes";
 import userRoutes from "./routes/userRoutes"
@@ -7,8 +6,8 @@ import authRoutes from "./routes/authRoutes"
 import connect from "./lib/db/mongodb";
 import path from "path";
 import cors from "cors";
+import xssClean from "xss-clean";
 import checkSQLInjection from "./middlewares/checkSQLInjectionMiddleware";
-
 
 // Load environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, "../src/config/.env") });
@@ -41,10 +40,9 @@ app.use("/api", userRoutes);
 // Use auth routes
 app.use("/auth", authRoutes);
 
-export default app;
+
 
 // Start the server only if this file is run directly
-if (require.main === module) {
   const startServer = async () => {
     try {
       await connect();
@@ -59,5 +57,6 @@ if (require.main === module) {
   };
 
   startServer();
-}
-//npx ts-node src/app.ts  
+
+  export default app;
+ 
