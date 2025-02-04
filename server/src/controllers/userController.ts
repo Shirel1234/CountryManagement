@@ -1,5 +1,13 @@
 import { Request, Response } from "express";
-import { fetchUserById, fetchUsersData, modifyUser, removeUser, saveUser } from "../services/userService";
+import mongoose from "mongoose";
+import {
+  fetchUserById,
+  fetchUsersData,
+  modifyUser,
+  removeUser,
+  saveUser,
+} from "../services/userService";
+import { handleValidationError } from "../utils/errorUtils";
 
 //Get all users
 export const getUsers = async (req: Request, res: Response) => {
@@ -31,7 +39,7 @@ export const createUser = async (req: Request, res: Response) => {
     const user = await saveUser(createData);
     res.status(201).json(user);
   } catch (error) {
-    res.status(500).json({ message: "Failed to create user", error });
+    handleValidationError(error, res, "Failed to create user");
   }
 };
 // Update a user by ID
@@ -42,7 +50,7 @@ export const updateuser = async (req: Request, res: Response) => {
     const user = await modifyUser(id, updatedData);
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ message: "Failed to update user", error });
+    handleValidationError(error, res, "Failed to update user");
   }
 };
 // Delete a user by ID

@@ -5,10 +5,10 @@ import {
   fetchCountryById,
   modifyCountry,
   removeCountry,
-} from "../../src/services/countryService";
+} from "../../services/countryService";
 import { afterAll, beforeAll, describe, expect, it } from "@jest/globals";
 import { afterEach } from "node:test";
-import { ICountry } from "../../src/types/country";
+import { ICountry } from "../../types/country";
 
 describe("Country Service Tests", () => {
   beforeAll(async () => {

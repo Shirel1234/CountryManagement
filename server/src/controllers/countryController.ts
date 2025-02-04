@@ -8,6 +8,7 @@ import {
   removeCountry,
   saveCountry,
 } from "../services/countryService";
+import { handleValidationError } from "../utils/errorUtils";
 
 //Get all countries
 export const getCountries = async (req: Request, res: Response) => {
@@ -15,7 +16,7 @@ export const getCountries = async (req: Request, res: Response) => {
     const countries = await fetchCountriesData();
     res.status(200).json(countries);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching countries data." });
+    handleValidationError(error, res, "Error fetching countries data.");
   }
 };
 // Get a single country by ID
@@ -39,7 +40,7 @@ export const createCountry = async (req: Request, res: Response) => {
     const country = await saveCountry(createData);
     res.status(201).json(country);
   } catch (error) {
-    res.status(500).json({ message: "Failed to create country", error });
+    handleValidationError(error, res, "Failed to create country");
   }
 };
 // Update a country by ID
@@ -50,7 +51,7 @@ export const updateCountry = async (req: Request, res: Response) => {
     const country = await modifyCountry(id, updatedData);
     res.status(200).json(country);
   } catch (error) {
-    res.status(500).json({ message: "Failed to update country", error });
+    handleValidationError(error, res, "Failed to update country");
   }
 };
 // Delete a country by ID
@@ -75,7 +76,7 @@ export const addCity = async (req: Request, res: Response) => {
     const updatedCountry = await addCityToCountry(id, city);
     res.status(200).json(updatedCountry);
   } catch (error) {
-    res.status(500).json({ message: "Failed to add city", error });
+    handleValidationError(error, res, "Failed to add city");
   }
 };
 // Remove city from country

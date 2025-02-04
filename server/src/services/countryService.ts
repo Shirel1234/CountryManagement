@@ -58,7 +58,7 @@ export const saveCountry = async (data: ICountry) => {
     return newCountry;
   } catch (error) {
     console.error("Error saving country to the database:");
-    throw new Error("Failed to save country to the database");
+    throw error;
   }
 };
 // Update a country by ID
@@ -104,7 +104,7 @@ export const addCityToCountry = async (id: string, city: string) => {
       console.error("Country not found with the provided ID:", id);
       throw new Error("Country not found.");
     }
-    
+
     country.cities.push(city); // Add the city to the cities array
     await country.save();
     console.log("City added to the country!");

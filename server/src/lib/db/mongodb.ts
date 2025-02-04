@@ -11,6 +11,7 @@ const connect = async () => {
     const db = await mongoose.connect(process.env.MONGODB_URI);
     isConnected = db.connection.readyState === 1;
     console.log("Mongodb connection saccessfull !!!");
+    //קריאה לנתונים
   } catch (error) {
     throw new Error("Error in connection to mongodb" + error);
   }
