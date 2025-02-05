@@ -1,5 +1,6 @@
 import { User } from "../lib/models/userModel";
 import { IUser } from "../types/user";
+import logger from "../utils/logger";
 
 //Function to fetch data and save it to MongoDB if not already present
 export const fetchUsersData = async () => {
@@ -7,7 +8,7 @@ export const fetchUsersData = async () => {
     const users = await User.find({});
     return users;
   } catch (error) {
-    console.error("Error fetching Users data:");
+    logger.error("Error fetching Users data:");
     throw error;
   }
 };
@@ -16,12 +17,12 @@ export const fetchUserById = async (id: string) => {
   try {
     const user = await User.findById(id);
     if (!user) {
-      console.error("User not found with the provided ID:", id);
+      logger.error("User not found with the provided ID:", id);
       return null;
     }
     return user;
   } catch (error) {
-    console.error("Error fetching user by ID:", error);
+    logger.error("Error fetching user by ID:", error);
     throw new Error("Failed to fetch user by ID.");
   }
 };
@@ -30,10 +31,10 @@ export const saveUser = async (data: IUser) => {
   try {
     const newUser = new User(data);
     await newUser.save();
-    console.log("User successfully added!");
+    logger.info("User successfully added!");
     return newUser;
   } catch (error) {
-    console.error("Error saving user to the database:");
+    logger.error("Error saving user to the database:");
     throw new Error("Failed to save user to the database");
   }
 };
@@ -44,13 +45,13 @@ export const modifyUser = async (id: string, updatedData: Partial<IUser>) => {
       new: true,
     });
     if (!updatedUser) {
-      console.error("User not found with the provided ID:", id);
+      logger.warn("User not found with the provided ID:", id);
       throw new Error("User not found with the provided ID.");
     }
-    console.log("User updated successfully!");
+    logger.info("User updated successfully!");
     return updatedUser;
   } catch (error) {
-    console.error("Error updating User:", error);
+    logger.error("Error updating User:", error);
     throw new Error("Failed to update User.");
   }
 };
@@ -59,14 +60,13 @@ export const removeUser = async (id: string) => {
   try {
     const deletedUser = await User.findByIdAndDelete(id);
     if (!deletedUser) {
-      console.error("User not found with the provided ID:", id);
+      logger.warn("User not found with the provided ID:", id);
       throw new Error("User not found with the provided ID.");
     }
-    console.log("User deleted successfully!");
+    logger.info("User deleted successfully!");
     return deletedUser;
   } catch (error) {
-    console.error("Error deleting user:", error);
+    logger.error("Error deleting user:", error);
     throw new Error("Failed to delete user.");
   }
 };
-

@@ -17,7 +17,6 @@ import { selectedCountryState } from "../state/atoms";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
 import "../styles/CountriesTable.scss";
 import { AxiosError } from "axios";
-import logim from "../utils/logim";
 
 const CountriesTable: React.FC = () => {
   const queryClient = useQueryClient();
@@ -41,11 +40,11 @@ const CountriesTable: React.FC = () => {
         }
       );
       setAddDialogOpen(false);
-      logim.info("Country added successfully!");
+      console.log("Country added successfully!");
       showSuccessToast("Country added successfully!");
     },
     onError: (error: unknown) => {
-      logim.error(`Add failed: ${(error as Error).message}`);
+      console.error(`Add failed: ${(error as Error).message}`);
       const axiosError = error as AxiosError;
       if (axiosError.response?.status === 400) {
         showErrorToast("Invalid input detected. Please check your data.");
@@ -69,12 +68,11 @@ const CountriesTable: React.FC = () => {
         }
       );
       setDeleteConfirmOpen(false);
-      logim.info("Country deleted successfully!");
+      console.log("Country deleted successfully!");
       showSuccessToast("Country deleted successfully!");
     },
     onError: (error) => {
-      logim.error(`Delete failed: ${(error as Error).message}`);
-
+      console.error(`Delete failed: ${(error as Error).message}`);
       showErrorToast("Failed to delete country.");
     },
   });

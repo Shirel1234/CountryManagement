@@ -8,6 +8,7 @@ import path from "path";
 import cors from "cors";
 import xssClean from "xss-clean";
 import checkSQLInjection from "./middlewares/checkSQLInjectionMiddleware";
+import logger from "./utils/logger";
 
 // Load environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, "../src/config/.env") });
@@ -48,10 +49,10 @@ app.use("/auth", authRoutes);
       await connect();
       const PORT = process.env.PORT || 5000;
       app.listen(PORT, () => {
-        console.log(`Server is running on http://localhost:${PORT}`);
+        logger.info(`Server is running on http://localhost:${PORT}`);
       });
     } catch (error) {
-      console.error("Error starting the server:", error);
+      logger.error("Error starting the server:", error);
       process.exit(1);
     }
   };
