@@ -4,3 +4,25 @@
 2025-02-05 09:30:39 [[32minfo[39m]: Countries data already exists in the database!
 2025-02-05 09:31:10 [[31merror[39m]: Error saving country to the database: Country validation failed: name: Name should have at least 3 characters., flag: Flag should be a valid image URL (jpg, jpeg, png, gif).
 2025-02-05 09:32:42 [[32minfo[39m]: Country successfully added!
+2025-02-05 10:16:24 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-05 10:16:25 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-05 10:16:25 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-05 10:17:08 [[32minfo[39m]: Country successfully added!
+2025-02-05 10:20:02 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-05 10:20:03 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-05 10:20:03 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-05 10:20:07 [[32minfo[39m]: Country successfully added!
+2025-02-05 10:24:53 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-05 10:24:55 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-05 10:24:55 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-05 10:25:00 [[31merror[39m]: Error saving country to the database: Country validation failed: name: Cast to string failed for value "{ '$ne': 'ישראל' }" (type Object) at path "name"
+2025-02-05 10:25:57 [[32minfo[39m]: Country successfully added!
+2025-02-05 10:26:53 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-05 10:26:54 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-05 10:26:54 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-05 10:28:48 [[31merror[39m]: Error saving country to the database: Country validation failed: population: Cast to Number failed for value "{}" (type Object) at path "population", region: Region must contain only English letters.
+2025-02-05 10:30:12 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-05 10:30:14 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-05 10:30:14 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-05 10:30:34 [[31merror[39m]: Error saving country to the database: Country validation failed: population: Cast to Number failed for value "{}" (type Object) at path "population"
+2025-02-05 10:32:23 [[31merror[39m]: Error saving country to the database: Country validation failed: name: Cast to string failed for value "{}" (type Object) at path "name"
