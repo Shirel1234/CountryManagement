@@ -26,3 +26,76 @@
 2025-02-05 10:30:14 [[32minfo[39m]: Server is running on http://localhost:5000
 2025-02-05 10:30:34 [[31merror[39m]: Error saving country to the database: Country validation failed: population: Cast to Number failed for value "{}" (type Object) at path "population"
 2025-02-05 10:32:23 [[31merror[39m]: Error saving country to the database: Country validation failed: name: Cast to string failed for value "{}" (type Object) at path "name"
+2025-02-05 11:37:14 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-05 11:37:15 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-05 11:37:15 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-05 11:37:25 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 11:40:45 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 11:41:25 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-05 11:41:26 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-05 11:41:26 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-05 11:41:31 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 11:41:36 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 11:46:24 [[32minfo[39m]: Country deleted successfully!
+2025-02-05 11:47:02 [[32minfo[39m]: Country deleted successfully!
+2025-02-05 11:50:21 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 11:50:28 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 11:50:44 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 11:50:52 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 11:51:09 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 11:52:21 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 11:56:38 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 11:57:36 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-05 11:57:38 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-05 11:57:38 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-05 11:57:39 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 12:03:25 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 12:03:45 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 12:03:52 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 12:16:04 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 13:19:01 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 13:28:55 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 13:31:21 [[32minfo[39m]: Country deleted successfully!
+2025-02-05 13:31:26 [[32minfo[39m]: Country deleted successfully!
+2025-02-05 13:36:33 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 13:36:35 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 13:45:31 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 13:46:09 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 13:47:27 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 13:48:08 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 13:48:51 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 13:55:01 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 13:55:58 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 13:59:40 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 14:00:16 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 14:00:36 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 14:01:09 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 14:03:47 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 14:12:31 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 14:13:39 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 14:14:54 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 14:15:28 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 14:43:41 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-05 14:43:43 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-05 14:43:44 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 14:43:44 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-05 14:43:44 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-05 14:45:45 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-05 14:45:46 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-05 14:45:47 [[32minfo[39m]: No countries in the database. Adding new data...
+2025-02-05 14:45:49 [[32minfo[39m]: Countries added to the database!
+2025-02-05 14:45:49 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-05 14:45:49 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-05 15:19:08 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-05 15:19:10 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-05 15:19:11 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 15:19:11 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-05 15:19:11 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-05 15:21:39 [[32minfo[39m]: Country successfully added!
+2025-02-05 15:21:53 [[32minfo[39m]: Country deleted successfully!
+2025-02-05 15:34:39 [[32minfo[39m]: Country updated successfully!
+2025-02-05 15:44:25 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-05 15:44:26 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-05 15:44:28 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 15:44:28 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-05 15:44:28 [[32minfo[39m]: Server is running on http://localhost:5000

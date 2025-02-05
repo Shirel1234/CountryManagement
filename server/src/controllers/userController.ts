@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import mongoose from "mongoose";
 import {
   fetchUserById,
-  fetchUsersData,
+ fetchUsers,
   modifyUser,
   removeUser,
   saveUser,
@@ -12,7 +12,7 @@ import { handleValidationError } from "../utils/errorUtils";
 //Get all users
 export const getUsers = async (req: Request, res: Response) => {
   try {
-    const users = await fetchUsersData();
+    const users = await fetchUsers();
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ message: "Error fetching users data." });

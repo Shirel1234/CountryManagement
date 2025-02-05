@@ -5,91 +5,48 @@ import { Box, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
-import { useFetchData } from "../hooks/useFetchData";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useFetchCountries } from "../hooks/useFetchCountries";
 import { ICountry } from "../types/country";
-import { addCountry, deleteCountry } from "../services/countryService";
 import AddCountryDialog from "./AddCountryDialog";
 import AddIcon from "@mui/icons-material/Add";
-import { showErrorToast, showSuccessToast } from "./Toast";
 import { useSetRecoilState } from "recoil";
 import { selectedCountryState } from "../state/atoms";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
+import { Tooltip } from "@mui/material";
 import "../styles/CountriesTable.scss";
-import { AxiosError } from "axios";
+import { useAddCountry, useDeleteCountry } from "../hooks/useCountryMutation";
 
 const CountriesTable: React.FC = () => {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<ICountry | null>(null);
   const setSelectedCountryState = useSetRecoilState(selectedCountryState);
 
-  // Fetch data hook
-  const { data: countries, isLoading } = useFetchData();
+  const { data: countries, isLoading } = useFetchCountries();
+  const { mutate: addCountryMutation } = useAddCountry();
+  const { mutate: deleteCountryMutation } = useDeleteCountry();
 
-  // Add Country Mutation
-  const addMutation = useMutation({
-    mutationFn: (newCountry: Omit<ICountry, "_id">) => addCountry(newCountry),
-    onSuccess: (newCountry) => {
-      queryClient.setQueryData(
-        ["countries"],
-        (oldData: ICountry[] | undefined) => {
-          return oldData ? [...oldData, newCountry] : [newCountry];
-        }
-      );
-      setAddDialogOpen(false);
-      console.log("Country added successfully!");
-      showSuccessToast("Country added successfully!");
-    },
-    onError: (error: unknown) => {
-      console.error(`Add failed: ${(error as Error).message}`);
-      const axiosError = error as AxiosError;
-      if (axiosError.response?.status === 400) {
-        showErrorToast("Invalid input detected. Please check your data.");
-      } else {
-        showErrorToast("An unexpected error occurred. Please try again.");
-      }
-    },
-  });
+  const handleAddCountry = (newCountry: Omit<ICountry, "_id">) => {
+    const countryWithCities = {
+      ...newCountry,
+      cities: newCountry.cities || [],
+    };
+    addCountryMutation(countryWithCities);
+    setAddDialogOpen(false);
+  };
 
-  // Delete mutation
-  const deleteMutation = useMutation<void, Error, string>({
-    mutationFn: (countryId: string) => deleteCountry(countryId),
-    onSuccess: (_data, variables) => {
-      const countryId = variables;
-      queryClient.setQueryData(
-        ["countries"],
-        (oldData: ICountry[] | undefined) => {
-          return oldData
-            ? oldData.filter((country) => country._id !== countryId)
-            : [];
-        }
-      );
+  const handleDeleteConfirm = () => {
+    if (selectedCountry) {
+      deleteCountryMutation(selectedCountry._id);
       setDeleteConfirmOpen(false);
-      console.log("Country deleted successfully!");
-      showSuccessToast("Country deleted successfully!");
-    },
-    onError: (error) => {
-      console.error(`Delete failed: ${(error as Error).message}`);
-      showErrorToast("Failed to delete country.");
-    },
-  });
-
+    }
+  };
   // Open delete confirmation dialog
   const handleDeleteClick = (country: ICountry) => {
     setSelectedCountry(country);
     setDeleteConfirmOpen(true);
   };
-
-  // Confirm delete action
-  const handleDeleteConfirm = () => {
-    if (selectedCountry) {
-      deleteMutation.mutate(String(selectedCountry._id));
-    }
-  };
-
   // Edit handler (navigate to edit form)
   const handleEditClick = (country: ICountry) => {
     setSelectedCountryState(country);
@@ -103,42 +60,61 @@ const CountriesTable: React.FC = () => {
       field: "name",
       headerName: "Country Name",
       flex: 1,
+      renderHeader: (params) => (
+        <Tooltip title={params.colDef.headerName} placement="top">
+          <span>{params.colDef.headerName}</span>
+        </Tooltip>
+      ),
     },
     {
       field: "flag",
       headerName: "Flag",
       flex: 1,
       renderCell: (params) => (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-          }}
-        >
+        <div className="flag-cell">
           <img
             src={params.value}
             alt={`${params.row.name} flag`}
+            className="flag-image"
             style={{ height: "30px", width: "50px", objectFit: "cover" }}
           />
         </div>
+      ),
+      renderHeader: (params) => (
+        <Tooltip title={params.colDef.headerName} placement="top">
+          <span>{params.colDef.headerName}</span>
+        </Tooltip>
       ),
     },
     {
       field: "population",
       headerName: "Population",
       flex: 1,
+      renderHeader: (params) => (
+        <Tooltip title={params.colDef.headerName} placement="top">
+          <span>{params.colDef.headerName}</span>
+        </Tooltip>
+      ),
     },
     {
       field: "region",
       headerName: "Region",
       flex: 1,
+      renderHeader: (params) => (
+        <Tooltip title={params.colDef.headerName} placement="top">
+          <span>{params.colDef.headerName}</span>
+        </Tooltip>
+      ),
     },
     {
       field: "cities",
       headerName: "Cities",
       flex: 1,
+      renderHeader: (params) => (
+        <Tooltip title={params.colDef.headerName} placement="top">
+          <span>{params.colDef.headerName}</span>
+        </Tooltip>
+      ),
       renderCell: (params) => (
         <div
           style={{
@@ -168,6 +144,11 @@ const CountriesTable: React.FC = () => {
       headerName: "Actions",
       width: 100,
       cellClassName: "actions",
+      renderHeader: (params) => (
+        <Tooltip title={params.colDef.headerName} placement="top">
+          <span>{params.colDef.headerName}</span>
+        </Tooltip>
+      ),
       getActions: (params) => {
         const country = params.row as ICountry;
         return [
@@ -214,13 +195,7 @@ const CountriesTable: React.FC = () => {
         <AddCountryDialog
           open={addDialogOpen}
           onClose={() => setAddDialogOpen(false)}
-          onAdd={(newCountry) => {
-            const countryWithCities = {
-              ...newCountry,
-              cities: newCountry.cities || [],
-            };
-            addMutation.mutate(countryWithCities);
-          }}
+          onAdd={handleAddCountry}
         />
         <DeleteConfirmDialog
           open={deleteConfirmOpen}

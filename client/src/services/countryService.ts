@@ -1,9 +1,16 @@
 import axios from "axios";
 import { ICountry } from "../types/country";
 
+// Use the VITE_BASE_URL environment variable
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+if (!BASE_URL) {
+  throw new Error("VITE_BASE_URL is not defined in the environment variables");
+}
+
 export const fetchCountries = async (): Promise<ICountry[]> => {
   try {
-    const response = await axios.get("http://localhost:5000/api/countries", {
+    const response = await axios.get(`${BASE_URL}/api/countries`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -16,7 +23,7 @@ export const fetchCountries = async (): Promise<ICountry[]> => {
 };
 export const deleteCountry = async (id: string): Promise<void> => {
   try {
-    await axios.delete(`http://localhost:5000/api/countries/${id}`, {
+    await axios.delete(`${BASE_URL}/api/countries/${id}`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -33,14 +40,11 @@ export const getCountryById = async (
     throw new Error("Country ID is required");
   }
   try {
-    const response = await axios.get(
-      `http://localhost:5000/api/countries/${id}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await axios.get(`${BASE_URL}/api/countries/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     return response.data;
   } catch (error) {
     console.error(`Error fetching country by id: ${error}`);
@@ -53,7 +57,7 @@ export const updateCountry = async (
 ): Promise<ICountry> => {
   try {
     const response = await axios.put(
-      `http://localhost:5000/api/countries/${id}`,
+      `${BASE_URL}/api/countries/${id}`,
       updatedData,
       {
         headers: {
@@ -71,15 +75,11 @@ export const addCountry = async (
   newCountry: Omit<ICountry, "_id">
 ): Promise<ICountry> => {
   try {
-    const response = await axios.post(
-      "http://localhost:5000/api/countries",
-      newCountry,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await axios.post(`${BASE_URL}/api/countries`, newCountry, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     return response.data;
   } catch (error) {
     console.error(`Error adding country: ${error}`);

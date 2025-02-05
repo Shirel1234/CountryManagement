@@ -3,7 +3,7 @@
   width: 100%;
 
   .MuiDataGrid-root {
-    background-color: #fff;
+    background-color: #fff !important;
     border: 1px solid #ddd;
 
     .MuiDataGrid-cell {
@@ -14,7 +14,7 @@
     }
 
     .MuiDataGrid-row:hover {
-      background-color: #f5f5f5;
+      background-color: #f5f5f5 !important;
     }
 
     .actions {
@@ -34,9 +34,9 @@
     height: 100%;
 
     .flag-image {
-      max-height: 16px;  // Smaller flag size to fit the grid
-      max-width: 24px;   // Maintain proportion
-      object-fit: contain;
+      height: 30px !important;
+      width: 50px !important;
+      object-fit: cover !important;
     }
   }
 

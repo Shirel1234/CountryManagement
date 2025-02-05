@@ -3,7 +3,7 @@ import { IUser } from "../types/user";
 import logger from "../utils/logger";
 
 //Function to fetch data and save it to MongoDB if not already present
-export const fetchUsersData = async () => {
+export const fetchUsers = async () => {
   try {
     const users = await User.find({});
     return users;

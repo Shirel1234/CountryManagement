@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import {
   addCityToCountry,
-  fetchCountriesData,
+  fetchCountries,
   fetchCountryById,
   modifyCountry,
   removeCityFromCountry,
@@ -13,7 +13,7 @@ import { handleValidationError } from "../utils/errorUtils";
 //Get all countries
 export const getCountries = async (req: Request, res: Response) => {
   try {
-    const countries = await fetchCountriesData();
+    const countries = await fetchCountries();
     res.status(200).json(countries);
   } catch (error) {
     handleValidationError(error, res, "Error fetching countries data.");

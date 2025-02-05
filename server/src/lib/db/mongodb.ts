@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import logger from "../../utils/logger";
+import { fetchInitialCountries } from "../../services/countryService";
 
 let isConnected = false;
 const connect = async () => {
@@ -12,7 +13,11 @@ const connect = async () => {
     const db = await mongoose.connect(process.env.MONGODB_URI);
     isConnected = db.connection.readyState === 1;
     logger.info("Mongodb connection saccessfull !!!");
-    //קריאה לנתונים
+    
+     // Fetch initial countries data after connection
+     await fetchInitialCountries();
+     logger.info("Initial country data fetched and stored.");
+
   } catch (error) {
     logger.error("Error in connection to mongodb" + error);
     throw new Error("Error in connection to mongodb" + error);

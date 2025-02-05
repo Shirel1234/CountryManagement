@@ -4,22 +4,22 @@ import { TextField, Button, Container, Typography } from "@mui/material";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import "../styles/EditCountryForm.scss";
-import { getCountryById, updateCountry } from "../services/countryService";
+import { getCountryById } from "../services/countryService";
 import { ICountry } from "../types/country";
-import { showErrorToast, showSuccessToast } from "./Toast";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import ConfirmLeaveDialog from "./ConfirmLeaveDialog";
 import { useSetRecoilState } from "recoil";
 import { selectedCountryState } from "../state/atoms";
+import { useUpdateCountry } from "../hooks/useCountryMutation";
 
 const EditCountryForm: React.FC = () => {
   const [country, setCountry] = useState<ICountry | null>(null);
   const [isFormModified, setIsFormModified] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const setSelectedCountryState = useSetRecoilState(selectedCountryState);
+
+  const { mutate: updateCountryMutation } = useUpdateCountry(id);
 
   useEffect(() => {
     const fetchCountry = async () => {
@@ -41,32 +41,6 @@ const EditCountryForm: React.FC = () => {
     population: Yup.number()
       .required("Population is required")
       .positive("Population must be a positive number"),
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: (values: ICountry) => updateCountry(id, values),
-    onSuccess: (updatedCountry) => {
-      // Update the cache
-      queryClient.setQueryData(
-        ["countries"],
-        (oldData: ICountry[] | undefined) => {
-          return oldData
-            ? oldData.map((country) =>
-                country._id === updatedCountry._id
-                  ? { ...country, ...updatedCountry }
-                  : country
-              )
-            : [];
-        }
-      );
-      showSuccessToast("Country updated successfully!");
-      setSelectedCountryState(null);
-      navigate("/");
-    },
-    onError: (error) => {
-      console.error(`Failed to update the country: ${(error as Error).message}`);
-      showErrorToast("Failed to update the country.");
-    },
   });
 
   const handleCancel = () => {
@@ -104,7 +78,7 @@ const EditCountryForm: React.FC = () => {
         <Formik
           initialValues={country}
           validationSchema={validationSchema}
-          onSubmit={updateMutation.mutate}
+          onSubmit={updateCountryMutation}
           enableReinitialize
         >
           {({ values, handleChange, handleBlur, isValid, dirty }) => {

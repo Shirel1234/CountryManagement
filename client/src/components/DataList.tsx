@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { useFetchData } from "../hooks/useFetchData";
+import { useFetchCountries } from "../hooks/useFetchCountries";
 import Loader from "./Loader";
 import { showSuccessToast, showErrorToast } from "./Toast";
 import "../styles/DataList.scss";
 import CountriesTable from "./CountriesTable";
 
 const DataList: React.FC = () => {
-  const { isLoading, isError, isSuccess, error } = useFetchData();
+  const { isLoading, isError, isSuccess, error } = useFetchCountries();
 
   useEffect(() => {
     if (isSuccess) showSuccessToast("Data loaded successfully!");

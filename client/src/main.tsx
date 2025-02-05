@@ -18,7 +18,7 @@ createRoot(document.getElementById("root")!).render(
           <QueryClientProvider client={queryClient}>
             <ToastContainer position="top-right" autoClose={3000} />
             <App />
-            <ReactQueryDevtools initialIsOpen={false} />
+            <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left"/>
           </QueryClientProvider>
         </RecoilRoot>
       </BrowserRouter>

@@ -6,7 +6,7 @@ import logger from "../utils/logger";
 const API_URL = "https://restcountries.com/v3.1/all";
 
 // Function to fetch data and save it to MongoDB if not already present
-export const fetchCountriesData = async () => {
+export const fetchInitialCountries = async () => {
   try {
     const existingCountries = await Country.find({});
 
@@ -26,13 +26,21 @@ export const fetchCountriesData = async () => {
 
       await Country.insertMany(formattedCountries);
       logger.info("Countries added to the database!");
-      return formattedCountries;
     } else {
       logger.info("Countries data already exists in the database!");
-      return existingCountries;
     }
   } catch (error) {
     logger.error("Error fetching countries data:", error);
+    throw error;
+  }
+};
+//Get all countries
+export const fetchCountries = async () => {
+  try {
+    const countries = await Country.find({});
+    return countries;
+  } catch (error) {
+    logger.error("Error fetching countries data:");
     throw error;
   }
 };

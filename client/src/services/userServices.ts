@@ -1,10 +1,17 @@
 import axios from "axios";
 import { IUser } from "../types/user";
 
+// Use the VITE_BASE_URL environment variable
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+if (!BASE_URL) {
+  throw new Error("VITE_BASE_URL is not defined in the environment variables");
+}
+
 // Fetch all users
 export const fetchUsers = async (): Promise<IUser[]> => {
   try {
-    const response = await axios.get("http://localhost:5000/api/users", {
+    const response = await axios.get(`${BASE_URL}/api/users`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -15,14 +22,13 @@ export const fetchUsers = async (): Promise<IUser[]> => {
     throw error;
   }
 };
-
 // Get a user by ID
 export const getUserById = async (id: string | undefined): Promise<IUser> => {
   if (!id) {
     throw new Error("User ID is required");
   }
   try {
-    const response = await axios.get(`http://localhost:5000/api/users/${id}`, {
+    const response = await axios.get(`${BASE_URL}/api/users/${id}`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -33,26 +39,20 @@ export const getUserById = async (id: string | undefined): Promise<IUser> => {
     throw error;
   }
 };
-
 // Add a new user
 export const addUser = async (newUser: Omit<IUser, "_id">): Promise<IUser> => {
   try {
-    const response = await axios.post(
-      "http://localhost:5000/api/users",
-      newUser,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await axios.post(`${BASE_URL}/api/users`, newUser, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     return response.data;
   } catch (error) {
     console.error(`Error adding user: ${error}`);
     throw error;
   }
 };
-
 // Update user data
 export const updateUser = async (
   id: string | undefined,
@@ -63,7 +63,7 @@ export const updateUser = async (
   }
   try {
     const response = await axios.put(
-      `http://localhost:5000/api/users/${id}`,
+      `${BASE_URL}/api/users/${id}`,
       updatedData,
       {
         headers: {
@@ -77,11 +77,10 @@ export const updateUser = async (
     throw error;
   }
 };
-
 // Delete a user by ID
 export const deleteUser = async (id: string): Promise<void> => {
   try {
-    await axios.delete(`http://localhost:5000/api/users/${id}`, {
+    await axios.delete(`${BASE_URL}/api/users/${id}`, {
       headers: {
         "Content-Type": "application/json",
       },
