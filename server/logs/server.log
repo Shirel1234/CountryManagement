@@ -1,0 +1,6 @@
+2025-02-05 09:30:34 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-05 09:30:36 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-05 09:30:36 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-05 09:30:39 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-05 09:31:10 [[31merror[39m]: Error saving country to the database: Country validation failed: name: Name should have at least 3 characters., flag: Flag should be a valid image URL (jpg, jpeg, png, gif).
+2025-02-05 09:32:42 [[32minfo[39m]: Country successfully added!

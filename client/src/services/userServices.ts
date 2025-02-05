@@ -1,6 +1,5 @@
 import axios from "axios";
 import { IUser } from "../types/user";
-import logim from "../utils/logim";
 
 // Fetch all users
 export const fetchUsers = async (): Promise<IUser[]> => {
@@ -12,9 +11,7 @@ export const fetchUsers = async (): Promise<IUser[]> => {
     });
     return response.data;
   } catch (error) {
-    logim.error(
-      `Error fetching users: ${error instanceof Error ? error.message : error}`
-    );
+    console.error(`Error fetching users: ${error}`);
     throw error;
   }
 };
@@ -32,11 +29,7 @@ export const getUserById = async (id: string | undefined): Promise<IUser> => {
     });
     return response.data;
   } catch (error) {
-    logim.error(
-      `Error fetching user by id: ${
-        error instanceof Error ? error.message : error
-      }`
-    );
+    console.error(`Error fetching user by id: ${error}`);
     throw error;
   }
 };
@@ -55,9 +48,7 @@ export const addUser = async (newUser: Omit<IUser, "_id">): Promise<IUser> => {
     );
     return response.data;
   } catch (error) {
-    logim.error(
-      `Error adding user: ${error instanceof Error ? error.message : error}`
-    );
+    console.error(`Error adding user: ${error}`);
     throw error;
   }
 };
@@ -82,9 +73,7 @@ export const updateUser = async (
     );
     return response.data;
   } catch (error) {
-    logim.error(
-      `Error updating user: ${error instanceof Error ? error.message : error}`
-    );
+    console.error(`Error updating user: ${error}`);
     throw error;
   }
 };
@@ -98,9 +87,7 @@ export const deleteUser = async (id: string): Promise<void> => {
       },
     });
   } catch (error) {
-    logim.error(
-      `Error deleting user: ${error instanceof Error ? error.message : error}`
-    );
+    console.error(`Error deleting user: ${error}`);
     throw error;
   }
 };

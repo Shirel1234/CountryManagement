@@ -11,7 +11,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import ConfirmLeaveDialog from "./ConfirmLeaveDialog";
 import { useSetRecoilState } from "recoil";
 import { selectedCountryState } from "../state/atoms";
-import logim from "../utils/logim";
 
 const EditCountryForm: React.FC = () => {
   const [country, setCountry] = useState<ICountry | null>(null);
@@ -29,11 +28,7 @@ const EditCountryForm: React.FC = () => {
           const data = await getCountryById(id);
           setCountry(data);
         } catch (error) {
-          logim.error(
-            `Error fetching country: ${
-              error instanceof Error ? error.message : error
-            }`
-          );
+          console.error(`Error fetching country: ${error}`);
         }
       }
     };
@@ -69,7 +64,7 @@ const EditCountryForm: React.FC = () => {
       navigate("/");
     },
     onError: (error) => {
-      logim.error(`Failed to update the country: ${(error as Error).message}`);
+      console.error(`Failed to update the country: ${(error as Error).message}`);
       showErrorToast("Failed to update the country.");
     },
   });

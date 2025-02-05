@@ -1,6 +1,5 @@
 import axios from "axios";
 import { ICountry } from "../types/country";
-import logim from "../utils/logim";
 
 export const fetchCountries = async (): Promise<ICountry[]> => {
   try {
@@ -11,9 +10,7 @@ export const fetchCountries = async (): Promise<ICountry[]> => {
     });
     return response.data;
   } catch (error) {
-    logim.error(
-      `Error fetching data: ${error instanceof Error ? error.message : error}`
-    );
+    console.error(`Error fetching data: ${error}`);
     throw error;
   }
 };
@@ -25,11 +22,7 @@ export const deleteCountry = async (id: string): Promise<void> => {
       },
     });
   } catch (error) {
-    logim.error(
-      `Error fetching country: ${
-        error instanceof Error ? error.message : error
-      }`
-    );
+    console.error(`Error fetching country: ${error}`);
     throw error;
   }
 };
@@ -50,11 +43,7 @@ export const getCountryById = async (
     );
     return response.data;
   } catch (error) {
-    logim.error(
-      `Error fetching country by id: ${
-        error instanceof Error ? error.message : error
-      }`
-    );
+    console.error(`Error fetching country by id: ${error}`);
     throw error;
   }
 };
@@ -74,11 +63,7 @@ export const updateCountry = async (
     );
     return response.data;
   } catch (error) {
-    logim.error(
-      `Error updating country: ${
-        error instanceof Error ? error.message : error
-      }`
-    );
+    console.error(`Error updating country: ${error}`);
     throw error;
   }
 };
@@ -97,9 +82,7 @@ export const addCountry = async (
     );
     return response.data;
   } catch (error) {
-    logim.error(
-      `Error adding country: ${error instanceof Error ? error.message : error}`
-    );
+    console.error(`Error adding country: ${error}`);
     throw error;
   }
 };
