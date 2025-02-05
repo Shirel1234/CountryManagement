@@ -34,8 +34,8 @@ const countrySchema: Schema = new Schema(
       type: String,
       required: true,
       validate: {
-        validator: (value: string) => /^[A-Za-z\s]+$/.test(value),
-        message: "Region must contain only English letters.",
+        validator: (value: string) => /^[^\d]+$/.test(value.trim()),
+        message: "Region must not contain numbers.",
       },
     },
     cities: {
