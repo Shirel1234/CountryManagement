@@ -4,6 +4,8 @@ import DataList from "./components/DataList";
 import "./styles/global.scss";
 import EditCountryForm from "./components/EditCountryForm";
 import NavBar from "./components/NavBar";
+import SignUp from "./components/SignUp";
+import LoginForm from "./components/LoginForm";
 
 const App: React.FC = () => {
   return (
@@ -12,6 +14,8 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<DataList />} />
         <Route path="/edit-country/:id" element={<EditCountryForm />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/login" element={<LoginForm />} />
       </Routes>
       </>
   );

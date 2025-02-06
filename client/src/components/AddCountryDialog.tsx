@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import { countryValidationSchema } from "../validation/countryValidation";
 
 interface AddCountryDialogProps {
   open: boolean;
@@ -36,14 +36,7 @@ const AddCountryDialog: React.FC<AddCountryDialogProps> = ({
       region: "",
       cities: [],
     },
-    validationSchema: Yup.object({
-      name: Yup.string().required("Name is required"),
-      flag: Yup.string().required("Flag URL is required"),
-      population: Yup.number()
-        .required("Population is required")
-        .min(1, "Population must be greater than 0"),
-      region: Yup.string().required("Region is required"),
-    }),
+    validationSchema:countryValidationSchema,
     onSubmit: (values) => {
       onAdd(values);
       formik.resetForm();

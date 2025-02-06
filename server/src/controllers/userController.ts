@@ -39,6 +39,7 @@ export const createUser = async (req: Request, res: Response) => {
     const user = await saveUser(createData);
     res.status(201).json(user);
   } catch (error) {
+    console.error("Error during user creation:");
     handleValidationError(error, res, "Failed to create user");
   }
 };

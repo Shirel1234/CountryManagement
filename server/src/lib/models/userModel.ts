@@ -45,7 +45,7 @@ const UserSchema: Schema = new Schema(
       type: String,
       required: true,
       match: [
-        /^\+?[1-9]\d{1,14}$/,
+        /^05\d{8}$/,
         "Please provide a valid phone number (e.g., +1234567890).",
       ],
     },

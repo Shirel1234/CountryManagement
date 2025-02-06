@@ -40,7 +40,7 @@ export const getUserById = async (id: string | undefined): Promise<IUser> => {
   }
 };
 // Add a new user
-export const addUser = async (newUser: Omit<IUser, "_id">): Promise<IUser> => {
+export const addUser = async (newUser: Omit<IUser, "_id" | "accessLevel">): Promise<IUser> => {
   try {
     const response = await axios.post(`${BASE_URL}/api/users`, newUser, {
       headers: {

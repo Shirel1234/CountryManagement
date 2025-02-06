@@ -7,7 +7,7 @@ import { IUser } from "../types/user";
 
 // Create a transport for sending emails
 const transporter = nodemailer.createTransport({
-  service: "gmail", // or another email provider
+  service: "gmail", 
   auth: {
     user: process.env.EMAIL_USER, 
     pass: process.env.EMAIL_PASS, 
@@ -21,15 +21,21 @@ export const sendPasswordResetEmail = async (email: string) => {
   if (!user) throw new Error("User not found");
 
   const resetTokenEntry = await createPasswordResetEntry(user);
+  
   const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${resetTokenEntry.resetToken}`;
-
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: user.email,
     subject: "Password Reset Request",
     text: `You can reset your password using the following link: ${resetLink}`,
   };
-
+  transporter.verify((error, success) => {
+    if (error) {
+      console.error(`החיבור לשרת נכשל: ${mailOptions.from} ${mailOptions.to} ${mailOptions.subject} ${mailOptions.text}`, error);
+    } else {
+      console.log("השרת מוכן לשלוח הודעות.");
+    }
+  });
   await transporter.sendMail(mailOptions);
 };
 

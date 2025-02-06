@@ -34,8 +34,8 @@ export const saveUser = async (data: IUser) => {
     logger.info("User successfully added!");
     return newUser;
   } catch (error) {
-    logger.error("Error saving user to the database:");
-    throw new Error("Failed to save user to the database");
+    logger.error("Error saving user to the database:", error);
+    throw error;
   }
 };
 // Update a user by ID

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { TextField, Button, Container, Typography } from "@mui/material";
 import { Formik, Field, Form } from "formik";
-import * as Yup from "yup";
 import "../styles/EditCountryForm.scss";
 import { getCountryById } from "../services/countryService";
 import { ICountry } from "../types/country";
@@ -10,6 +9,7 @@ import ConfirmLeaveDialog from "./ConfirmLeaveDialog";
 import { useSetRecoilState } from "recoil";
 import { selectedCountryState } from "../state/atoms";
 import { useUpdateCountry } from "../hooks/useCountryMutation";
+import { countryValidationSchema } from "../validation/countryValidation";
 
 const EditCountryForm: React.FC = () => {
   const [country, setCountry] = useState<ICountry | null>(null);
@@ -36,13 +36,11 @@ const EditCountryForm: React.FC = () => {
     fetchCountry();
   }, [id]);
 
-  const validationSchema = Yup.object({
-    name: Yup.string().required("Country name is required"),
-    population: Yup.number()
-      .required("Population is required")
-      .positive("Population must be a positive number"),
-  });
-
+  const handleEditSubmit = (country: ICountry) => {
+    updateCountryMutation(country);
+    setSelectedCountryState(null);
+    navigate("/");
+  };
   const handleCancel = () => {
     if (isFormModified) {
       setOpenModal(true);
@@ -51,20 +49,16 @@ const EditCountryForm: React.FC = () => {
       navigate("/");
     }
   };
-
   const handleConfirmCancel = () => {
     setOpenModal(false);
     setSelectedCountryState(null);
     navigate("/");
   };
-
-  const handleCloseModal = () => setOpenModal(false);
-
   const handleGoBack = () => {
     setSelectedCountryState(null);
     navigate("/");
   };
-
+  const handleCloseModal = () => setOpenModal(false);
   return (
     <Container className="edit-country-form">
       <button className="go-back-button" onClick={handleGoBack}>
@@ -77,11 +71,11 @@ const EditCountryForm: React.FC = () => {
       {country && (
         <Formik
           initialValues={country}
-          validationSchema={validationSchema}
-          onSubmit={updateCountryMutation}
+          validationSchema={countryValidationSchema}
           enableReinitialize
+          onSubmit={handleEditSubmit}
         >
-          {({ values, handleChange, handleBlur, isValid, dirty }) => {
+          {({ values, handleChange, handleBlur, isValid, dirty, errors, touched }) => {
             setIsFormModified(dirty);
 
             return (
@@ -95,6 +89,8 @@ const EditCountryForm: React.FC = () => {
                   onBlur={handleBlur}
                   fullWidth
                   margin="normal"
+                  error={touched.name && Boolean(errors.name)}
+                  helperText={touched.name && errors.name}
                 />
                 <Field
                   as={TextField}
@@ -106,6 +102,8 @@ const EditCountryForm: React.FC = () => {
                   fullWidth
                   margin="normal"
                   placeholder="Flag URL"
+                  error={touched.flag && Boolean(errors.flag)}
+                  helperText={touched.flag && errors.flag}
                 />
                 <Field
                   as={TextField}
@@ -117,6 +115,8 @@ const EditCountryForm: React.FC = () => {
                   onBlur={handleBlur}
                   fullWidth
                   margin="normal"
+                  error={touched.population && Boolean(errors.population)}
+                  helperText={touched.population && errors.population}
                 />
                 <Field
                   as={TextField}
@@ -128,6 +128,8 @@ const EditCountryForm: React.FC = () => {
                   placeholder="Region"
                   fullWidth
                   margin="normal"
+                  error={touched.region && Boolean(errors.region)}
+                  helperText={touched.region && errors.region}
                 />
                 <div className="buttons-container">
                   <Button

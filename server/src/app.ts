@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import countryRoutes from "./routes/countryRoutes";
 import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
+import passwordResetRoutes from "./routes/passwordResetRoutes"
 import connect from "./lib/db/mongodb";
 import path from "path";
 import cors from "cors";
@@ -40,6 +41,8 @@ app.use("/api", countryRoutes);
 app.use("/api", userRoutes);
 // Use auth routes
 app.use("/auth", authRoutes);
+// Use resetPassword routes
+app.use("/api", passwordResetRoutes);
 
 // Start the server only if this file is run directly
 const startServer = async () => {
