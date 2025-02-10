@@ -2,12 +2,16 @@ import bcrypt from "bcrypt";
 import { User } from "../lib/models/userModel";
 import { generateToken } from "../utils/tokenUtils";
 import { IUser } from "../types/user";
+import logger from "../utils/logger";
 
-// Authenticate user by comparing password
 export const authenticateUser = async (
   username: string,
   password: string
-): Promise<string | null> => {
+): Promise<{
+  token: string;
+  myUsername: string;
+  myProfileImage: string;
+} | null> => {
   const user = await User.findOne({ username });
 
   if (!user) return null;
@@ -16,14 +20,34 @@ export const authenticateUser = async (
   if (!isMatch) return null;
 
   const token = generateToken(user);
-  return token;
+
+  return {
+    token,
+    myUsername: user.username,
+    myProfileImage: user.profileImage || "",
+  };
 };
 
-// Register user and return the generated token
-export const registerUser = async (createData: IUser): Promise<string> => {
-  const newUser = new User(createData);
-  await newUser.save();
-  
-  const token = generateToken(newUser);
-  return token;
+export const registerUser = async (
+  createData: IUser
+): Promise<{
+  token: string;
+  myUsername: string;
+  myProfileImage: string;
+} | null> => {
+  try {
+    const newUser = new User(createData);
+    await newUser.save();
+
+    const token = generateToken(newUser);
+    logger.info("User successfully registered!");
+    return {
+      token,
+      myUsername: newUser.username,
+      myProfileImage: newUser.profileImage || "",
+    };
+  } catch (error) {
+    logger.error("Error saving user to the database:", error);
+    throw error;
+  }
 };

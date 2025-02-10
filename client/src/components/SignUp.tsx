@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, TextField, Grid, Container, Typography } from "@mui/material";
 import { Formik, Field, Form } from "formik";
 import "../styles/SignUp.scss";
 import { userValidationSchema } from "../validation/userValidation";
 import { IUser } from "../types/user";
-import { useAddUser } from "../hooks/useUserMutation";
-import { useNavigate } from "react-router-dom";
+import { useRegisterUser } from "../hooks/useUserMutation";
 
 const SignUp: React.FC = () => {
-  const { mutate: addUserMutation } = useAddUser();
-  const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const { mutate: addUserMutation } = useRegisterUser();
 
   const handleAddUser = (newUser: Omit<IUser, "_id" | "accessLevel">) => {
-    addUserMutation(newUser);
-    navigate("/");
+    const formData = new FormData();
+    formData.append("firstName", newUser.firstName);
+    formData.append("lastName", newUser.lastName);
+    formData.append("username", newUser.username);
+    formData.append("email", newUser.email);
+    formData.append("phone", newUser.phone);
+    formData.append("password", newUser.password);
+    if (selectedImage) {
+      formData.append("profileImage", selectedImage);
+    }
+
+    addUserMutation(formData);
   };
   return (
     <Container component="main" maxWidth="xs">
@@ -101,15 +110,14 @@ const SignUp: React.FC = () => {
                 </Grid>
 
                 <Grid item xs={12}>
-                  <Field
-                    as={TextField}
-                    name="profileImage"
-                    label="Profile Image URL"
-                    type="url"
-                    variant="outlined"
-                    fullWidth
-                    error={touched.profileImage && Boolean(errors.profileImage)}
-                    helperText={touched.profileImage && errors.profileImage}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files[0]) {
+                        setSelectedImage(e.target.files[0]);
+                      }
+                    }}
                   />
                 </Grid>
 

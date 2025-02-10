@@ -39,24 +39,24 @@ const EditCountryForm: React.FC = () => {
   const handleEditSubmit = (country: ICountry) => {
     updateCountryMutation(country);
     setSelectedCountryState(null);
-    navigate("/");
+    navigate("/home");
   };
   const handleCancel = () => {
     if (isFormModified) {
       setOpenModal(true);
     } else {
       setSelectedCountryState(null);
-      navigate("/");
+      navigate("/home");
     }
   };
   const handleConfirmCancel = () => {
     setOpenModal(false);
     setSelectedCountryState(null);
-    navigate("/");
+    navigate("/home");
   };
   const handleGoBack = () => {
     setSelectedCountryState(null);
-    navigate("/");
+    navigate("/home");
   };
   const handleCloseModal = () => setOpenModal(false);
   return (
@@ -75,7 +75,15 @@ const EditCountryForm: React.FC = () => {
           enableReinitialize
           onSubmit={handleEditSubmit}
         >
-          {({ values, handleChange, handleBlur, isValid, dirty, errors, touched }) => {
+          {({
+            values,
+            handleChange,
+            handleBlur,
+            isValid,
+            dirty,
+            errors,
+            touched,
+          }) => {
             setIsFormModified(dirty);
 
             return (

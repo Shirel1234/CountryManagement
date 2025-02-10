@@ -53,8 +53,8 @@ const UserSchema: Schema = new Schema(
       type: String,
       required: false,
       match: [
-        /^https?:\/\/.*\.(jpg|jpeg|png|gif)$/i,
-        "Profile image must be a valid image URL (jpg, jpeg, png, gif).",
+        /^(https?:\/\/.*\.(jpg|jpeg|png|gif))$|^([a-zA-Z0-9_\-]+\.(jpg|jpeg|png|gif))$/i,
+        "Profile image must be a valid image URL (jpg, jpeg, png, gif) or a valid local file name (jpg, jpeg, png, gif)."
       ],
     },
     password: {

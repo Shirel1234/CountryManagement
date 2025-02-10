@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import countryRoutes from "./routes/countryRoutes";
 import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
-import passwordResetRoutes from "./routes/passwordResetRoutes"
+import passwordResetRoutes from "./routes/passwordResetRoutes";
 import connect from "./lib/db/mongodb";
 import path from "path";
 import cors from "cors";
@@ -23,6 +23,7 @@ app.use(
     origin: ["http://localhost:5173", "http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 
@@ -35,13 +36,12 @@ app.use(mongoSanitize());
 // XSS Protection Middleware
 app.use(xssClean());
 
-// Use country routes
+// Serve the uploaded images statically
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+
 app.use("/api", countryRoutes);
-// Use user routes
 app.use("/api", userRoutes);
-// Use auth routes
 app.use("/auth", authRoutes);
-// Use resetPassword routes
 app.use("/api", passwordResetRoutes);
 
 // Start the server only if this file is run directly

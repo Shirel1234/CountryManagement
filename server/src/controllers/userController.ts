@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import mongoose from "mongoose";
 import {
   fetchUserById,
  fetchUsers,
@@ -36,6 +35,11 @@ export const getUserById = async (req: Request, res: Response) => {
 export const createUser = async (req: Request, res: Response) => {
   try {
     const createData = req.body;
+
+    if (req.file) {
+      createData.profileImage = req.file.filename;
+    }
+
     const user = await saveUser(createData);
     res.status(201).json(user);
   } catch (error) {

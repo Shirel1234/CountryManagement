@@ -50,7 +50,7 @@ const customRender = (ui: React.ReactElement) => {
   const queryClient = new QueryClient();
 
   return render(
-    <MemoryRouter initialEntries={["/"]}>
+    <MemoryRouter initialEntries={["/home"]}>
       <RecoilRoot>
         <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>
       </RecoilRoot>
