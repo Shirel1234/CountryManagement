@@ -21,10 +21,10 @@ export const loginUser = async (
         withCredentials: true,
       }
     );
-    const { token, myUsername, myProfileImage } = response.data;
+    const { token, myId, myUsername, myProfileImage } = response.data;
     localStorage.setItem(
       "userData",
-      JSON.stringify({ myUsername, myProfileImage })
+      JSON.stringify({ myId, myUsername, myProfileImage })
     );
     return { token };
   } catch (error) {
@@ -53,10 +53,10 @@ export const registerUser = async (
       },
       withCredentials: true,
     });
-    const { token, myUsername, myProfileImage } = response.data;
+    const { token, myId, myUsername, myProfileImage } = response.data;
     localStorage.setItem(
       "userData",
-      JSON.stringify({ myUsername, myProfileImage })
+      JSON.stringify({ myId, myUsername, myProfileImage })
     );
 
     return { token };

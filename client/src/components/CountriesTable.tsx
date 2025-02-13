@@ -5,7 +5,7 @@ import { Box, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
-import { useFetchCountries } from "../hooks/useFetchCountries";
+import { useFetchCountries } from "../hooks/queries/useCountriesQuery";
 import { ICountry } from "../types/country";
 import AddCountryDialog from "./AddCountryDialog";
 import AddIcon from "@mui/icons-material/Add";
@@ -14,7 +14,7 @@ import { selectedCountryState } from "../state/atoms";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
 import { Tooltip } from "@mui/material";
 import "../styles/CountriesTable.scss";
-import { useAddCountry, useDeleteCountry } from "../hooks/useCountryMutation";
+import { useAddCountry, useDeleteCountry } from "../hooks/mutations/useCountryMutation";
 
 const CountriesTable: React.FC = () => {
   const navigate = useNavigate();
@@ -35,19 +35,16 @@ const CountriesTable: React.FC = () => {
     addCountryMutation(countryWithCities);
     setAddDialogOpen(false);
   };
-
   const handleDeleteConfirm = () => {
     if (selectedCountry) {
       deleteCountryMutation(selectedCountry._id);
       setDeleteConfirmOpen(false);
     }
   };
-  // Open delete confirmation dialog
   const handleDeleteClick = (country: ICountry) => {
     setSelectedCountry(country);
     setDeleteConfirmOpen(true);
   };
-  // Edit handler (navigate to edit form)
   const handleEditClick = (country: ICountry) => {
     setSelectedCountryState(country);
     setTimeout(() => {
@@ -199,7 +196,7 @@ const CountriesTable: React.FC = () => {
         />
         <DeleteConfirmDialog
           open={deleteConfirmOpen}
-          selectedCountry={selectedCountry}
+          selectedItem={selectedCountry?.name}
           onClose={() => setDeleteConfirmOpen(false)}
           onDelete={handleDeleteConfirm}
         />

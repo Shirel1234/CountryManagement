@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
 import {
   fetchUserById,
- fetchUsers,
+  fetchUsers,
   modifyUser,
   removeUser,
   saveUser,
 } from "../services/userService";
 import { handleValidationError } from "../utils/errorUtils";
+import fs from "fs";
+import path from "path";
 
 //Get all users
 export const getUsers = async (req: Request, res: Response) => {
@@ -48,12 +50,34 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 // Update a user by ID
-export const updateuser = async (req: Request, res: Response) => {
+export const updateUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const updatedData = req.body;
-    const user = await modifyUser(id, updatedData);
-    res.status(200).json(user);
+    const { firstName, lastName, phone } = req.body;
+
+    const existingUser = await fetchUserById(id);
+    if (!existingUser) {
+      res.status(404).json({ message: "User not found." });
+      return;
+    }
+    let profileImage = existingUser.profileImage;
+    if (req.file) {
+      if (profileImage) {
+        const oldImagePath = path.join(__dirname, "../uploads", profileImage);
+        if (fs.existsSync(oldImagePath)) {
+          fs.unlinkSync(oldImagePath);
+        }
+      }
+      profileImage = req.file.filename;
+    }
+    const updatedData = {
+      firstName,
+      lastName,
+      phone,
+      profileImage,
+    };
+    const updatedUser = await modifyUser(id, updatedData);
+    res.status(200).json(updatedUser);
   } catch (error) {
     handleValidationError(error, res, "Failed to update user");
   }

@@ -19,7 +19,6 @@ export const userValidationSchema = Yup.object({
   phone: Yup.string()
     .matches(/^05\d{8}$/, "Invalid phone number")
     .required("Phone is required"),
-  profileImage: Yup.string().url("Invalid image URL"),
   password: Yup.string()
     .required("Password is required")
     .min(6, "Password must have at least 6 characters"),

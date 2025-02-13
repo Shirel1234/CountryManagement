@@ -8,18 +8,17 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
-import { ICountry } from "../types/country";
 
 interface DeleteConfirmDialogProps {
   open: boolean;
-  selectedCountry: ICountry | null;
+  selectedItem: string | undefined;
   onClose: () => void;
   onDelete: () => void;
 }
 
 const DeleteConfirmDialog: React.FC<DeleteConfirmDialogProps> = ({
   open,
-  selectedCountry,
+  selectedItem,
   onClose,
   onDelete,
 }) => {
@@ -28,7 +27,7 @@ const DeleteConfirmDialog: React.FC<DeleteConfirmDialogProps> = ({
       <DialogTitle>Delete Confirmation</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Are you sure you want to delete {selectedCountry?.name}?
+          Are you sure you want to delete {selectedItem}?
         </DialogContentText>
       </DialogContent>
       <DialogActions>

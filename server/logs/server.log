@@ -718,3 +718,544 @@
 2025-02-10 12:15:06 [[32minfo[39m]: Countries data already exists in the database!
 2025-02-10 12:15:06 [[32minfo[39m]: Initial country data fetched and stored.
 2025-02-10 12:15:06 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-10 13:34:21 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-10 13:34:22 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-10 13:34:23 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-10 13:34:23 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-10 13:34:23 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-11 09:07:15 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-11 09:07:16 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-11 09:07:17 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-11 09:07:17 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-11 09:07:17 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-11 09:20:00 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-11 09:20:02 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-11 09:20:02 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-11 09:20:02 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-11 09:20:02 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-11 10:19:39 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-11 10:19:41 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-11 10:19:41 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-11 10:19:41 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-11 10:19:41 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-11 10:51:32 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-11 10:51:33 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-11 10:51:34 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-11 10:51:34 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-11 10:51:34 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-11 13:28:22 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-11 13:28:23 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-11 13:28:24 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-11 13:28:24 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-11 13:28:24 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-11 13:29:48 [[32minfo[39m]: Country updated successfully!
+2025-02-11 13:51:29 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-11 13:51:30 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-11 13:51:31 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-11 13:51:31 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-11 13:51:31 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-11 14:00:11 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-11 14:00:12 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-11 14:00:13 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-11 14:00:13 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-11 14:00:13 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-11 14:17:56 [[32minfo[39m]: User updated successfully!
+2025-02-11 14:18:31 [[32minfo[39m]: User updated successfully!
+2025-02-11 14:20:51 [[31merror[39m]: Error updating User: Cast to string failed for value "{}" (type Object) at path "profileImage"
+2025-02-11 14:32:31 [[32minfo[39m]: User updated successfully!
+2025-02-11 14:33:33 [[31merror[39m]: Error updating User: Cast to string failed for value "{}" (type Object) at path "profileImage"
+2025-02-11 14:46:50 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-11 14:46:52 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-11 14:46:52 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-11 14:46:52 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-11 14:46:52 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-11 14:57:18 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-11 14:57:20 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-11 14:57:21 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-11 14:57:21 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-11 14:57:21 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-11 14:58:31 [[32minfo[39m]: User updated successfully!
+2025-02-11 15:38:14 [[32minfo[39m]: User updated successfully!
+2025-02-11 15:57:00 [[32minfo[39m]: User updated successfully!
+2025-02-11 15:59:31 [[32minfo[39m]: User updated successfully!
+2025-02-11 16:00:02 [[32minfo[39m]: User updated successfully!
+2025-02-11 16:02:49 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-11 16:02:51 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-11 16:02:51 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-11 16:02:51 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-11 16:02:51 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-11 16:03:57 [[32minfo[39m]: User updated successfully!
+2025-02-11 16:04:49 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-11 16:04:51 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-11 16:04:51 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-11 16:04:51 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-11 16:04:51 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-11 16:07:47 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-11 16:07:49 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-11 16:07:49 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-11 16:07:49 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-11 16:07:49 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-11 16:08:47 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-11 16:08:49 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-11 16:08:49 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-11 16:08:49 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-11 16:08:49 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-11 16:10:20 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-11 16:10:22 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-11 16:10:22 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-11 16:10:22 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-11 16:10:22 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-11 16:10:37 [[32minfo[39m]: User updated successfully!
+2025-02-11 16:12:40 [[32minfo[39m]: User updated successfully!
+2025-02-11 16:15:57 [[32minfo[39m]: User updated successfully!
+2025-02-12 08:52:22 [[32minfo[39m]: User updated successfully!
+2025-02-12 08:55:44 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 08:55:46 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 08:55:47 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 08:55:47 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 08:55:47 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 09:03:35 [[32minfo[39m]: User updated successfully!
+2025-02-12 09:14:42 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 09:14:44 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 09:14:44 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 09:14:44 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 09:14:44 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 09:15:31 [[32minfo[39m]: User updated successfully!
+2025-02-12 09:21:04 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 09:21:05 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 09:21:06 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 09:21:06 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 09:21:06 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 09:22:33 [[32minfo[39m]: User updated successfully!
+2025-02-12 09:44:43 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 09:44:45 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 09:44:45 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 09:44:45 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 09:44:45 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 09:49:12 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 09:49:13 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 09:49:14 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 09:49:14 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 09:49:14 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 09:50:21 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 09:50:23 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 09:50:23 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 09:50:23 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 09:50:23 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 09:50:56 [[32minfo[39m]: User updated successfully!
+2025-02-12 09:52:08 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 09:52:10 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 09:52:10 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 09:52:10 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 09:52:10 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 09:52:29 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 09:52:30 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 09:52:31 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 09:52:31 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 09:52:31 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 09:52:49 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 09:52:50 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 09:52:51 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 09:52:51 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 09:52:51 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 09:52:54 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 09:52:55 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 09:52:56 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 09:52:56 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 09:52:56 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 11:32:25 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 11:32:26 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 11:32:27 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 11:32:27 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 11:32:27 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 13:23:11 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 13:23:12 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 13:23:13 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 13:23:13 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 13:23:13 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 13:26:00 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 13:26:01 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 13:26:02 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 13:26:02 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 13:26:02 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 13:34:23 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 13:34:25 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 13:34:25 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 13:34:25 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 13:34:25 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 13:36:00 [[31merror[39m]: The connect faild shirelrn01@gmail.com sofri@g.jct.ac.il Password Reset Request You can reset your password using the following link: http://localhost:5000/api/reset-password?token=86b06a5d9263f7f50ac4957c1dab22dde419de14c329bd039f29fffd04a6aa73 Missing credentials for "PLAIN"
+2025-02-12 13:36:00 [[31merror[39m]: Error sending email: Missing credentials for "PLAIN"
+2025-02-12 13:37:13 [[31merror[39m]: Error sending email: Missing credentials for "PLAIN"
+2025-02-12 13:37:13 [[31merror[39m]: The connect faild shirelrn01@gmail.com sofri@g.jct.ac.il Password Reset Request You can reset your password using the following link: http://localhost:5000/api/reset-password?token=9f428957e6416205ac66b58ccc5f2c98e92a819933305f94e1e1c75dd77fdf8e Missing credentials for "PLAIN"
+2025-02-12 13:43:31 [[31merror[39m]: The connect faild shirelrn01@gmail.com sofri@g.jct.ac.il Password Reset Request You can reset your password using the following link: http://localhost:5000/api/reset-password?token=956491eb6a6670f3976e8e173ea600727f0a9d4fd49a803d7c1b798e2f901214 Missing credentials for "PLAIN"
+2025-02-12 13:43:31 [[31merror[39m]: Error sending email: Missing credentials for "PLAIN"
+2025-02-12 13:46:11 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 13:46:13 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 13:46:13 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 13:46:13 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 13:46:13 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 13:46:15 [[31merror[39m]: The connect faild shirelrn01@gmail.com sofri@g.jct.ac.il Password Reset Request You can reset your password using the following link: http://localhost:5000/api/reset-password?token=292391ce2379f082fec8e393b69d4d40515b77c6162d1666c8b0191402da860f Missing credentials for "PLAIN"
+2025-02-12 14:06:00 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 14:06:02 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 14:06:03 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 14:06:03 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 14:06:03 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 14:06:44 [[31merror[39m]: The connect faild shirelrn01@gmail.com sofri@g.jct.ac.il Password Reset Request You can reset your password using the following link: http://localhost:5000/api/reset-password?token=17ca6271635999d59a1b186066e6cf60767ea4e1fcbc0d6f82b203f7efb61dec Missing credentials for "PLAIN"
+2025-02-12 14:08:00 [[31merror[39m]: The connect faild shirelrn01@gmail.com sofri@g.jct.ac.il Password Reset Request You can reset your password using the following link: http://localhost:5000/api/reset-password?token=bf3b8ec768d4aec321dec9287c1eb86305ce7034328f8c2cbe712609f69d24eb Missing credentials for "PLAIN"
+2025-02-12 14:12:12 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 14:12:14 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 14:12:14 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 14:12:14 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 14:12:14 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 14:15:19 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 14:15:20 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 14:15:21 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 14:15:21 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 14:15:21 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 14:15:30 [[31merror[39m]: The connect faild shirelrn01@gmail.com sofri@g.jct.ac.il Password Reset Request You can reset your password using the following link: http://localhost:5000/api/reset-password?token=53076616a25e67647435d7c4421c3b030b92dcf15ecae5799bd96c6e14bff930 Missing credentials for "PLAIN"
+2025-02-12 14:15:30 [[31merror[39m]: Error sending email: Missing credentials for "PLAIN"
+2025-02-12 14:16:42 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 14:16:44 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 14:16:44 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 14:16:44 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 14:16:44 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 14:17:07 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 14:17:09 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 14:17:09 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 14:17:09 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 14:17:09 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 14:22:04 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 14:22:06 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 14:22:06 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 14:22:06 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 14:22:06 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 14:23:39 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 14:23:40 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 14:23:41 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 14:23:41 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 14:23:41 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 14:44:38 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 14:44:40 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 14:44:41 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 14:44:41 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 14:44:41 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 14:51:08 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 14:51:09 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 14:51:10 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 14:51:10 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 14:51:10 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 14:52:21 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 14:52:23 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 14:52:24 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 14:52:24 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 14:52:24 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 15:29:44 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 15:29:45 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 15:29:46 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 15:29:46 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 15:29:46 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 15:30:55 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 15:30:57 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 15:30:58 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 15:30:58 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 15:30:58 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 15:34:02 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 15:34:04 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 15:34:04 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 15:34:04 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 15:34:04 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 15:36:51 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 15:36:54 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 15:36:55 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 15:36:55 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 15:36:55 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 15:36:55 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 15:40:02 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 15:40:04 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 15:40:04 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 15:40:04 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 15:40:04 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 15:46:06 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 15:46:20 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 15:46:21 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 15:46:21 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 15:46:21 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 15:46:21 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 15:52:17 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 15:52:18 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 15:52:19 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 15:52:19 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 15:52:19 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 15:54:28 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 15:54:30 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 15:54:30 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 15:54:30 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 15:54:30 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 15:54:49 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 15:54:50 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 15:54:51 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 15:54:51 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 15:54:51 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 15:57:06 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 15:57:07 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 15:57:08 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 15:57:08 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 15:57:08 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 15:57:30 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 15:57:31 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 15:57:32 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 15:57:32 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 15:57:32 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 15:57:39 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 15:57:40 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 15:57:41 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 15:57:41 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 15:57:41 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:06:16 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:06:18 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:06:19 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:06:19 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:06:19 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:07:10 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:07:12 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:07:12 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:07:12 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:07:12 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:07:26 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:07:37 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:07:39 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:07:39 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:07:39 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:07:39 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:10:10 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:10:12 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:10:12 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:10:12 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:10:12 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:11:51 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:12:03 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:12:04 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:12:05 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:12:05 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:12:05 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:21:53 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:21:55 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:22:00 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:22:01 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:22:02 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:22:02 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:22:02 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:25:11 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:25:13 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:25:13 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:25:13 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:25:13 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:28:35 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:28:37 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:28:38 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:28:38 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:28:38 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:30:42 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:30:44 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:30:45 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:30:45 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:30:45 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:30:52 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:30:54 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:30:54 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:30:54 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:30:54 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:30:59 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:31:00 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:31:01 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:31:01 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:31:01 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:40:31 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:40:33 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:40:34 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:40:34 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:40:34 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:40:55 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:40:56 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:40:57 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:40:57 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:40:57 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:42:03 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:42:05 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:42:06 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:42:06 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:42:06 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:49:44 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:49:46 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:49:47 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:49:47 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:49:47 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:55:22 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:55:23 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:55:24 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:55:24 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:55:24 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:55:32 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:55:33 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:55:33 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:55:33 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:55:33 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 16:57:33 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 16:57:34 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 16:57:35 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 16:57:35 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 16:57:35 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 17:00:01 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 17:00:02 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 17:00:03 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 17:00:03 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 17:00:03 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 17:02:35 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 17:02:37 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 17:02:38 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 17:02:38 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 17:02:38 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 17:04:14 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 17:04:16 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 17:04:17 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 17:04:17 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 17:04:17 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 17:04:55 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 17:04:56 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 17:04:57 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 17:04:57 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 17:04:57 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 17:06:32 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 17:06:37 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 17:06:38 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 17:06:39 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 17:06:39 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 17:06:39 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 17:07:21 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 17:07:26 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 17:07:27 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 17:07:28 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 17:07:28 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 17:07:28 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 17:09:51 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 17:09:53 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 17:09:53 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 17:09:53 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 17:09:53 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 17:27:50 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 17:27:52 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 17:27:52 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 17:27:52 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 17:27:52 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 17:50:51 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 17:50:52 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 17:50:53 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 17:50:53 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 17:50:53 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 17:51:39 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 17:51:41 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 17:51:42 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 17:51:42 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 17:51:42 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 17:51:48 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 17:51:49 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 17:51:50 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 17:51:50 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 17:51:50 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 17:54:16 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 17:54:18 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 17:54:18 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 17:54:18 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 17:54:18 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-12 17:59:04 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-12 17:59:06 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-12 17:59:07 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-12 17:59:07 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-12 17:59:07 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-13 08:27:12 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-13 08:27:13 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-13 08:27:14 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-13 08:27:14 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-13 08:27:14 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-13 08:44:35 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-13 08:44:38 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-13 08:44:40 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-13 08:44:40 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-13 08:44:40 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-13 08:44:40 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-13 08:46:39 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-13 08:46:41 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-13 08:46:43 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-13 08:46:45 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-13 08:46:45 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-13 08:46:45 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-13 08:46:45 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-13 09:45:02 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-13 09:45:03 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-13 09:45:04 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-13 09:45:04 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-13 09:45:04 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-13 09:49:58 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-13 09:50:00 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-13 09:50:00 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-13 09:50:00 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-13 09:50:00 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-13 10:05:54 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-13 10:05:55 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-13 10:05:56 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-13 10:05:56 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-13 10:05:56 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-13 10:07:04 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-13 10:07:05 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-13 10:07:06 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-13 10:07:06 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-13 10:07:06 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-13 10:08:17 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-13 10:08:19 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-13 10:08:19 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-13 10:08:19 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-13 10:08:19 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-13 10:08:48 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-13 10:08:49 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-13 10:08:50 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-13 10:08:50 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-13 10:08:50 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-13 10:09:05 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-13 10:09:07 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-13 10:09:07 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-13 10:09:07 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-13 10:09:07 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-13 10:16:10 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-13 10:16:11 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-13 10:16:12 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-13 10:16:12 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-13 10:16:12 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-13 10:24:16 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-13 10:24:18 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-13 10:24:18 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-13 10:24:18 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-13 10:24:18 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-13 10:24:42 [[33mwarn[39m]: Invalid username or password.
+2025-02-13 10:25:30 [[33mwarn[39m]: Invalid username or password.
+2025-02-13 10:25:43 [[33mwarn[39m]: Invalid username or password.
+2025-02-13 10:30:27 [[33mwarn[39m]: Invalid username or password.
+2025-02-13 10:38:17 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-13 10:38:18 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-13 10:38:19 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-13 10:38:19 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-13 10:38:19 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-13 10:39:15 [[33mwarn[39m]: Invalid username or password.
+2025-02-13 10:41:35 [[33mwarn[39m]: Invalid username or password.
+2025-02-13 10:43:20 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-13 10:43:21 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-13 10:43:22 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-13 10:43:22 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-13 10:43:22 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-13 13:32:04 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-13 13:32:06 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-13 13:32:06 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-13 13:32:06 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-13 13:32:06 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-13 13:43:08 [[32minfo[39m]: User deleted successfully!
+2025-02-13 13:43:28 [[32minfo[39m]: User deleted successfully!
+2025-02-13 14:23:25 [[32minfo[39m]: User deleted successfully!

@@ -8,7 +8,7 @@ import { ICountry } from "../types/country";
 import ConfirmLeaveDialog from "./ConfirmLeaveDialog";
 import { useSetRecoilState } from "recoil";
 import { selectedCountryState } from "../state/atoms";
-import { useUpdateCountry } from "../hooks/useCountryMutation";
+import { useUpdateCountry } from "../hooks/mutations/useCountryMutation";
 import { countryValidationSchema } from "../validation/countryValidation";
 
 const EditCountryForm: React.FC = () => {

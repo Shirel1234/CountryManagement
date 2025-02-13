@@ -40,7 +40,9 @@ export const getUserById = async (id: string | undefined): Promise<IUser> => {
   }
 };
 // Add a new user
-export const addUser = async (newUser: Omit<IUser, "_id" | "accessLevel">): Promise<IUser> => {
+export const addUser = async (
+  newUser: Omit<IUser, "_id" | "accessLevel">
+): Promise<IUser> => {
   try {
     const response = await axios.post(`${BASE_URL}/api/users`, newUser, {
       headers: {
@@ -56,21 +58,17 @@ export const addUser = async (newUser: Omit<IUser, "_id" | "accessLevel">): Prom
 // Update user data
 export const updateUser = async (
   id: string | undefined,
-  updatedData: Partial<IUser>
+  formData: FormData
 ): Promise<IUser> => {
   if (!id) {
     throw new Error("User ID is required");
   }
   try {
-    const response = await axios.put(
-      `${BASE_URL}/api/users/${id}`,
-      updatedData,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await axios.put(`${BASE_URL}/api/users/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data;
   } catch (error) {
     console.error(`Error updating user: ${error}`);

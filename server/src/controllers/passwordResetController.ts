@@ -9,13 +9,14 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
 
   if (!email) {
     res.status(400).json({ message: "Email is required." });
-  } else {
-    try {
-      await sendPasswordResetEmail(email);
-      res.status(200).json({ message: "Password reset email sent." });
-    } catch (error) {
-      res.status(500).json({ message: `Internal server errors: ${error}` });
-    }
+    return;
+  }
+
+  try {
+    await sendPasswordResetEmail(email);
+    res.status(200).json({ message: "Password reset email sent." });
+  } catch (error) {
+    res.status(500).json({ message: `Internal server errors: ${error}` });
   }
 };
 

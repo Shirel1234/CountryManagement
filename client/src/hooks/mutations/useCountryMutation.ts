@@ -1,8 +1,8 @@
 // src/hooks/useCountry.ts
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCountry, addCountry, updateCountry } from "../services/countryService";
-import { ICountry } from "../types/country";
-import { showErrorToast, showSuccessToast } from "../components/Toast";
+import { deleteCountry, addCountry, updateCountry } from "../../services/countryService";
+import { ICountry } from "../../types/country";
+import { showErrorToast, showSuccessToast } from "../../components/Toast";
 
 export const useDeleteCountry = () => {
   const queryClient = useQueryClient();

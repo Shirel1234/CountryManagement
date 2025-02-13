@@ -4,7 +4,7 @@ import { Formik, Field, Form } from "formik";
 import "../styles/SignUp.scss";
 import { userValidationSchema } from "../validation/userValidation";
 import { IUser } from "../types/user";
-import { useRegisterUser } from "../hooks/useUserMutation";
+import { useRegisterUser } from "../hooks/mutations/useUserMutation";
 
 const SignUp: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);

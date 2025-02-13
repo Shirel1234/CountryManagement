@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { useFetchData } from "../hooks/useFetchCountries";
+import { useFetchData } from "../hooks/queries/useCountriesQuery";
 import DataList from "../components/DataList";
 import { showSuccessToast, showErrorToast } from "../components/Toast";
 import { vi } from "vitest";

@@ -7,34 +7,35 @@ export const login = async (req: Request, res: Response) => {
 
   if (!username || !password) {
     res.status(400).json({ message: "Username and password are required." });
-  } else {
-    try {
-      const { token, myUsername, myProfileImage } = await authenticateUser(
-        username,
-        password
-      );
+    return;
+  }
+  try {
+    const { token, myId, myUsername, myProfileImage } = await authenticateUser(
+      username,
+      password
+    );
 
-      if (!token) {
-        res.status(401).json({ message: "Invalid username or password." });
-      } else {
-        res
-          .cookie("token", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
-            maxAge: 3600000,
-          })
-          .status(200)
-          .json({
-            message: "Login successful.",
-            token,
-            myUsername,
-            myProfileImage,
-          });
-      }
-    } catch (error) {
-      res.status(500).json({ message: "Internal server error." });
+    if (!token) {
+      res.status(401).json({ message: "Invalid username or password." });
+    } else {
+      res
+        .cookie("token", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "strict",
+          maxAge: 3600000,
+        })
+        .status(200)
+        .json({
+          message: "Login successful.",
+          token,
+          myId,
+          myUsername,
+          myProfileImage,
+        });
     }
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error." });
   }
 };
 
@@ -58,7 +59,7 @@ export const register = async (req: Request, res: Response) => {
       password,
       profileImage,
     } as IUser;
-    const { token, myUsername, myProfileImage } = await registerUser(
+    const { token, myId, myUsername, myProfileImage } = await registerUser(
       createData
     );
 
@@ -71,6 +72,7 @@ export const register = async (req: Request, res: Response) => {
 
     res.status(200).json({
       message: "Registration successful.",
+      myId,
       myUsername,
       myProfileImage,
     });

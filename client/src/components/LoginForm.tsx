@@ -6,10 +6,12 @@ import { showErrorToast, showSuccessToast } from "./Toast";
 import { useSetRecoilState } from "recoil";
 import { isLoggedInState } from "../state/atoms";
 import { useNavigate } from "react-router-dom";
+import ForgotPasswordDialog from "./ForgotPasswordDialog";
 
 const LoginForm = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const navigate = useNavigate();
 
@@ -69,8 +71,20 @@ const LoginForm = () => {
                 Log In
               </Button>
             </Grid>
+            <Grid item xs={12} className="forgot-password">
+              <Button
+                color="primary"
+                onClick={() => setForgotPasswordOpen(true)}
+              >
+                Forgot Password?
+              </Button>
+            </Grid>
           </Grid>
         </form>
+        <ForgotPasswordDialog
+          open={forgotPasswordOpen}
+          onClose={() => setForgotPasswordOpen(false)}
+        />
       </div>
     </Container>
   );

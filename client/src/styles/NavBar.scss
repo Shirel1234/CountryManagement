@@ -35,20 +35,55 @@
   .user-info {
     display: flex;
     align-items: center;
-    gap: 25px;
-  }
-  .profile-image {
-    border-radius: 50%;
-    border: 2px solid #ecf0f1;
+    justify-content: center;
+    gap: 10px;
   }
 
-  .username {
-    color: #ecf0f1;
-    font-size: 1rem;
-    font-weight: bold;
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    .profile-image {
+      border-radius: 50%;
+      border: 2px solid #ecf0f1;
+    }
+
+    .profile-username {
+      margin-top: 8px;
+      color: #ecf0f1;
+      font-weight: bold;
+    }
   }
 
-  a {
-    text-decoration: none;
+  .popup-menu {
+    padding: 0;
+    width: 200px;
+    background-color: #34495e;
+
+    .MuiListItem-root {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #ecf0f1;
+        color: #2c3e50;
+      }
+
+      .MuiSvgIcon-root {
+        color: #ecf0f1;
+      }
+
+      .popup-text {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #ecf0f1;
+      }
+    }
   }
 }

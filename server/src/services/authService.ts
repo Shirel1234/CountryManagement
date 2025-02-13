@@ -9,29 +9,42 @@ export const authenticateUser = async (
   password: string
 ): Promise<{
   token: string;
+  myId: string;
   myUsername: string;
   myProfileImage: string;
 } | null> => {
-  const user = await User.findOne({ username });
 
-  if (!user) return null;
+  try{
+    const user = await User.findOne({ username });
+    if (!user){
+      logger.warn("User not found with the provided username:", username);
+     return null;
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      logger.warn("Invalid username or password.");
+      return null;
+    }
+    const token = generateToken(user);
 
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) return null;
-
-  const token = generateToken(user);
-
-  return {
-    token,
-    myUsername: user.username,
-    myProfileImage: user.profileImage || "",
-  };
+    return {
+      token,
+      myId: user._id,
+      myUsername: user.username,
+      myProfileImage: user.profileImage || "",
+    };
+  } catch (error) {
+    logger.error("Error authenticated user:", error);
+    throw new Error("Failed to authenticated user.");
+  }
+ 
 };
 
 export const registerUser = async (
   createData: IUser
 ): Promise<{
   token: string;
+  myId: string;
   myUsername: string;
   myProfileImage: string;
 } | null> => {
@@ -43,6 +56,7 @@ export const registerUser = async (
     logger.info("User successfully registered!");
     return {
       token,
+      myId: newUser._id,
       myUsername: newUser.username,
       myProfileImage: newUser.profileImage || "",
     };
