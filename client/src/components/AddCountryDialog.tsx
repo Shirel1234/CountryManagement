@@ -52,7 +52,7 @@ const AddCountryDialog: React.FC<AddCountryDialogProps> = ({
           <TextField
             fullWidth
             margin="normal"
-            label="country name"
+            label="Country name"
             name="name"
             value={formik.values.name}
             onChange={formik.handleChange}

@@ -9,9 +9,9 @@ import LandingPage from "./components/LandingPage";
 import EditUserForm from "./components/EditUserForm";
 import ResetPassword from "./components/ResetPassword";
 import AdminDashboard from "./components/AdminDashboard";
+import RequestAccess from "./components/RequestAccess";
 
 const App: React.FC = () => {
-
   return (
     <>
       <NavBar />
@@ -21,10 +21,11 @@ const App: React.FC = () => {
         <Route path="/edit-country/:id" element={<EditCountryForm />} />
         <Route path="/edit-user/:id" element={<EditUserForm />} />
         <Route path="/update-profile/:id" element={<EditUserForm />} />
+        <Route path="/request-access/:id" element={<RequestAccess />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/reset-password" element={<ResetPassword />}/>
-        <Route path="/admin" element={<AdminDashboard />}/>
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </>
   );

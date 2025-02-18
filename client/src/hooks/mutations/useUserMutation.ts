@@ -10,11 +10,7 @@ import { useSetRecoilState } from "recoil";
 export const useAddUser = () => {
   const queryClient = useQueryClient();
 
-  const addMutation = useMutation<
-    IUser,
-    Error,
-    Omit<IUser, "_id" | "accessLevel">
-  >({
+  const addMutation = useMutation<IUser, Error, Omit<IUser, "_id">>({
     mutationFn: (newUser) => addUser(newUser),
     onSuccess: (newUser) => {
       queryClient.setQueryData(["users"], (oldData: IUser[] | undefined) => {
@@ -31,7 +27,6 @@ export const useAddUser = () => {
 
   return addMutation;
 };
-
 export const useRegisterUser = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -56,7 +51,6 @@ export const useRegisterUser = () => {
 
   return registerMutation;
 };
-
 export const useUpdateUser = (id: string | undefined) => {
   const queryClient = useQueryClient();
 
@@ -88,14 +82,9 @@ export const useDeleteUser = () => {
     mutationFn: (userId: string) => deleteUser(userId),
     onSuccess: (_data, variables) => {
       const userId = variables;
-      queryClient.setQueryData(
-        ["users"],
-        (oldData: IUser[] | undefined) => {
-          return oldData
-            ? oldData.filter((user) => user._id !== userId)
-            : [];
-        }
-      );
+      queryClient.setQueryData(["users"], (oldData: IUser[] | undefined) => {
+        return oldData ? oldData.filter((user) => user._id !== userId) : [];
+      });
       console.log("User deleted successfully!");
       showSuccessToast("User deleted successfully!");
     },

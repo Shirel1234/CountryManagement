@@ -6,10 +6,10 @@ import "../styles/EditCountryForm.scss";
 import { getCountryById } from "../services/countryService";
 import { ICountry } from "../types/country";
 import ConfirmLeaveDialog from "./ConfirmLeaveDialog";
-import { useSetRecoilState } from "recoil";
-import { selectedCountryState } from "../state/atoms";
 import { useUpdateCountry } from "../hooks/mutations/useCountryMutation";
 import { countryValidationSchema } from "../validation/countryValidation";
+import {  useSetRecoilState } from "recoil";
+import { selectedCountryState } from "../state/atoms";
 
 const EditCountryForm: React.FC = () => {
   const [country, setCountry] = useState<ICountry | null>(null);
@@ -39,24 +39,24 @@ const EditCountryForm: React.FC = () => {
   const handleEditSubmit = (country: ICountry) => {
     updateCountryMutation(country);
     setSelectedCountryState(null);
-    navigate("/home");
+    navigate(-1);
   };
   const handleCancel = () => {
     if (isFormModified) {
       setOpenModal(true);
     } else {
       setSelectedCountryState(null);
-      navigate("/home");
+      navigate(-1);
     }
   };
   const handleConfirmCancel = () => {
     setOpenModal(false);
     setSelectedCountryState(null);
-    navigate("/home");
+    navigate(-1);
   };
   const handleGoBack = () => {
     setSelectedCountryState(null);
-    navigate("/home");
+    navigate(-1);
   };
   const handleCloseModal = () => setOpenModal(false);
   return (

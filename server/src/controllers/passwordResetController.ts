@@ -11,7 +11,6 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
     res.status(400).json({ message: "Email is required." });
     return;
   }
-
   try {
     await sendPasswordResetEmail(email);
     res.status(200).json({ message: "Password reset email sent." });

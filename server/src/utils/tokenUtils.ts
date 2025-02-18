@@ -1,5 +1,7 @@
 import jwt from "jsonwebtoken";
 import { IUser } from "../types/user";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const generateToken = (user: IUser): string => {
   const payload = {
@@ -12,9 +14,9 @@ export const generateToken = (user: IUser): string => {
   if (!secret) {
     throw new Error("JWT_SECRET is not defined in environment variables");
   }
-
-  const expiresIn = parseInt(process.env.JWT_EXPIRES_IN || "3600");
+  const expiresIn = process.env.JWT_EXPIRES_IN
+    ? eval(process.env.JWT_EXPIRES_IN)
+    : 7 * 24 * 60 * 60 * 1000;
 
   return jwt.sign(payload, secret, { expiresIn });
 };
-

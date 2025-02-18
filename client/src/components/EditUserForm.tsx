@@ -8,6 +8,9 @@ import ConfirmLeaveDialog from "./ConfirmLeaveDialog";
 import { useUpdateUser } from "../hooks/mutations/useUserMutation";
 import { userValidationSchema } from "../validation/userValidation";
 import { getUserById } from "../services/userServices";
+import { useRecoilValue } from "recoil";
+import { userAccessLevelState } from "../state/atoms";
+import { AccessLevel } from "../types/accessLevel";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -21,6 +24,7 @@ const EditUserForm: React.FC = () => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isFormModified, setIsFormModified] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const userAccessLevel = useRecoilValue(userAccessLevelState);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -52,21 +56,37 @@ const EditUserForm: React.FC = () => {
       formData.append("profileImage", values.profileImage);
     }
     updateUserMutation(formData);
-    navigate("/home");
+    if (userAccessLevel === AccessLevel.ADMIN) {
+      navigate("/admin");
+    } else {
+      navigate("/home");
+    }
   };
   const handleCancel = () => {
     if (isFormModified) {
       setOpenModal(true);
     } else {
-      navigate("/home");
+      if (userAccessLevel === AccessLevel.ADMIN) {
+        navigate("/admin");
+      } else {
+        navigate("/home");
+      }
     }
   };
   const handleConfirmCancel = () => {
     setOpenModal(false);
-    navigate("/home");
+    if (userAccessLevel === AccessLevel.ADMIN) {
+      navigate("/admin");
+    } else {
+      navigate("/home");
+    }
   };
   const handleGoBack = () => {
-    navigate("/home");
+    if (userAccessLevel === AccessLevel.ADMIN) {
+      navigate("/admin");
+    } else {
+      navigate("/home");
+    }
   };
   const handleCloseModal = () => setOpenModal(false);
 
@@ -99,10 +119,7 @@ const EditUserForm: React.FC = () => {
           onSubmit={handleEditSubmit}
         >
           {({ values, handleChange, handleBlur, dirty, errors, touched }) => {
-            console.log("Form Values:", values);
-            console.log("Form Errors:", errors);
-            console.log("Is Form Dirty?", dirty);
-            setIsFormModified(dirty|| selectedImage !== null);
+            setIsFormModified(dirty || selectedImage !== null);
 
             return (
               <Form>

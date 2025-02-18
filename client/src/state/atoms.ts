@@ -9,12 +9,9 @@ export const selectedCountryState = atom<ICountry | null>({
   key: "selectedCountryState",
   default: null,
 });
-export const userState = atom({
-  key: 'userState', 
-  default: {
-    username: '',
-    profileImage: '',
-  }, 
+export const userAccessLevelState = atom({
+  key: 'userAccessLevelState', 
+  default: 1, 
 });
 
 

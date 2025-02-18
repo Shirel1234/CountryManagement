@@ -10,7 +10,6 @@ import {
 } from "../services/countryService";
 import { handleValidationError } from "../utils/errorUtils";
 
-//Get all countries
 export const getCountries = async (req: Request, res: Response) => {
   try {
     const countries = await fetchCountries();
@@ -19,7 +18,7 @@ export const getCountries = async (req: Request, res: Response) => {
     handleValidationError(error, res, "Error fetching countries data.");
   }
 };
-// Get a single country by ID
+
 export const getCountryById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -33,7 +32,7 @@ export const getCountryById = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error fetching country data", error });
   }
 };
-// Create a new country
+
 export const createCountry = async (req: Request, res: Response) => {
   try {
     const createData = req.body;
@@ -43,7 +42,7 @@ export const createCountry = async (req: Request, res: Response) => {
     handleValidationError(error, res, "Failed to create country");
   }
 };
-// Update a country by ID
+
 export const updateCountry = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -54,7 +53,7 @@ export const updateCountry = async (req: Request, res: Response) => {
     handleValidationError(error, res, "Failed to update country");
   }
 };
-// Delete a country by ID
+
 export const deleteCountry = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -68,7 +67,7 @@ export const deleteCountry = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Failed to delete country", error });
   }
 };
-// Add city to country
+
 export const addCity = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -79,7 +78,7 @@ export const addCity = async (req: Request, res: Response) => {
     handleValidationError(error, res, "Failed to add city");
   }
 };
-// Remove city from country
+
 export const removeCity = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;

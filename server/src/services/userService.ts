@@ -17,7 +17,7 @@ export const fetchUserById = async (id: string) => {
   try {
     const user = await User.findById(id);
     if (!user) {
-      logger.error("User not found with the provided ID:", id);
+      logger.warn("User not found with the provided ID:", id);
       return null;
     }
     return user;

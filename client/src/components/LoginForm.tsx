@@ -5,14 +5,19 @@ import { loginUser } from "../services/authService";
 import { showErrorToast, showSuccessToast } from "./Toast";
 import { useSetRecoilState } from "recoil";
 import { isLoggedInState } from "../state/atoms";
+import { userAccessLevelState } from "../state/atoms";
 import { useNavigate } from "react-router-dom";
 import ForgotPasswordDialog from "./ForgotPasswordDialog";
+import { jwtDecode } from "jwt-decode";
+import { AccessLevel } from "../types/accessLevel";
 
 const LoginForm = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+  const setUserAccessLevelState = useSetRecoilState(userAccessLevelState);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -21,7 +26,14 @@ const LoginForm = () => {
       const { token } = await loginUser(username, password);
       console.log("Login successful. Token:", token);
       setIsLoggedIn(true);
-      navigate("/home");
+      const decodedToken = jwtDecode<{ accessLevel: number }>(token);
+      const accessLevel = decodedToken.accessLevel;
+      setUserAccessLevelState(accessLevel);
+      if (accessLevel === AccessLevel.ADMIN) {
+        navigate("/admin");
+      } else {
+        navigate("/home");
+      }
       showSuccessToast("Login successful! Welcome back!");
     } catch (error) {
       console.error(`Login failed: ${(error as Error).message}`);

@@ -9,9 +9,9 @@
       "rootDir": "./src", 
       "resolveJsonModule": true, 
       "types": ["jest", "node"],
-      "typeRoots": ["node_modules/@types"]
+      "typeRoots": ["./src/types", "node_modules/@types"]
     },
-    "include": ["src/**/*"],
+    "include": ["src/**/*", "src/types/**/*.d.ts"],
     "exclude": ["node_modules"]
   }
   

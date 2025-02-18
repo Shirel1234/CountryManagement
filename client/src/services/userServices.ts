@@ -15,6 +15,7 @@ export const fetchUsers = async (): Promise<IUser[]> => {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     });
     return response.data;
   } catch (error) {
@@ -32,6 +33,7 @@ export const getUserById = async (id: string | undefined): Promise<IUser> => {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     });
     return response.data;
   } catch (error) {
@@ -40,14 +42,13 @@ export const getUserById = async (id: string | undefined): Promise<IUser> => {
   }
 };
 // Add a new user
-export const addUser = async (
-  newUser: Omit<IUser, "_id" | "accessLevel">
-): Promise<IUser> => {
+export const addUser = async (newUser: Omit<IUser, "_id">): Promise<IUser> => {
   try {
     const response = await axios.post(`${BASE_URL}/api/users`, newUser, {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     });
     return response.data;
   } catch (error) {
@@ -68,6 +69,7 @@ export const updateUser = async (
       headers: {
         "Content-Type": "multipart/form-data",
       },
+      withCredentials: true,
     });
     return response.data;
   } catch (error) {
@@ -82,6 +84,7 @@ export const deleteUser = async (id: string): Promise<void> => {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     });
   } catch (error) {
     console.error(`Error deleting user: ${error}`);

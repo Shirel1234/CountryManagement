@@ -1,24 +1,25 @@
 import { useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import {
-  Paper,
-  Button,
-} from "@mui/material";
+import { Paper, Button, Box, IconButton } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import "../styles/AdminDashboard.scss";
 import { IUser } from "../types/user";
 import { useFetchUsers } from "../hooks/queries/useUsersQuery";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
-import { useDeleteUser } from "../hooks/mutations/useUserMutation";
+import { useAddUser, useDeleteUser } from "../hooks/mutations/useUserMutation";
 import { useNavigate } from "react-router-dom";
+import AddUserDialog from "./AddUserDialog";
 
 const AdminDashboard = () => {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
   const navigate = useNavigate();
 
   const { data: users, isLoading } = useFetchUsers();
-  // const { mutate: addUserMutation } = useAddCountry();
+  const { mutate: addUserMutation } = useAddUser();
   const { mutate: deleteUserMutation } = useDeleteUser();
+
   const handleEditClick = (user: IUser) => {
     setTimeout(() => {
       navigate(`/edit-user/${user._id}`);
@@ -33,6 +34,11 @@ const AdminDashboard = () => {
       deleteUserMutation(selectedUser._id);
       setDeleteConfirmOpen(false);
     }
+  };
+  const handleAddUser = (newUser: Omit<IUser, "_id">) => {
+    console.log("Adding user:", newUser);
+    addUserMutation(newUser);
+    setAddDialogOpen(false);
   };
 
   const columns: GridColDef[] = [
@@ -73,6 +79,20 @@ const AdminDashboard = () => {
           loading={isLoading}
           pageSizeOptions={[5, 10, 25]}
           disableRowSelectionOnClick
+        />
+        <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
+          <IconButton
+            color="primary"
+            onClick={() => setAddDialogOpen(true)}
+            data-testid="add-button"
+          >
+            <AddIcon />
+          </IconButton>
+        </Box>
+        <AddUserDialog
+          open={addDialogOpen}
+          onClose={() => setAddDialogOpen(false)}
+          onAdd={handleAddUser}
         />
         <DeleteConfirmDialog
           open={deleteConfirmOpen}

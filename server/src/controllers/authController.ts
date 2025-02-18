@@ -23,7 +23,7 @@ export const login = async (req: Request, res: Response) => {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
           sameSite: "strict",
-          maxAge: 3600000,
+          maxAge: 7 * 24 * 60 * 60 * 1000,
         })
         .status(200)
         .json({
@@ -42,7 +42,6 @@ export const login = async (req: Request, res: Response) => {
 export const register = async (req: Request, res: Response) => {
   try {
     const profileImage = req.file ? req.file.filename : null;
-
     const { username, email, firstName, lastName, password, phone } = req.body;
 
     if (!username || !email || !password) {
@@ -67,7 +66,7 @@ export const register = async (req: Request, res: Response) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 3600000,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(200).json({

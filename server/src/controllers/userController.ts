@@ -10,7 +10,6 @@ import { handleValidationError } from "../utils/errorUtils";
 import fs from "fs";
 import path from "path";
 
-//Get all users
 export const getUsers = async (req: Request, res: Response) => {
   try {
     const users = await fetchUsers();
@@ -19,7 +18,7 @@ export const getUsers = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error fetching users data." });
   }
 };
-// Get a single user by ID
+
 export const getUserById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -33,7 +32,7 @@ export const getUserById = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error fetching user data", error });
   }
 };
-// Create a new user
+
 export const createUser = async (req: Request, res: Response) => {
   try {
     const createData = req.body;
@@ -49,7 +48,7 @@ export const createUser = async (req: Request, res: Response) => {
     handleValidationError(error, res, "Failed to create user");
   }
 };
-// Update a user by ID
+
 export const updateUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -63,7 +62,11 @@ export const updateUser = async (req: Request, res: Response) => {
     let profileImage = existingUser.profileImage;
     if (req.file) {
       if (profileImage) {
-        const oldImagePath = path.join(__dirname, "../uploads", profileImage);
+        const oldImagePath = path.join(
+          __dirname,
+          "../public/uploads",
+          profileImage
+        );
         if (fs.existsSync(oldImagePath)) {
           fs.unlinkSync(oldImagePath);
         }
@@ -82,7 +85,7 @@ export const updateUser = async (req: Request, res: Response) => {
     handleValidationError(error, res, "Failed to update user");
   }
 };
-// Delete a user by ID
+
 export const deleteUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;

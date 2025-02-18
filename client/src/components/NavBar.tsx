@@ -12,7 +12,7 @@ import {
   List,
   ListItem,
 } from "@mui/material";
-import { AccountCircle, Logout } from "@mui/icons-material";
+import { AccountCircle, AdminPanelSettings, Logout } from "@mui/icons-material";
 import "../styles/NavBar.scss";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -113,6 +113,15 @@ const NavBar: React.FC = () => {
                     <AccountCircle sx={{ marginRight: 1 }} />
                     <Typography variant="body2" className="popup-text">
                       Update Profile
+                    </Typography>
+                  </ListItem>
+                  <ListItem
+                    component={Link}
+                    to={`/request-access/${user?.myId}`}
+                  >
+                    <AdminPanelSettings sx={{ marginRight: 1 }} />{" "}
+                    <Typography variant="body2" className="popup-text">
+                      Request Access
                     </Typography>
                   </ListItem>
                   <ListItem onClick={handleLogout}>

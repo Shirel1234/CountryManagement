@@ -4,12 +4,14 @@ import countryRoutes from "./routes/countryRoutes";
 import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
 import passwordResetRoutes from "./routes/passwordResetRoutes";
+import requestAccessRoutes from "./routes/requestAccessRoutes";
 import connect from "./lib/db/mongodb";
 import path from "path";
 import cors from "cors";
 import xssClean from "xss-clean";
 import mongoSanitize from "express-mongo-sanitize";
 import logger from "./utils/logger";
+import cookieParser from 'cookie-parser';
 
 // Load environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, "../src/config/.env") });
@@ -30,6 +32,8 @@ app.use(
 // Middleware for parsing JSON bodies
 app.use(express.json());
 
+app.use(cookieParser());
+
 // Use SQL Injection Middleware
 app.use(mongoSanitize());
 
@@ -37,12 +41,13 @@ app.use(mongoSanitize());
 app.use(xssClean());
 
 // Serve the uploaded images statically
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "../public/uploads")));
 
 app.use("/api", countryRoutes);
 app.use("/api", userRoutes);
 app.use("/auth", authRoutes);
 app.use("/api", passwordResetRoutes);
+app.use("/api", requestAccessRoutes);
 
 // Start the server only if this file is run directly
 const startServer = async () => {

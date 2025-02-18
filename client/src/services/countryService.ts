@@ -1,7 +1,6 @@
 import axios from "axios";
 import { ICountry } from "../types/country";
 
-// Use the VITE_BASE_URL environment variable
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 if (!BASE_URL) {
@@ -14,6 +13,7 @@ export const fetchCountries = async (): Promise<ICountry[]> => {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     });
     return response.data;
   } catch (error) {
@@ -27,6 +27,7 @@ export const deleteCountry = async (id: string): Promise<void> => {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     });
   } catch (error) {
     console.error(`Error fetching country: ${error}`);
@@ -44,6 +45,7 @@ export const getCountryById = async (
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     });
     return response.data;
   } catch (error) {
@@ -63,6 +65,7 @@ export const updateCountry = async (
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       }
     );
     return response.data;
@@ -79,6 +82,7 @@ export const addCountry = async (
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     });
     return response.data;
   } catch (error) {
