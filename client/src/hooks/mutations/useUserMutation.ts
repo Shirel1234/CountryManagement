@@ -51,7 +51,7 @@ export const useRegisterUser = () => {
 
   return registerMutation;
 };
-export const useUpdateUser = (id: string | undefined) => {
+export const useUpdateUser = (id: string | null) => {
   const queryClient = useQueryClient();
 
   const updateMutation = useMutation<IUser, Error, FormData>({

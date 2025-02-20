@@ -8,15 +8,24 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
 } from "@mui/material";
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "../styles/RequestAccess.scss";
 import { useAddRequestAccess } from "../hooks/mutations/useRequestMutation";
+import { useFetchRequests } from "../hooks/queries/useRequestsQuery";
+import Loader from "./Loader";
 
 const requestOptions = [
-  { id: "add", label: "Request to Add", icon: <AdminPanelSettingsIcon /> },
+  { id: "add", label: "Request to Add", icon: <AddIcon /> },
   { id: "update", label: "Request to Update", icon: <EditIcon /> },
   { id: "delete", label: "Request to Delete", icon: <DeleteIcon /> },
 ];
@@ -26,6 +35,7 @@ const RequestAccess = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { mutate: addRequestAccessMutation } = useAddRequestAccess();
+  const { data: userRequests, isLoading } = useFetchRequests();
 
   const handleRequestClick = (requestId: string) => {
     setSelectedRequest(requestId);
@@ -70,6 +80,45 @@ const RequestAccess = () => {
           </Button>
         </CardContent>
       </Card>
+      <Paper className="user-requests">
+        <Typography variant="h6" className="request-history-title">
+          Request History
+        </Typography>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Action</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Request Date</TableCell>
+                <TableCell>Update Date</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {isLoading ? (
+                <TableRow>
+                  <TableCell colSpan={3} align="center">
+                    <Loader />
+                  </TableCell>
+                </TableRow>
+              ) : (
+                userRequests?.map((request) => (
+                  <TableRow key={request._id}>
+                    <TableCell>{request.action}</TableCell>
+                    <TableCell>{request.status}</TableCell>
+                    <TableCell>
+                      {new Date(request.createdAt).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell>
+                      {new Date(request.updatedAt).toLocaleDateString()}
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
     </div>
   );
 };

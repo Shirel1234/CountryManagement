@@ -1,0 +1,53 @@
+.manage-requests {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+
+  .title {
+    color: #333;
+  }
+
+  .table-container {
+    width: 80%;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .MuiTableCell-root {
+    font-size: 1rem;
+  }
+
+  .status-pending {
+    color: orange;
+    font-weight: bold;
+  }
+
+  .status-approved {
+    color: green;
+    font-weight: bold;
+  }
+
+  .status-denied {
+    color: red;
+    font-weight: bold;
+  }
+
+  .action-add {
+    color: blue;
+  }
+
+  .action-update {
+    color: purple;
+  }
+
+  .action-delete {
+    color: crimson;
+  }
+
+  .MuiButton-root {
+    margin: 0 5px;
+    text-transform: none;
+  }
+}

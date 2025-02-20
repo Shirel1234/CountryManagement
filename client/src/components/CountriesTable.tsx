@@ -15,7 +15,10 @@ import { selectedCountryState } from "../state/atoms";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
 import { Tooltip } from "@mui/material";
 import "../styles/CountriesTable.scss";
-import { useAddCountry, useDeleteCountry } from "../hooks/mutations/useCountryMutation";
+import {
+  useAddCountry,
+  useDeleteCountry,
+} from "../hooks/mutations/useCountryMutation";
 
 const CountriesTable: React.FC = () => {
   const navigate = useNavigate();
@@ -172,6 +175,7 @@ const CountriesTable: React.FC = () => {
 
   return (
     <div data-testid="countries-table">
+      <h2>Countries</h2>
       <Box sx={{ height: 700, width: "100%" }}>
         <DataGrid
           rows={countries || []}

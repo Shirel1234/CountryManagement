@@ -8,7 +8,6 @@ if (!BASE_URL) {
   throw new Error("VITE_BASE_URL is not defined in the environment variables");
 }
 
-// Fetch all users
 export const fetchUsers = async (): Promise<IUser[]> => {
   try {
     const response = await axios.get(`${BASE_URL}/api/users`, {
@@ -23,7 +22,6 @@ export const fetchUsers = async (): Promise<IUser[]> => {
     throw error;
   }
 };
-// Get a user by ID
 export const getUserById = async (id: string | undefined): Promise<IUser> => {
   if (!id) {
     throw new Error("User ID is required");
@@ -41,7 +39,6 @@ export const getUserById = async (id: string | undefined): Promise<IUser> => {
     throw error;
   }
 };
-// Add a new user
 export const addUser = async (newUser: Omit<IUser, "_id">): Promise<IUser> => {
   try {
     const response = await axios.post(`${BASE_URL}/api/users`, newUser, {
@@ -56,9 +53,8 @@ export const addUser = async (newUser: Omit<IUser, "_id">): Promise<IUser> => {
     throw error;
   }
 };
-// Update user data
 export const updateUser = async (
-  id: string | undefined,
+  id: string | null,
   formData: FormData
 ): Promise<IUser> => {
   if (!id) {
@@ -77,7 +73,6 @@ export const updateUser = async (
     throw error;
   }
 };
-// Delete a user by ID
 export const deleteUser = async (id: string): Promise<void> => {
   try {
     await axios.delete(`${BASE_URL}/api/users/${id}`, {

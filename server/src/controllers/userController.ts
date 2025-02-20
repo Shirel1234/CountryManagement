@@ -52,9 +52,11 @@ export const createUser = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    console.log("Received ID in request params:", id);
     const { firstName, lastName, phone } = req.body;
 
     const existingUser = await fetchUserById(id);
+    console.log("userrrrr", existingUser);
     if (!existingUser) {
       res.status(404).json({ message: "User not found." });
       return;
