@@ -2412,3 +2412,11 @@
 2025-02-20 15:30:56 [[32minfo[39m]: Fetched 6 requests.
 2025-02-20 15:46:40 [[32minfo[39m]: Fetched 6 requests.
 2025-02-20 16:24:06 [[32minfo[39m]: Fetched 6 requests.
+2025-02-20 16:35:42 [[32minfo[39m]: Fetched 6 requests.
+2025-02-20 16:51:39 [[32minfo[39m]: Fetched 6 requests.
+2025-02-20 16:52:26 [[32minfo[39m]: Fetched 6 requests.
+2025-02-20 16:52:29 [[32minfo[39m]: Access granted.
+2025-02-20 16:52:29 [[32minfo[39m]: Request 67b48cf8c94577485a08da93 updated to status: denied
+2025-02-20 16:52:29 [[32minfo[39m]: Access granted.
+2025-02-20 16:52:29 [[31merror[39m]: Error fetching user by ID: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "User"
+2025-02-20 16:52:30 [[32minfo[39m]: Fetched 6 requests.
