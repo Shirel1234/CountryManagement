@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 import bcrypt from "bcrypt";
 import { IUser } from "../../types/user";
+import { AccessLevel } from "../../types/accessLevel";
 
 // Define the User schema
 const UserSchema: Schema = new Schema(
@@ -65,8 +66,8 @@ const UserSchema: Schema = new Schema(
     accessLevel: {
       type: Number,
       required: true,
-      enum: [1, 2, 3],
-      default: 2,
+      enum:  Object.values(AccessLevel).filter((v) => typeof v === "number"),
+      default: AccessLevel.VIEWER,
     },
   },
   {

@@ -28,7 +28,7 @@ const EditUserForm: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const { mutate: updateUserMutation } = useUpdateUser(id);
+  const { mutate: updateUserMutation } = useUpdateUser(null);
 
   useEffect(() => {
     const fetchuser = async () => {
@@ -55,7 +55,7 @@ const EditUserForm: React.FC = () => {
     } else if (values.profileImage) {
       formData.append("profileImage", values.profileImage);
     }
-    updateUserMutation(formData);
+    updateUserMutation({id: id ?? "", formData});
     if (userAccessLevel === AccessLevel.ADMIN) {
       navigate("/admin");
     } else {
