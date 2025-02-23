@@ -56,7 +56,6 @@ const AddUserDialog: React.FC<AddUserDialogProps> = ({
   });
 
   const handleClose = () => {
-    console.log("sveufvyvqfoaw");
     formik.resetForm();
     onClose();
   };

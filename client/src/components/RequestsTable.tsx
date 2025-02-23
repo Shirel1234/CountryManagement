@@ -4,22 +4,36 @@ import { useFetchRequests } from "../hooks/queries/useRequestsQuery";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useUpdateRequest } from "../hooks/mutations/useRequestMutation";
 import { useState } from "react";
+import { mapActionToAccessLevel } from "../utils/accessUtils";
+import { useUpdateUser } from "../hooks/mutations/useUserMutation";
 
 const RequestsTable = () => {
-  const [id, setId] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string | null>(null);
+  const [idRequest, setIdRequest] = useState<string | null>(null);
+  // const [idUser, setIdUser] = useState<string | null>(null);
   const [filter, setFilter] = useState("all");
   const { data: requests, isLoading } = useFetchRequests();
-  const { mutate: updateRequestMutation } = useUpdateRequest(id, userId);
+  const { mutate: updateRequestMutation } = useUpdateRequest(idRequest);
+  const { mutate: updateUserMutation } = useUpdateUser();
 
   const handleAction = (
     id: string,
     userId: string,
+    action: "add" | "update" | "delete",
     status: "approved" | "denied"
   ) => {
-    setId(id);
-    setUserId(userId);
+    setIdRequest(id);
+    // setIdUser(userId);
+    console.log("idUser:", userId, "status:", status, "action:", action);
     updateRequestMutation({ id, status });
+    if (status === "approved") {
+      const formData = new FormData();
+
+      const newAccessLevel = mapActionToAccessLevel(action);
+      console.log("newAccessLevel: ", newAccessLevel);
+      formData.append("accessLevel", newAccessLevel.toString());
+
+      updateUserMutation({ id: userId, formData });
+    }
   };
 
   const handleFilterChange = (
@@ -69,7 +83,12 @@ const RequestsTable = () => {
                 color="success"
                 size="small"
                 onClick={() =>
-                  handleAction(params.row._id, params.row.userId, "approved")
+                  handleAction(
+                    params.row._id,
+                    params.row.userId._id,
+                    params.row.action,
+                    "approved"
+                  )
                 }
               >
                 Approve
@@ -79,7 +98,12 @@ const RequestsTable = () => {
                 color="error"
                 size="small"
                 onClick={() =>
-                  handleAction(params.row._id, params.row.userId, "denied")
+                  handleAction(
+                    params.row._id,
+                    params.row.userId._id,
+                    params.row.action,
+                    "denied"
+                  )
                 }
               >
                 Deny

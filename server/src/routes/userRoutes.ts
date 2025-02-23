@@ -18,6 +18,6 @@ router.use(authenticateToken);
 router.get("/users", checkAccessLevel(AccessLevel.VIEWER), getUsers);
 router.get("/users/:id", checkAccessLevel(AccessLevel.VIEWER), getUserById);
 router.post("/users", checkAccessLevel(AccessLevel.ADMIN), upload.single("profileImage"), createUser);
-router.put("/users/:id", checkAccessLevel(AccessLevel.ADMIN), upload.single("profileImage"), updateUser);
+router.put("/users/:id", checkAccessLevel(AccessLevel.UPDATE), upload.single("profileImage"), updateUser);
 router.delete("/users/:id", checkAccessLevel(AccessLevel.ADMIN),  deleteUser);
 export default router;

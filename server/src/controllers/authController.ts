@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { authenticateUser, registerUser } from "../services/authService";
 import { IUser } from "../types/user";
+import { AccessLevel } from "../types/accessLevel";
 
 export const login = async (req: Request, res: Response) => {
   const { username, password } = req.body;

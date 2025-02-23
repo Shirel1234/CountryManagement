@@ -5,7 +5,6 @@ import {
   updateRequest,
 } from "../../services/requestAccessService";
 import { showErrorToast, showSuccessToast } from "../../components/Toast";
-import { useUpdateUser } from "./useUserMutation";
 
 export const useAddRequestAccess = () => {
   const queryClient = useQueryClient();
@@ -32,10 +31,8 @@ export const useAddRequestAccess = () => {
   return addMutation;
 };
 
-export const useUpdateRequest = (id: string| null, userId: string| null ) => {
+export const useUpdateRequest = (id: string| null ) => {
   const queryClient = useQueryClient();
-  const { mutate: updateUserMutation } = useUpdateUser(userId);
-
 
   const updateMutation = useMutation<
     IRequestAccess,
@@ -58,15 +55,9 @@ export const useUpdateRequest = (id: string| null, userId: string| null ) => {
       );
 
       queryClient.invalidateQueries({ queryKey: ["requests"] });
-      //update the user's status
-      console.log("Updating User ID:", userId);
 
-      const formData = new FormData();
-      formData.append("status", updatedRequest.status);
-      updateUserMutation( formData);
-
-      console.log("Request and User updated successfully!");
-      showSuccessToast("Request and User updated successfully!");
+      console.log("Request updated successfully!");
+      showSuccessToast("Request updated successfully!");
     },
     onError: (error) => {
       console.error(

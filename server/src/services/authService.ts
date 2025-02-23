@@ -49,6 +49,7 @@ export const registerUser = async (
   myProfileImage: string;
 } | null> => {
   try {
+    
     const newUser = new User(createData);
     await newUser.save();
 

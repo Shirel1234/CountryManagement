@@ -34,6 +34,7 @@ export const useRegisterUser = () => {
 
   const registerMutation = useMutation<{ token: string }, Error, FormData>({
     mutationFn: (formData: FormData) => {
+      console.log("aaaaaaaa", formData)
       return registerUser(formData);
     },
     onSuccess: (newUser) => {
@@ -51,11 +52,11 @@ export const useRegisterUser = () => {
 
   return registerMutation;
 };
-export const useUpdateUser = (id: string | null) => {
+export const useUpdateUser = () => {
   const queryClient = useQueryClient();
 
-  const updateMutation = useMutation<IUser, Error, FormData>({
-    mutationFn: (formData: FormData) => updateUser(id, formData),
+  const updateMutation = useMutation<IUser, Error, {id: string; formData: FormData}>({
+    mutationFn: ({id, formData}) => updateUser(id, formData),
     onSuccess: (updatedUser) => {
       queryClient.setQueryData(["users"], (oldData: IUser[] | undefined) => {
         return oldData

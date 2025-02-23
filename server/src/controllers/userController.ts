@@ -9,6 +9,7 @@ import {
 import { handleValidationError } from "../utils/errorUtils";
 import fs from "fs";
 import path from "path";
+import { AccessLevel } from "../types/accessLevel";
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
@@ -52,11 +53,9 @@ export const createUser = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    console.log("Received ID in request params:", id);
-    const { firstName, lastName, phone } = req.body;
+    const { firstName, lastName, phone, accessLevel } = req.body;
 
     const existingUser = await fetchUserById(id);
-    console.log("userrrrr", existingUser);
     if (!existingUser) {
       res.status(404).json({ message: "User not found." });
       return;
@@ -75,11 +74,23 @@ export const updateUser = async (req: Request, res: Response) => {
       }
       profileImage = req.file.filename;
     }
+
+    let updatedAccessLevel = existingUser.accessLevel;
+    if (accessLevel !== undefined) {
+      const numericAccessLevel = Number(accessLevel);
+      if (!Object.values(AccessLevel).includes(numericAccessLevel)) {
+        res.status(400).json({ message: "Invalid access level." });
+        return;
+      }
+      updatedAccessLevel = numericAccessLevel;
+    }
+
     const updatedData = {
       firstName,
       lastName,
       phone,
       profileImage,
+      accessLevel: updatedAccessLevel,
     };
     const updatedUser = await modifyUser(id, updatedData);
     res.status(200).json(updatedUser);

@@ -2420,9 +2420,3 @@
 2025-02-20 16:52:29 [[32minfo[39m]: Access granted.
 2025-02-20 16:52:29 [[31merror[39m]: Error fetching user by ID: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "User"
 2025-02-20 16:52:30 [[32minfo[39m]: Fetched 6 requests.
-2025-02-20 16:54:39 [[32minfo[39m]: Connecting to MongoDB...
-2025-02-20 16:54:40 [[32minfo[39m]: Mongodb connection saccessfull !!!
-2025-02-20 16:54:41 [[32minfo[39m]: Countries data already exists in the database!
-2025-02-20 16:54:41 [[32minfo[39m]: Initial country data fetched and stored.
-2025-02-20 16:54:41 [[32minfo[39m]: Server is running on http://localhost:5000
-2025-02-20 16:54:41 [[32minfo[39m]: Fetched 6 requests.

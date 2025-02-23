@@ -22,7 +22,7 @@ export const fetchUsers = async (): Promise<IUser[]> => {
     throw error;
   }
 };
-export const getUserById = async (id: string | undefined): Promise<IUser> => {
+export const getUserById = async (id: string | null): Promise<IUser> => {
   if (!id) {
     throw new Error("User ID is required");
   }
