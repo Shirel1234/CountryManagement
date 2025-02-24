@@ -2695,3 +2695,13 @@
 2025-02-23 15:35:06 [[32minfo[39m]: Countries data already exists in the database!
 2025-02-23 15:35:06 [[32minfo[39m]: Initial country data fetched and stored.
 2025-02-23 15:35:06 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-24 08:52:19 [[32minfo[39m]: Connecting to MongoDB...
+2025-02-24 08:52:21 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-02-24 08:52:21 [[32minfo[39m]: Countries data already exists in the database!
+2025-02-24 08:52:21 [[32minfo[39m]: Initial country data fetched and stored.
+2025-02-24 08:52:21 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-02-24 08:52:43 [[33mwarn[39m]: Invalid username or password.
+2025-02-24 08:52:50 [[33mwarn[39m]: Invalid username or password.
+2025-02-24 08:52:51 [[33mwarn[39m]: Invalid username or password.
+2025-02-24 08:52:52 [[33mwarn[39m]: Invalid username or password.
+2025-02-24 08:52:53 [[33mwarn[39m]: Invalid username or password.
