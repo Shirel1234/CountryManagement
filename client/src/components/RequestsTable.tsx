@@ -6,14 +6,15 @@ import { useUpdateRequest } from "../hooks/mutations/useRequestMutation";
 import { useState } from "react";
 import { mapActionToAccessLevel } from "../utils/accessUtils";
 import { useUpdateUser } from "../hooks/mutations/useUserMutation";
+import { useNavigate } from "react-router-dom";
 
 const RequestsTable = () => {
   const [idRequest, setIdRequest] = useState<string | null>(null);
-  // const [idUser, setIdUser] = useState<string | null>(null);
   const [filter, setFilter] = useState("all");
   const { data: requests, isLoading } = useFetchRequests();
   const { mutate: updateRequestMutation } = useUpdateRequest(idRequest);
   const { mutate: updateUserMutation } = useUpdateUser();
+  const navigate = useNavigate();
 
   const handleAction = (
     id: string,
@@ -22,25 +23,25 @@ const RequestsTable = () => {
     status: "approved" | "denied"
   ) => {
     setIdRequest(id);
-    // setIdUser(userId);
     console.log("idUser:", userId, "status:", status, "action:", action);
     updateRequestMutation({ id, status });
     if (status === "approved") {
       const formData = new FormData();
 
       const newAccessLevel = mapActionToAccessLevel(action);
-      console.log("newAccessLevel: ", newAccessLevel);
       formData.append("accessLevel", newAccessLevel.toString());
 
       updateUserMutation({ id: userId, formData });
     }
   };
-
   const handleFilterChange = (
     _event: React.SyntheticEvent,
     newValue: string
   ) => {
     setFilter(newValue);
+  };
+  const handleGoBack = () => {
+    navigate(-1);
   };
 
   const filteredRequests =
@@ -118,6 +119,9 @@ const RequestsTable = () => {
 
   return (
     <div className="manage-requests">
+      <button className="go-back-button" onClick={handleGoBack}>
+        ← Go Back
+      </button>
       <Typography variant="h4" className="title">
         Manage Requests
       </Typography>

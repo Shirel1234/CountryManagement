@@ -1,91 +1,72 @@
 import { Request, Response } from "express";
 import {
-  addCityToCountry,
   fetchCountries,
   fetchCountryById,
   modifyCountry,
-  removeCityFromCountry,
   removeCountry,
   saveCountry,
 } from "../services/countryService";
 import { handleValidationError } from "../utils/errorUtils";
+import { COUNTRY_MESSAGES, HTTP_STATUS_CODES } from "../constants";
 
 export const getCountries = async (req: Request, res: Response) => {
   try {
     const countries = await fetchCountries();
-    res.status(200).json(countries);
+    res.status(HTTP_STATUS_CODES.OK).json(countries);
   } catch (error) {
-    handleValidationError(error, res, "Error fetching countries data.");
+    handleValidationError(error, res, COUNTRY_MESSAGES.FETCH_ERROR);
   }
 };
-
 export const getCountryById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const country = await fetchCountryById(id);
     if (!country) {
-      res.status(404).json({ error: "Country not found" });
+      res
+        .status(HTTP_STATUS_CODES.NOT_FOUND)
+        .json({ error: COUNTRY_MESSAGES.NOT_FOUND });
     } else {
-      res.status(200).json(country);
+      res.status(HTTP_STATUS_CODES.OK).json(country);
     }
   } catch (error) {
-    res.status(500).json({ message: "Error fetching country data", error });
+    res
+      .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+      .json({ message: COUNTRY_MESSAGES.FETCH_BY_ID_ERROR, error });
   }
 };
-
 export const createCountry = async (req: Request, res: Response) => {
   try {
     const createData = req.body;
     const country = await saveCountry(createData);
-    res.status(201).json(country);
+    res.status(HTTP_STATUS_CODES.CREATED).json(country);
   } catch (error) {
-    handleValidationError(error, res, "Failed to create country");
+    handleValidationError(error, res, COUNTRY_MESSAGES.CREATE_ERROR);
   }
 };
-
 export const updateCountry = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const updatedData = req.body;
     const country = await modifyCountry(id, updatedData);
-    res.status(200).json(country);
+    res.status(HTTP_STATUS_CODES.OK).json(country);
   } catch (error) {
-    handleValidationError(error, res, "Failed to update country");
+    handleValidationError(error, res, COUNTRY_MESSAGES.UPDATE_ERROR);
   }
 };
-
 export const deleteCountry = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const result = await removeCountry(id);
     if (!result) {
-      res.status(404).json({ error: "Country not found" });
+      res
+        .status(HTTP_STATUS_CODES.NOT_FOUND)
+        .json({ error: COUNTRY_MESSAGES.NOT_FOUND });
     } else {
-      res.status(204).send();
+      res.status(HTTP_STATUS_CODES.NO_CONTENT).send();
     }
   } catch (error) {
-    res.status(500).json({ message: "Failed to delete country", error });
-  }
-};
-
-export const addCity = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const { city } = req.body;
-    const updatedCountry = await addCityToCountry(id, city);
-    res.status(200).json(updatedCountry);
-  } catch (error) {
-    handleValidationError(error, res, "Failed to add city");
-  }
-};
-
-export const removeCity = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const { city } = req.body;
-    const updatedCountry = await removeCityFromCountry(id, city);
-    res.status(200).json(updatedCountry);
-  } catch (error) {
-    res.status(500).json({ message: "Failed to remove city", error });
+    res
+      .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+      .json({ message: COUNTRY_MESSAGES.DELETE_ERROR, error });
   }
 };

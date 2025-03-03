@@ -10,14 +10,35 @@ import upload from "../utils/multer.ts";
 import { checkAccessLevel } from "../middleware/authorizationMiddleware";
 import { authenticateToken } from "../middleware/authenticateMiddleware";
 import { AccessLevel } from "../types/accessLevel";
+import {
+  USER_ROUTES
+} from "../constants";
 
 const router = express.Router();
 router.use(authenticateToken);
 
 // Route to get and update users data if needed
-router.get("/users", checkAccessLevel(AccessLevel.VIEWER), getUsers);
-router.get("/users/:id", checkAccessLevel(AccessLevel.VIEWER), getUserById);
-router.post("/users", checkAccessLevel(AccessLevel.ADMIN), upload.single("profileImage"), createUser);
-router.put("/users/:id", checkAccessLevel(AccessLevel.UPDATE), upload.single("profileImage"), updateUser);
-router.delete("/users/:id", checkAccessLevel(AccessLevel.ADMIN),  deleteUser);
+router.get(USER_ROUTES.GET_USERS, checkAccessLevel(AccessLevel.VIEWER), getUsers);
+router.get(
+  USER_ROUTES.GET_USER_BY_ID,
+  checkAccessLevel(AccessLevel.VIEWER),
+  getUserById
+);
+router.post(
+  USER_ROUTES.CREATE_USER,
+  checkAccessLevel(AccessLevel.ADMIN),
+  upload.single("profileImage"),
+  createUser
+);
+router.put(
+  USER_ROUTES.UPDATE_USER,
+  checkAccessLevel(AccessLevel.UPDATE),
+  upload.single("profileImage"),
+  updateUser
+);
+router.delete(
+  USER_ROUTES.DELETE_USER,
+  checkAccessLevel(AccessLevel.ADMIN),
+  deleteUser
+);
 export default router;

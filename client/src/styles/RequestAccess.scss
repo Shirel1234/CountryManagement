@@ -6,7 +6,19 @@
   background-color: #f9f9f9;
   min-height: 100vh;
 }
-
+.go-back-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; 
+  padding-bottom: 20px; 
+}
+.go-back-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #34495e;
+}
 .request-card {
   width: 400px;
   padding: 20px;

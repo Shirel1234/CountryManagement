@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { User } from "../lib/models/userModel";
 import dotenv from "dotenv";
 import logger from "../utils/logger";
+import { HTTP_STATUS_CODES } from "../constants";
 dotenv.config();
 
 export const authenticateToken = async (
@@ -10,10 +11,16 @@ export const authenticateToken = async (
   res: Response,
   next: NextFunction
 ) => {
+  if (req.originalUrl === '/api/request-password-reset' || req.originalUrl === '/api/reset-password') {
+    console.log("goodddddddddd")
+    return next();
+  }
   const token = req.cookies.token;
   if (!token) {
     logger.warn("Access attempt without token.");
-    res.status(401).json({ message: "Access denied. No token provided." });
+    res
+      .status(HTTP_STATUS_CODES.UNAUTHORIZED)
+      .json({ message: "Access denied. No token provided." });
     return;
   }
   try {
@@ -25,7 +32,9 @@ export const authenticateToken = async (
     const user = await User.findById(decoded.id);
     if (!user) {
       logger.warn("User not found with ID: ", decoded.id);
-      res.status(401).json({ message: "User not found." });
+      res
+        .status(HTTP_STATUS_CODES.UNAUTHORIZED)
+        .json({ message: "User not found." });
       return;
     }
     res.locals.id = decoded.id;
@@ -34,7 +43,9 @@ export const authenticateToken = async (
     next();
   } catch (error) {
     logger.error("JWT Verification Error:", error);
-    res.status(400).json({ message: "Invalid token." });
+    res
+      .status(HTTP_STATUS_CODES.BAD_REQUEST)
+      .json({ message: "Invalid token." });
     return;
   }
 };

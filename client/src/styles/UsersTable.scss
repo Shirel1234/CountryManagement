@@ -1,11 +1,23 @@
 .users-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
   padding: 20px;
   background-color: #f4f6f9;
 
-  h2 {
-    font-size: 2rem;
+  .title {
     color: #333;
-    margin-bottom: 20px;
+  }
+  .go-back-button {
+    position: absolute;
+    top: 8rem;
+    left: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #34495e;
   }
 
   .MuiPaper-root {

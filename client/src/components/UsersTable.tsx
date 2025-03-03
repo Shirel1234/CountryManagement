@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Paper, Button, Box, IconButton } from "@mui/material";
+import { Paper, Button, Box, IconButton, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import "../styles/UsersTable.scss";
 import { IUser } from "../types/user";
@@ -40,6 +40,9 @@ const UsersTable = () => {
     addUserMutation(newUser);
     setAddDialogOpen(false);
   };
+  const handleGoBack = () => {
+    navigate(-1);
+  };
 
   const columns: GridColDef[] = [
     { field: "firstName", headerName: "First Name", flex: 1 },
@@ -70,7 +73,12 @@ const UsersTable = () => {
 
   return (
     <div className="users-table">
-      <h2>Users</h2>
+      <button className="go-back-button" onClick={handleGoBack}>
+        ← Go Back
+      </button>
+      <Typography variant="h4" className="title">
+        Manage Users
+      </Typography>
       <Paper sx={{ height: 500, width: "100%" }}>
         <DataGrid
           rows={users || []}

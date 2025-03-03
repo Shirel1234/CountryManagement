@@ -1,5 +1,6 @@
 import { Response } from "express";
 import mongoose from "mongoose";
+import { HTTP_STATUS_CODES } from "../constants";
 
 // Helper to handle MongoDB validation errors and duplicate key errors
 export const handleValidationError = (error: any, res: Response, message: string) => {
@@ -7,14 +8,14 @@ export const handleValidationError = (error: any, res: Response, message: string
     const validationErrors = Object.values(error.errors).map(
       (err: any) => err.message
     );
-    res.status(400).json({ message, validationErrors });
+    res.status(HTTP_STATUS_CODES.BAD_REQUEST).json({ message, validationErrors });
   } else if (error.code === 11000) {
     const field = Object.keys(error.keyValue)[0];
-    res.status(400).json({
+    res.status(HTTP_STATUS_CODES.BAD_REQUEST).json({
       message: `Duplicate value for field: '${field}'`,
       error: error.keyValue,
     });
   } else {
-    res.status(500).json({ message, error: error.message || error });
+    res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).json({ message, error: error.message || error });
   }
 };
