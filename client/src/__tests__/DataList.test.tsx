@@ -1,13 +1,15 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { useFetchData } from "../hooks/queries/useCountriesQuery";
+import { useFetchCountries } from "../hooks/queries/useCountriesQuery";
 import DataList from "../components/DataList";
 import { showSuccessToast, showErrorToast } from "../components/Toast";
 import { vi } from "vitest";
 
 // Mock the dependencies
-vi.mock("../hooks/useFetchData");
+vi.mock("../hooks/queries/useCountriesQuery", () => ({
+  useFetchCountries: vi.fn(), 
+}));
 vi.mock("../components/Toast", () => ({
   showSuccessToast: vi.fn(),
   showErrorToast: vi.fn(),
@@ -20,10 +22,10 @@ const renderWithQueryClient = (component: React.ReactNode) =>
     <QueryClientProvider client={queryClient}>{component}</QueryClientProvider>
   );
 describe("DataList Component", () => {
-  const mockUseFetchData = useFetchData as jest.Mock;
+  const mockUseFetchData = useFetchCountries as jest.Mock;
 
   beforeEach(() => {
-    vi.clearAllMocks(); // Use vi for clearing mocks in Vitest
+    vi.clearAllMocks();
   });
 
   it("renders Loader when data is loading", () => {
@@ -33,10 +35,7 @@ describe("DataList Component", () => {
       isSuccess: false,
       error: null,
     });
-
     render(<DataList />);
-
-    // Check that the Loader component is rendered when data is loading
     expect(screen.getByTestId("loader")).toBeInTheDocument();
   });
 

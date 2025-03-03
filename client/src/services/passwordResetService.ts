@@ -11,6 +11,7 @@ export const requestPasswordResetClient = async (
   email: string
 ): Promise<void> => {
   try {
+    console.log("hereeeee", `${BASE_URL}/api/request-password-reset`)
     await axios.post(
       `${BASE_URL}/api/request-password-reset`,
       { email },

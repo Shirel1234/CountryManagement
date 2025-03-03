@@ -8,7 +8,7 @@ import { ICountry } from "../types/country";
 import ConfirmLeaveDialog from "./ConfirmLeaveDialog";
 import { useUpdateCountry } from "../hooks/mutations/useCountryMutation";
 import { countryValidationSchema } from "../validation/countryValidation";
-import {  useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { selectedCountryState } from "../state/atoms";
 
 const EditCountryForm: React.FC = () => {
@@ -26,7 +26,10 @@ const EditCountryForm: React.FC = () => {
       if (id) {
         try {
           const data = await getCountryById(id);
-          setCountry(data);
+          setCountry({
+            ...data,
+            cities: data.cities,
+          });
         } catch (error) {
           console.error(`Error fetching country: ${error}`);
         }

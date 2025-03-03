@@ -8,8 +8,8 @@ import CountriesTable from "../components/CountriesTable";
 import { addCountry, deleteCountry } from "../services/countryService";
 import { useNavigate } from "react-router-dom";
 
-vi.mock("../hooks/useFetchData", () => ({
-  useFetchData: () => ({
+vi.mock("../hooks/queries/useCountriesQuery", () => ({
+  useFetchCountries: () => ({
     data: [
       {
         _id: "1",
@@ -30,7 +30,7 @@ vi.mock("../hooks/useFetchData", () => ({
   }),
 }));
 
-vi.mock("../services/apiService", () => ({
+vi.mock("../services/countryService", () => ({
   addCountry: vi.fn(),
   deleteCountry: vi.fn(),
 }));
@@ -84,47 +84,36 @@ describe("CountriesTable", () => {
   });
 
   it("calls the addCountry function when a new country is added", async () => {
-    // Render the component
     customRender(<CountriesTable />);
 
-    // Open the dialog by clicking the "Add" button
     const addButton = screen.getByTestId("add-button");
     fireEvent.click(addButton);
-
-    // Wait for the dialog to appear
     await waitFor(() => screen.getByRole("dialog"));
 
-    // Wait for the country name input field to appear
-    const input = screen.getByLabelText(/country name/i);
-
-    // Change the country name value
+    const input = screen.getByLabelText(/country name/i, { selector: '[id="country-name"]' });
     fireEvent.change(input, { target: { value: "New Country" } });
 
-    // Similarly fill out the other fields
     fireEvent.change(screen.getByLabelText(/flag url/i), {
       target: { value: "https://newflag.url" },
     });
-    fireEvent.change(screen.getByLabelText(/population/i), {
-      target: { value: "5000000" },
+    fireEvent.change(screen.getByLabelText(/population/i, { selector: '[id="population"]' }), {
+      target: { value: 5000000 },
     });
-    fireEvent.change(screen.getByLabelText(/region/i), {
+    fireEvent.change(screen.getByLabelText(/region/i, { selector: '[id="region"]' }), {
       target: { value: "Africa" },
     });
-
-    // Submit the form by clicking the "Add" button inside the dialog
     fireEvent.click(screen.getByTestId("add-country-button"));
 
-    // Wait for the addCountry function to be called with the correct parameters
     await waitFor(() =>
       expect(addCountry).toHaveBeenCalledWith({
         name: "New Country",
-        flag: "https://newflag.url",
+        flag: "https://newflag.png",
         population: 5000000,
         region: "Africa",
-      })
+        cities: [],
+      } )
     );
 
-    // Optionally, check that the dialog closed after the action
     await waitFor(() =>
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
     );

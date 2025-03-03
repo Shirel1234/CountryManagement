@@ -34,7 +34,6 @@ export const useRegisterUser = () => {
 
   const registerMutation = useMutation<{ token: string }, Error, FormData>({
     mutationFn: (formData: FormData) => {
-      console.log("aaaaaaaa", formData)
       return registerUser(formData);
     },
     onSuccess: (newUser) => {

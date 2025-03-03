@@ -7,9 +7,12 @@ if (!BASE_URL) {
   throw new Error("VITE_BASE_URL is not defined in the environment variables");
 }
 
-export const fetchRequests = async (): Promise<IRequestAccess[]> => {
+export const fetchRequests = async (userId?: string): Promise<IRequestAccess[]> => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/request-access`, {
+    const url = userId
+    ? `${BASE_URL}/api/request-access/${userId}` 
+    : `${BASE_URL}/api/request-access`;
+    const response = await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -21,7 +24,25 @@ export const fetchRequests = async (): Promise<IRequestAccess[]> => {
     throw error;
   }
 };
-
+export const fetchRequestsByUserId = async (
+  userId: string
+): Promise<IRequestAccess[]> => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/api/request-access/${userId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching requests for user ${userId}: ${error}`);
+    throw error;
+  }
+};
 export const addRequestAccess = async (newRequest: {
   action: string;
 }): Promise<IRequestAccess> => {
@@ -42,7 +63,6 @@ export const addRequestAccess = async (newRequest: {
     throw error;
   }
 };
-
 export const updateRequest = async (
   id: string | null,
   updatedData: { status: string }

@@ -1,5 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCountry, addCountry, updateCountry } from "../../services/countryService";
+import {
+  deleteCountry,
+  addCountry,
+  updateCountry,
+} from "../../services/countryService";
 import { ICountry } from "../../types/country";
 import { showErrorToast, showSuccessToast } from "../../components/Toast";
 
@@ -55,31 +59,33 @@ export const useAddCountry = () => {
 };
 
 export const useUpdateCountry = (id: string | undefined) => {
-    const queryClient = useQueryClient();
-  
-    const updateMutation = useMutation<ICountry, Error, ICountry>({
-      mutationFn: (updatedCountry) => updateCountry(id, updatedCountry),
-      onSuccess: (updatedCountry) => {
-        queryClient.setQueryData(
-          ["countries"],
-          (oldData: ICountry[] | undefined) => {
-            return oldData
-              ? oldData.map((country) =>
-                  country._id === updatedCountry._id
-                    ? { ...country, ...updatedCountry }
-                    : country
-                )
-              : [];
-          }
-        );
-        console.log("Country updated successfully!");
-        showSuccessToast("Country updated successfully!");
-      },
-      onError: (error) => {
-        console.error(`Failed to update the country: ${(error as Error).message}`);
-        showErrorToast("Failed to update the country.");
-      },
-    });
-  
-    return updateMutation;
-  };
+  const queryClient = useQueryClient();
+
+  const updateMutation = useMutation<ICountry, Error, ICountry>({
+    mutationFn: (updatedCountry) => updateCountry(id, updatedCountry),
+    onSuccess: (updatedCountry) => {
+      queryClient.setQueryData(
+        ["countries"],
+        (oldData: ICountry[] | undefined) => {
+          return oldData
+            ? oldData.map((country) =>
+                country._id === updatedCountry._id
+                  ? { ...country, cities: updatedCountry.cities }
+                  : country
+              )
+            : [];
+        }
+      );
+      console.log("Country updated successfully!");
+      showSuccessToast("Country updated successfully!");
+    },
+    onError: (error) => {
+      console.error(
+        `Failed to update the country: ${(error as Error).message}`
+      );
+      showErrorToast("Failed to update the country.");
+    },
+  });
+
+  return updateMutation;
+};

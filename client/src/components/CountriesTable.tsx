@@ -1,4 +1,3 @@
-// components/CountriesTable.tsx
 import React, { useState } from "react";
 import { DataGrid, GridColDef, GridActionsCellItem } from "@mui/x-data-grid";
 import { Box, IconButton } from "@mui/material";
@@ -18,18 +17,25 @@ import "../styles/CountriesTable.scss";
 import {
   useAddCountry,
   useDeleteCountry,
+  useUpdateCountry,
 } from "../hooks/mutations/useCountryMutation";
+import CityDialog from "./CityDialog";
+import { ICity } from "../types/city";
 
 const CountriesTable: React.FC = () => {
   const navigate = useNavigate();
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
+  const [cityDialogOpen, setCityDialogOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<ICountry | null>(null);
   const setSelectedCountryState = useSetRecoilState(selectedCountryState);
 
   const { data: countries, isLoading } = useFetchCountries();
   const { mutate: addCountryMutation } = useAddCountry();
   const { mutate: deleteCountryMutation } = useDeleteCountry();
+  const { mutate: updateCountryMutation } = useUpdateCountry(
+    selectedCountry?._id
+  );
 
   const handleAddCountry = (newCountry: Omit<ICountry, "_id">) => {
     const countryWithCities = {
@@ -54,6 +60,23 @@ const CountriesTable: React.FC = () => {
     setTimeout(() => {
       navigate(`/edit-country/${country._id}`);
     }, 0);
+  };
+  const handleOpenCitiesDialog = (country: ICountry) => {
+    setSelectedCountry(country);
+    setCityDialogOpen(true);
+  };
+  const handleSaveCities = (updatedCities: ICity[]) => {
+    if (selectedCountry) {
+      const updatedCountry = {
+        ...selectedCountry,
+        cities: updatedCities.map((city) => ({
+          _id: city._id,
+          name: city.name,
+        })),
+      };
+      setSelectedCountry(updatedCountry);
+      updateCountryMutation(updatedCountry);
+    }
   };
 
   const columns: GridColDef[] = [
@@ -111,33 +134,26 @@ const CountriesTable: React.FC = () => {
       field: "cities",
       headerName: "Cities",
       flex: 1,
-      renderHeader: (params) => (
-        <Tooltip title={params.colDef.headerName} placement="top">
-          <span>{params.colDef.headerName}</span>
-        </Tooltip>
-      ),
-      renderCell: (params) => (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-          }}
-        >
-          <ul style={{ margin: 0, padding: 0, listStyleType: "none" }}>
-            {params.value && params.value.length > 0 ? (
-              params.value.map((city: string, index: number) => (
-                <li key={index} style={{ fontSize: "12px", color: "#555" }}>
-                  {city}
-                </li>
-              ))
-            ) : (
-              <li>No cities available</li>
-            )}
-          </ul>
-        </div>
-      ),
+      renderCell: (params) => {
+        const cities = params.row.cities || [];
+        const cityNames = cities.map((city: ICity) => city.name);
+        const displayCities = cityNames.slice(0, 3).join(", ");
+        const showMore = cityNames.length > 3;
+
+        return (
+          <Box display="flex" alignItems="center">
+            <span>{displayCities}</span>
+            {showMore && <span>...</span>}
+            <IconButton
+              color="primary"
+              onClick={() => handleOpenCitiesDialog(params.row)}
+              sx={{ marginLeft: 1 }}
+            >
+              <EditIcon />
+            </IconButton>
+          </Box>
+        );
+      },
     },
     {
       field: "actions",
@@ -204,6 +220,12 @@ const CountriesTable: React.FC = () => {
           selectedItem={selectedCountry?.name}
           onClose={() => setDeleteConfirmOpen(false)}
           onDelete={handleDeleteConfirm}
+        />
+        <CityDialog
+          open={cityDialogOpen}
+          onClose={() => setCityDialogOpen(false)}
+          selectedCountry={selectedCountry}
+          onSave={handleSaveCities}
         />
       </Box>
     </div>

@@ -1,25 +1,25 @@
 import express from "express";
 import {
-  addCity,
   createCountry,
   deleteCountry,
   getCountries,
   getCountryById,
-  removeCity,
   updateCountry,
 } from "../controllers/countryController";
 import { checkAccessLevel } from "../middleware/authorizationMiddleware";
 import { authenticateToken } from "../middleware/authenticateMiddleware";
 import { AccessLevel } from "../types/accessLevel";
+import {
+  COUNTRY_ROUTES
+} from "../constants";
 
 const router = express.Router();
 router.use(authenticateToken);
 // Route to get and update countries data if needed
-router.get("/countries",checkAccessLevel(AccessLevel.VIEWER), getCountries);
-router.get("/countries/:id", checkAccessLevel(AccessLevel.VIEWER), getCountryById);
-router.post("/countries", checkAccessLevel(AccessLevel.ADD), createCountry);
-router.put("/countries/:id", checkAccessLevel(AccessLevel.UPDATE), updateCountry);
-router.delete("/countries/:id", checkAccessLevel(AccessLevel.DELETE), deleteCountry);
-router.post("/:id/cities", addCity);
-router.delete("/:id/cities", removeCity); 
+router.get(COUNTRY_ROUTES.GET_COUNTRIES,checkAccessLevel(AccessLevel.VIEWER), getCountries);
+router.get(COUNTRY_ROUTES.GET_COUNTRY_BY_ID, checkAccessLevel(AccessLevel.VIEWER), getCountryById);
+router.post(COUNTRY_ROUTES.CREATE_COUNTRY, checkAccessLevel(AccessLevel.ADD), createCountry);
+router.put(COUNTRY_ROUTES.UPDATE_COUNTRY, checkAccessLevel(AccessLevel.UPDATE), updateCountry);
+router.delete(COUNTRY_ROUTES.DELETE_COUNTRY, checkAccessLevel(AccessLevel.DELETE), deleteCountry);
+ 
 export default router;

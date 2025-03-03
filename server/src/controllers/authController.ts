@@ -1,13 +1,15 @@
 import { Request, Response } from "express";
 import { authenticateUser, registerUser } from "../services/authService";
 import { IUser } from "../types/user";
-import { AccessLevel } from "../types/accessLevel";
+import { AUTH_MESSAGES, HTTP_STATUS_CODES } from "../constants";
 
 export const login = async (req: Request, res: Response) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    res.status(400).json({ message: "Username and password are required." });
+    res
+      .status(HTTP_STATUS_CODES.BAD_REQUEST)
+      .json({ message: AUTH_MESSAGES.USERNAME_PASSWORD_REQUIRED });
     return;
   }
   try {
@@ -17,7 +19,9 @@ export const login = async (req: Request, res: Response) => {
     );
 
     if (!token) {
-      res.status(401).json({ message: "Invalid username or password." });
+      res
+        .status(HTTP_STATUS_CODES.UNAUTHORIZED)
+        .json({ message: AUTH_MESSAGES.INVALID_USERNAME_PASSWORD });
     } else {
       res
         .cookie("token", token, {
@@ -26,9 +30,9 @@ export const login = async (req: Request, res: Response) => {
           sameSite: "strict",
           maxAge: 7 * 24 * 60 * 60 * 1000,
         })
-        .status(200)
+        .status(HTTP_STATUS_CODES.OK)
         .json({
-          message: "Login successful.",
+          message: AUTH_MESSAGES.LOGIN_SUCCESSFUL,
           token,
           myId,
           myUsername,
@@ -36,17 +40,20 @@ export const login = async (req: Request, res: Response) => {
         });
     }
   } catch (error) {
-    res.status(500).json({ message: "Internal server error." });
+    res
+      .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+      .json({ message: AUTH_MESSAGES.INTERNAL_SERVER_ERROR });
   }
 };
-
 export const register = async (req: Request, res: Response) => {
   try {
     const profileImage = req.file ? req.file.filename : null;
     const { username, email, firstName, lastName, password, phone } = req.body;
 
     if (!username || !email || !password) {
-      res.status(400).json({ message: "Missing required fields." });
+      res
+        .status(HTTP_STATUS_CODES.BAD_REQUEST)
+        .json({ message: AUTH_MESSAGES.MISSING_REQUIRED_FIELDS });
       return;
     }
 
@@ -70,22 +77,27 @@ export const register = async (req: Request, res: Response) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    res.status(200).json({
-      message: "Registration successful.",
+    res.status(HTTP_STATUS_CODES.OK).json({
+      message: AUTH_MESSAGES.REGISTRATION_SUCCESSFUL,
       myId,
       myUsername,
       myProfileImage,
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res
+      .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+      .json({ error: error.message });
   }
 };
-
 export const logout = (_req: Request, res: Response) => {
   try {
     res.clearCookie("token");
-    res.status(200).json({ message: "Logout successful." });
+    res
+      .status(HTTP_STATUS_CODES.OK)
+      .json({ message: AUTH_MESSAGES.LOGOUT_SUCCESSFUL });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error." });
+    res
+      .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+      .json({ message: AUTH_MESSAGES.INTERNAL_SERVER_ERROR });
   }
 };

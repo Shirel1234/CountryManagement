@@ -1,13 +1,13 @@
-import { Router } from "express";
+import express from "express";
 import { login, register, logout } from "../controllers/authController";
-import { resetPassword } from "../services/passwordResetService";
 import upload from "../utils/multer.ts";
 import { loginRateLimiter } from "../middleware/rateLimitMiddleware";
+import { AUTH_ROUTES } from "../constants";
 
-const router = Router();
+const router = express.Router();
 
-router.post("/login",loginRateLimiter, login);
-router.post("/register",upload.single('profileImage'), register);
-router.post("/logout", logout);
+router.post(AUTH_ROUTES.LOGIN, loginRateLimiter, login);
+router.post(AUTH_ROUTES.REGISTER, upload.single("profileImage"), register);
+router.post(AUTH_ROUTES.LOGOUT, logout);
 
 export default router;

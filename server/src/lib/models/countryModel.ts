@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 import { ICountry } from "../../types/country";
 
 const countrySchema: Schema = new Schema(
@@ -38,16 +38,12 @@ const countrySchema: Schema = new Schema(
         message: "Region must not contain numbers.",
       },
     },
-    cities: {
-      type: [String],
-      default: [],
-      validate: {
-        validator: (value: string[]) =>
-          value.every((city) => /^[^\d]+$/.test(city)),
-        message:
-          "Cities must not contain numbers",
+    cities: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "City",
       },
-    },
+    ],
   },
   {
     timestamps: true,

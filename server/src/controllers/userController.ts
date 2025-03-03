@@ -10,30 +10,35 @@ import { handleValidationError } from "../utils/errorUtils";
 import fs from "fs";
 import path from "path";
 import { AccessLevel } from "../types/accessLevel";
+import { HTTP_STATUS_CODES, USER_MESSAGES } from "../constants";
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
     const users = await fetchUsers();
-    res.status(200).json(users);
+    res.status(HTTP_STATUS_CODES.OK).json(users);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching users data." });
+    res
+      .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+      .json({ message: USER_MESSAGES.ERROR_FETCHING_USERS });
   }
 };
-
 export const getUserById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const user = await fetchUserById(id);
     if (!user) {
-      res.status(404).json({ error: "User not found" });
+      res
+        .status(HTTP_STATUS_CODES.NOT_FOUND)
+        .json({ error: USER_MESSAGES.USER_NOT_FOUND });
     } else {
-      res.status(200).json(user);
+      res.status(HTTP_STATUS_CODES.OK).json(user);
     }
   } catch (error) {
-    res.status(500).json({ message: "Error fetching user data", error });
+    res
+      .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+      .json({ message: USER_MESSAGES.ERROR_FETCHING_USER, error });
   }
 };
-
 export const createUser = async (req: Request, res: Response) => {
   try {
     const createData = req.body;
@@ -43,13 +48,12 @@ export const createUser = async (req: Request, res: Response) => {
     }
 
     const user = await saveUser(createData);
-    res.status(201).json(user);
+    res.status(HTTP_STATUS_CODES.CREATED).json(user);
   } catch (error) {
-    console.error("Error during user creation:");
-    handleValidationError(error, res, "Failed to create user");
+    console.error(USER_MESSAGES.FAILED_CREATE_USER);
+    handleValidationError(error, res, USER_MESSAGES.FAILED_CREATE_USER);
   }
 };
-
 export const updateUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -57,7 +61,9 @@ export const updateUser = async (req: Request, res: Response) => {
 
     const existingUser = await fetchUserById(id);
     if (!existingUser) {
-      res.status(404).json({ message: "User not found." });
+      res
+        .status(HTTP_STATUS_CODES.NOT_FOUND)
+        .json({ message: USER_MESSAGES.USER_NOT_FOUND });
       return;
     }
     let profileImage = existingUser.profileImage;
@@ -79,7 +85,9 @@ export const updateUser = async (req: Request, res: Response) => {
     if (accessLevel !== undefined) {
       const numericAccessLevel = Number(accessLevel);
       if (!Object.values(AccessLevel).includes(numericAccessLevel)) {
-        res.status(400).json({ message: "Invalid access level." });
+        res
+          .status(HTTP_STATUS_CODES.BAD_REQUEST)
+          .json({ message: USER_MESSAGES.INVALID_ACCESS_LEVEL });
         return;
       }
       updatedAccessLevel = numericAccessLevel;
@@ -93,22 +101,25 @@ export const updateUser = async (req: Request, res: Response) => {
       accessLevel: updatedAccessLevel,
     };
     const updatedUser = await modifyUser(id, updatedData);
-    res.status(200).json(updatedUser);
+    res.status(HTTP_STATUS_CODES.OK).json(updatedUser);
   } catch (error) {
-    handleValidationError(error, res, "Failed to update user");
+    handleValidationError(error, res, USER_MESSAGES.FAILED_UPDATE_USER);
   }
 };
-
 export const deleteUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const result = await removeUser(id);
     if (!result) {
-      res.status(404).json({ error: "user not found" });
+      res
+        .status(HTTP_STATUS_CODES.NOT_FOUND)
+        .json({ error: USER_MESSAGES.USER_NOT_FOUND });
     } else {
-      res.status(204).send();
+      res.status(HTTP_STATUS_CODES.NO_CONTENT).send();
     }
   } catch (error) {
-    res.status(500).json({ message: "Failed to delete user", error });
+    res
+      .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+      .json({ message: USER_MESSAGES.FAILED_DELETE_USER, error });
   }
 };

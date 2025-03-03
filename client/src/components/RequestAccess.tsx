@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -23,6 +23,7 @@ import "../styles/RequestAccess.scss";
 import { useAddRequestAccess } from "../hooks/mutations/useRequestMutation";
 import { useFetchRequests } from "../hooks/queries/useRequestsQuery";
 import Loader from "./Loader";
+import { useNavigate } from "react-router-dom";
 
 const requestOptions = [
   { id: "add", label: "Request to Add", icon: <AddIcon /> },
@@ -33,14 +34,21 @@ const requestOptions = [
 const RequestAccess = () => {
   const [selectedRequest, setSelectedRequest] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const [userId, setUserId] = useState<string | null>(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {
+      const userData = JSON.parse(storedUserData);
+      setUserId(userData.myId); // Set the userId from localStorage
+    }
+  }, []);
   const { mutate: addRequestAccessMutation } = useAddRequestAccess();
-  const { data: userRequests, isLoading } = useFetchRequests();
+  const { data: userRequests, isLoading } = useFetchRequests(userId ?? undefined);
 
   const handleRequestClick = (requestId: string) => {
     setSelectedRequest(requestId);
   };
-
   const handleSubmit = async () => {
     if (!selectedRequest) return;
     setIsSubmitting(true);
@@ -48,9 +56,16 @@ const RequestAccess = () => {
     setSelectedRequest(null);
     setIsSubmitting(false);
   };
-
+  const handleGoBack = () => {
+    navigate(-1);
+  };
   return (
     <div className="request-access">
+       <div className="go-back-container">
+      <button className="go-back-button" onClick={handleGoBack}>
+        ← Go Back
+      </button>
+      </div>
       <Card className="request-card">
         <CardContent>
           <Typography variant="h5" className="request-title">

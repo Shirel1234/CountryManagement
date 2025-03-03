@@ -1,3 +1,4 @@
+import { LOGGER_MESSAGES_REQUEST_ACCESS } from "../constants";
 import { RequestAccess } from "../lib/models/requestAccessModel";
 import logger from "../utils/logger";
 
@@ -8,14 +9,13 @@ export const createAccessRequest = async (
   try {
     const newRequest = new RequestAccess({ userId, action });
     await newRequest.save();
-    logger.info("Request successfully added!");
+    logger.info(LOGGER_MESSAGES_REQUEST_ACCESS.SUCCESS_ADD_REQUEST);
     return newRequest;
   } catch (error) {
-    logger.error("Error saving request to the database:", error);
+    logger.error(LOGGER_MESSAGES_REQUEST_ACCESS.ERROR_ADD_REQUEST, error);
     throw error;
   }
 };
-
 export const fetchRequests = async () => {
   try {
     const requests = await RequestAccess.find({}).populate(
@@ -23,17 +23,41 @@ export const fetchRequests = async () => {
       "username"
     );
     if (!requests.length) {
-      logger.info("No requests found.");
+      logger.info(LOGGER_MESSAGES_REQUEST_ACCESS.NO_REQUESTS_FOUND);
     } else {
-      logger.info(`Fetched ${requests.length} requests.`);
+      logger.info(
+        LOGGER_MESSAGES_REQUEST_ACCESS.SUCCESS_FETCH_REQUESTS(requests.length)
+      );
     }
     return requests;
   } catch (error) {
-    logger.error("Error fetching pending requests:", error);
+    logger.error(LOGGER_MESSAGES_REQUEST_ACCESS.ERROR_FETCH_REQUESTS, error);
     throw error;
   }
 };
+export const fetchRequestsByUserId = async (userId: string) => {
+  try {
+    const userRequests = await RequestAccess.find({ userId }).populate(
+      "userId",
+      "username"
+    );
 
+    if (!userRequests.length) {
+      logger.info(LOGGER_MESSAGES_REQUEST_ACCESS.NO_REQUESTS_FOUND);
+    } else {
+      logger.info(
+        LOGGER_MESSAGES_REQUEST_ACCESS.SUCCESS_FETCH_REQUESTS(
+          userRequests.length
+        )
+      );
+    }
+
+    return userRequests;
+  } catch (error) {
+    logger.error(LOGGER_MESSAGES_REQUEST_ACCESS.ERROR_FETCH_REQUESTS, error);
+    throw error;
+  }
+};
 export const updateRequestStatus = async (
   requestId: string,
   status: "approved" | "denied"
@@ -45,13 +69,20 @@ export const updateRequestStatus = async (
       { new: true }
     );
     if (!updatedRequest) {
-      logger.warn(`Request with ID ${requestId} not found.`);
-      throw new Error("Request not found");
+      logger.warn(LOGGER_MESSAGES_REQUEST_ACCESS.REQUEST_NOT_FOUND(requestId));
+      throw new Error(
+        LOGGER_MESSAGES_REQUEST_ACCESS.REQUEST_NOT_FOUND(requestId)
+      );
     }
-    logger.info(`Request ${requestId} updated to status: ${status}`);
+    logger.info(
+      LOGGER_MESSAGES_REQUEST_ACCESS.SUCCESS_UPDATE_REQUEST(requestId, status)
+    );
     return updatedRequest;
   } catch (error) {
-    logger.error(`Error updating request status for ID ${requestId}:`, error);
+    logger.error(
+      LOGGER_MESSAGES_REQUEST_ACCESS.ERROR_UPDATE_REQUEST(requestId),
+      error
+    );
     throw error;
   }
 };

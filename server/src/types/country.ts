@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Document } from "mongoose";
 export interface ICountry extends Document {
   _id: string | undefined;
@@ -5,5 +6,5 @@ export interface ICountry extends Document {
   flag: string;
   population: number;
   region: string;
-  cities: string[];
+  cities: mongoose.Types.ObjectId[];
 }

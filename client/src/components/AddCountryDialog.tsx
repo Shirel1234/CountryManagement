@@ -1,4 +1,3 @@
-// AddCountryDialog.jsx
 import React from "react";
 import {
   Dialog,
@@ -10,6 +9,7 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { countryValidationSchema } from "../validation/countryValidation";
+import { ICity } from "../types/city";
 
 interface AddCountryDialogProps {
   open: boolean;
@@ -19,7 +19,7 @@ interface AddCountryDialogProps {
     flag: string;
     population: number;
     region: string;
-    cities: string[];
+    cities: ICity[];
   }) => void;
 }
 
@@ -42,8 +42,8 @@ const AddCountryDialog: React.FC<AddCountryDialogProps> = ({
       formik.resetForm();
       onClose();
     },
+    
   });
-
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Add Country</DialogTitle>

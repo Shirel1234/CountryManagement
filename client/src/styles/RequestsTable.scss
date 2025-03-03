@@ -8,7 +8,16 @@
   .title {
     color: #333;
   }
-
+  .go-back-button {
+    position: absolute;
+    top: 8rem;
+    left: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color:  #34495e;
+  }
   .table-container {
     width: 80%;
     padding: 20px;

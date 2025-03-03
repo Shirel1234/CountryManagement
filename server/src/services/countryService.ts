@@ -2,16 +2,14 @@ import axios from "axios";
 import Country from "../lib/models/countryModel";
 import { ICountry } from "../types/country";
 import logger from "../utils/logger";
+import { API_URL, LOGGER_MESSAGES_COUNTRY } from "../constants";
 
-const API_URL = "https://restcountries.com/v3.1/all";
-
-// Function to fetch data and save it to MongoDB if not already present
 export const fetchInitialCountries = async () => {
   try {
     const existingCountries = await Country.find({});
 
     if (existingCountries.length === 0) {
-      logger.info("No countries in the database. Adding new data...");
+      logger.info(LOGGER_MESSAGES_COUNTRY.NO_COUNTRIES);
       const response = await axios.get<ICountry[]>(API_URL);
       const countries = response.data;
 
@@ -25,52 +23,48 @@ export const fetchInitialCountries = async () => {
       }));
 
       await Country.insertMany(formattedCountries);
-      logger.info("Countries added to the database!");
+      logger.info(LOGGER_MESSAGES_COUNTRY.COUNTRIES_ADDED);
     } else {
-      logger.info("Countries data already exists in the database!");
+      logger.info(LOGGER_MESSAGES_COUNTRY.COUNTRIES_EXIST);
     }
   } catch (error) {
-    logger.error("Error fetching countries data:", error);
+    logger.error(LOGGER_MESSAGES_COUNTRY.FETCH_ERROR, error);
     throw error;
   }
 };
-//Get all countries
 export const fetchCountries = async () => {
   try {
-    const countries = await Country.find({});
+    const countries = await Country.find({}).populate("cities");
     return countries;
   } catch (error) {
-    logger.error("Error fetching countries data:");
+    logger.error(LOGGER_MESSAGES_COUNTRY.FETCH_ERROR, error);
     throw error;
   }
 };
-// Fetch a country by ID
 export const fetchCountryById = async (id: string) => {
   try {
-    const country = await Country.findById(id);
+    const country = await Country.findById(id).populate("cities");
     if (!country) {
-      logger.warn("Country not found with the provided ID:", id);
+      logger.warn(LOGGER_MESSAGES_COUNTRY.COUNTRY_NOT_FOUND, id);
       return null;
     }
     return country;
   } catch (error) {
-    logger.error("Error fetching country by ID:", error);
-    throw new Error("Failed to fetch country by ID.");
+    logger.error(LOGGER_MESSAGES_COUNTRY.FETCH_ERROR, error);
+    throw new Error(LOGGER_MESSAGES_COUNTRY.FETCH_ERROR);
   }
 };
-// Save a new country to the database
 export const saveCountry = async (data: ICountry) => {
   try {
     const newCountry = new Country(data);
     await newCountry.save();
-    logger.info("Country successfully added!");
+    logger.info(LOGGER_MESSAGES_COUNTRY.SAVE_SUCCESS);
     return newCountry;
   } catch (error) {
-    logger.error("Error saving country to the database:", error);
+    logger.error(LOGGER_MESSAGES_COUNTRY.SAVE_ERROR, error);
     throw error;
   }
 };
-// Update a country by ID
 export const modifyCountry = async (
   id: string,
   updatedData: Partial<ICountry>
@@ -78,69 +72,29 @@ export const modifyCountry = async (
   try {
     const updatedCountry = await Country.findByIdAndUpdate(id, updatedData, {
       new: true,
-    });
+    }).populate("cities");
     if (!updatedCountry) {
-      logger.warn("Country not found with the provided ID:", id);
-      throw new Error("Country not found with the provided ID.");
+      logger.warn(LOGGER_MESSAGES_COUNTRY.COUNTRY_NOT_FOUND, id);
+      throw new Error(LOGGER_MESSAGES_COUNTRY.COUNTRY_NOT_FOUND);
     }
-    logger.info("Country updated successfully!");
+    logger.info(LOGGER_MESSAGES_COUNTRY.UPDATE_SUCCESS);
     return updatedCountry;
   } catch (error) {
-    logger.error("Error updating country:", error);
-    throw new Error("Failed to update country.");
+    logger.error(LOGGER_MESSAGES_COUNTRY.UPDATE_ERROR, error);
+    throw new Error(LOGGER_MESSAGES_COUNTRY.UPDATE_ERROR);
   }
 };
-// Delete a country by ID
 export const removeCountry = async (id: string) => {
   try {
     const deletedCountry = await Country.findByIdAndDelete(id);
     if (!deletedCountry) {
-      logger.warn("Country not found with the provided ID:", id);
-      throw new Error("Country not found with the provided ID.");
+      logger.warn(LOGGER_MESSAGES_COUNTRY.COUNTRY_NOT_FOUND, id);
+      throw new Error(LOGGER_MESSAGES_COUNTRY.COUNTRY_NOT_FOUND);
     }
-    logger.info("Country deleted successfully!");
+    logger.info(LOGGER_MESSAGES_COUNTRY.DELETE_SUCCESS);
     return deletedCountry;
   } catch (error) {
-    logger.error("Error deleting country:", error);
-    throw new Error("Failed to delete country.");
-  }
-};
-// Add cities to a country
-export const addCityToCountry = async (id: string, city: string) => {
-  try {
-    const country = await Country.findById(id);
-    if (!country) {
-      logger.warn("Country not found with the provided ID:", id);
-      throw new Error("Country not found.");
-    }
-
-    country.cities.push(city); // Add the city to the cities array
-    await country.save();
-    logger.info("City added to the country!");
-    return country;
-  } catch (error) {
-    logger.error("Error adding city to country:", error);
-    throw new Error("Failed to add city to country.");
-  }
-};
-// Remove city from a country
-export const removeCityFromCountry = async (id: string, city: string) => {
-  try {
-    const country = await Country.findById(id);
-    if (!country) {
-      logger.warn("Country not found with the provided ID:", id);
-      throw new Error("Country not found.");
-    }
-
-    const cityIndex = country.cities.indexOf(city);
-    if (cityIndex > -1) {
-      country.cities.splice(cityIndex, 1); // Remove the city
-      await country.save();
-      logger.info("City removed from the country!");
-    }
-    return country;
-  } catch (error) {
-    logger.error("Error removing city from country:", error);
-    throw new Error("Failed to remove city from country.");
+    logger.error(LOGGER_MESSAGES_COUNTRY.DELETE_ERROR, error);
+    throw new Error(LOGGER_MESSAGES_COUNTRY.DELETE_ERROR);
   }
 };
