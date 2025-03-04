@@ -1,10 +1,11 @@
 import { LOGGER_MESSAGES_REQUEST_ACCESS } from "../constants";
+import { RequestAccessAction, RequestAccessStatus } from "../constants/requestAccessEnum";
 import { RequestAccess } from "../lib/models/requestAccessModel";
 import logger from "../utils/logger";
 
 export const createAccessRequest = async (
   userId: string,
-  action: "add" | "update" | "delete"
+  action: RequestAccessAction
 ) => {
   try {
     const newRequest = new RequestAccess({ userId, action });
@@ -60,7 +61,7 @@ export const fetchRequestsByUserId = async (userId: string) => {
 };
 export const updateRequestStatus = async (
   requestId: string,
-  status: "approved" | "denied"
+  status: RequestAccessStatus.APPROVED | RequestAccessStatus.DENIED
 ) => {
   try {
     const updatedRequest = await RequestAccess.findByIdAndUpdate(

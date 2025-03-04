@@ -3,7 +3,7 @@ import {
   sendPasswordResetEmail,
   resetPassword,
 } from "../services/passwordResetService";
-import { HTTP_STATUS_CODES } from "../constants";
+import { HTTP_STATUS_CODES, PASSWORD_RESET_MESSAGES } from "../constants";
 
 export const requestPasswordReset = async (req: Request, res: Response) => {
   const { email } = req.body;
@@ -11,18 +11,20 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
   if (!email) {
     res
       .status(HTTP_STATUS_CODES.BAD_REQUEST)
-      .json({ message: "Email is required." });
+      .json({ message: PASSWORD_RESET_MESSAGES.EMAIL_REQUIRED });
     return;
   }
   try {
     await sendPasswordResetEmail(email);
     res
       .status(HTTP_STATUS_CODES.OK)
-      .json({ message: "Password reset email sent." });
+      .json({ message: PASSWORD_RESET_MESSAGES.EMAIL_SENT });
   } catch (error) {
     res
       .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
-      .json({ message: `Internal server errors: ${error}` });
+      .json({
+        message: `${PASSWORD_RESET_MESSAGES.INTERNAL_SERVER_ERROR} ${error}`,
+      });
   }
 };
 export const resetPasswordHandler = async (req: Request, res: Response) => {
@@ -31,17 +33,17 @@ export const resetPasswordHandler = async (req: Request, res: Response) => {
   if (!token || !newPassword) {
     res
       .status(HTTP_STATUS_CODES.BAD_REQUEST)
-      .json({ message: "Token and new password are required." });
+      .json({ message: PASSWORD_RESET_MESSAGES.TOKEN_PASSWORD_REQUIRED });
   } else {
     try {
       await resetPassword(token, newPassword);
       res
         .status(HTTP_STATUS_CODES.OK)
-        .json({ message: "Password successfully reset." });
+        .json({ message: PASSWORD_RESET_MESSAGES.PASSWORD_RESET_SUCCESS });
     } catch (error) {
       res
         .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
-        .json({ message: "Internal server error." });
+        .json({ message: PASSWORD_RESET_MESSAGES.INTERNAL_SERVER_ERROR });
     }
   }
 };

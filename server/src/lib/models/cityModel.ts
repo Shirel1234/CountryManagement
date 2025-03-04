@@ -1,14 +1,15 @@
 import mongoose, { Schema } from "mongoose";
 import { ICity } from "../../types/city";
+import { CITY_VALIDATION } from "../../constants";
 
 const citySchema = new Schema<ICity>({
   name: {
     type: String,
     required: true,
-    minlength: [3, "Name should have at least 3 characters."],
+    minlength: [3, CITY_VALIDATION.NAME_TOO_SHORT],
     validate: {
       validator: (value: string) => /^[^\d]+$/.test(value.trim()),
-      message: "Name must not contain numbers.",
+      message: CITY_VALIDATION.NAME_INVALID,
     },
   },
 });

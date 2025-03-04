@@ -1,14 +1,22 @@
 import mongoose, { Schema } from "mongoose";
 import { IRequestAccess } from "../../types/requestAccess";
+import {
+  RequestAccessAction,
+  RequestAccessStatus,
+} from "../../constants/requestAccessEnum";
 
 const RequestAccessSchema = new Schema<IRequestAccess>(
   {
     userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    action: { type: String, enum: ["add", "update", "delete"], required: true },
+    action: {
+      type: String,
+      enum: Object.values(RequestAccessAction),
+      required: true,
+    },
     status: {
       type: String,
-      enum: ["pending", "approved", "denied"],
-      default: "pending",
+      enum: Object.values(RequestAccessStatus),
+      default: RequestAccessStatus.PENDING,
     },
   },
   { timestamps: true }
