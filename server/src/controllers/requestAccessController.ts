@@ -6,6 +6,7 @@ import {
   updateRequestStatus,
 } from "../services/requestAccessService";
 import { HTTP_STATUS_CODES, REQUEST_ACCESS_MESSAGES } from "../constants";
+import { RequestAccessStatus } from "../constants/requestAccessEnum";
 
 export const requestAccess = async (req: Request, res: Response) => {
   try {
@@ -56,7 +57,7 @@ export const processRequest = async (req: Request, res: Response) => {
   try {
     const { status } = req.body;
     const { requestId } = req.params;
-    if (!["approved", "denied"].includes(status)) {
+    if (![RequestAccessStatus.APPROVED, RequestAccessStatus.DENIED].includes(status)) {
       res
         .status(HTTP_STATUS_CODES.BAD_REQUEST)
         .json({ error: REQUEST_ACCESS_MESSAGES.INVALID_STATUS });

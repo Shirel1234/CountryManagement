@@ -19,6 +19,7 @@ import {
   API_PREFIX,
   AUTH_PREFIX,
   UPLOADS_DIR,
+  LOGGER_MESSAGES,
 } from "../src/constants";
 
 const app = express();
@@ -53,10 +54,10 @@ const startServer = async () => {
   try {
     await connect();
     app.listen(PORT, () => {
-      logger.info(`Server is running on http://localhost:${PORT}`);
+      logger.info(LOGGER_MESSAGES.SERVER_START(PORT));
     });
   } catch (error) {
-    logger.error("Error starting the server:", error);
+    logger.error(LOGGER_MESSAGES.SERVER_ERROR, error);
     process.exit(1);
   }
 };

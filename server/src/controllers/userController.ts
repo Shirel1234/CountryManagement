@@ -9,7 +9,7 @@ import {
 import { handleValidationError } from "../utils/errorUtils";
 import fs from "fs";
 import path from "path";
-import { AccessLevel } from "../types/accessLevel";
+import { AccessLevel } from "../constants/accessLevelEnum";
 import { HTTP_STATUS_CODES, USER_MESSAGES } from "../constants";
 
 export const getUsers = async (req: Request, res: Response) => {

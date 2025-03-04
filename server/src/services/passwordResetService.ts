@@ -10,6 +10,9 @@ import {
   EMAIL_USER,
   FRONTEND_URL,
   LOGGER_MESSAGES_PASSWORD_RESET,
+  PASSWORD_RESET_EMAIL_TEXT,
+  PASSWORD_RESET_EXPIRATION,
+  PASSWORD_RESET_SUBJECT,
   TRANSPORTER,
 } from "../constants";
 
@@ -31,8 +34,8 @@ export const sendPasswordResetEmail = async (email: string) => {
     const mailOptions = {
       from: EMAIL_USER,
       to: user.email,
-      subject: "Password Reset Request",
-      text: `You can reset your password using the following link:${resetLink}`,
+      subject: PASSWORD_RESET_SUBJECT,
+      text: PASSWORD_RESET_EMAIL_TEXT(resetLink),
     };
 
     await transporter.sendMail(mailOptions);
@@ -47,7 +50,7 @@ export const sendPasswordResetEmail = async (email: string) => {
 const createPasswordResetEntry = async (user: IUser) => {
   try {
     const resetToken = crypto.randomBytes(32).toString("hex");
-    const expiresAt = new Date(Date.now() + 3600000);
+    const expiresAt = new Date(Date.now() + PASSWORD_RESET_EXPIRATION);
 
     const passwordResetEntry = new PasswordReset({
       userId: user._id,

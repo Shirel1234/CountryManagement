@@ -3901,3 +3901,15 @@ Use mongoose.model(name, schema)
 2025-03-03 14:55:50 [[32minfo[39m]: Countries data already exists in the database!
 2025-03-03 14:55:50 [[32minfo[39m]: Initial country data fetched and stored.
 2025-03-03 14:55:50 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-03-04 12:41:39 [[32minfo[39m]: Connecting to MongoDB...
+2025-03-04 12:41:40 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-03-04 12:41:41 [[32minfo[39m]: Countries data already exists in the database!
+2025-03-04 12:41:41 [[32minfo[39m]: Initial country data fetched and stored.
+2025-03-04 12:41:41 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-03-04 12:52:53 [[32minfo[39m]: Access granted.
+2025-03-04 12:52:59 [[32minfo[39m]: Access granted.
+2025-03-04 12:52:59 [[32minfo[39m]: Access granted.
+2025-03-04 12:53:13 [[32minfo[39m]: Access granted.
+2025-03-04 12:53:13 [[32minfo[39m]: Country updated successfully!
+2025-03-04 12:53:18 [[32minfo[39m]: Access granted.
+2025-03-04 12:53:18 [[32minfo[39m]: Access granted.

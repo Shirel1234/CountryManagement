@@ -1,15 +1,16 @@
 import mongoose, { Schema, Types } from "mongoose";
 import { ICountry } from "../../types/country";
+import { COUNTRY_VALIDATION } from "../../constants";
 
 const countrySchema: Schema = new Schema(
   {
     name: {
       type: String,
       required: true,
-      minlength: [3, "Name should have at least 3 characters."],
+      minlength: [3, COUNTRY_VALIDATION.NAME_TOO_SHORT],
       validate: {
         validator: (value: string) => /^[^\d]+$/.test(value.trim()),
-        message: "Name must not contain numbers.",
+        message: COUNTRY_VALIDATION.NAME_INVALID,
       },
     },
     flag: {
@@ -18,16 +19,16 @@ const countrySchema: Schema = new Schema(
       validate: {
         validator: (value: string) =>
           /^https?:\/\/.*\.(jpg|jpeg|png|gif)$/i.test(value),
-        message: "Flag should be a valid image URL (jpg, jpeg, png, gif).",
+        message: COUNTRY_VALIDATION.FLAG_INVALID,
       },
     },
     population: {
       type: Number,
       required: true,
-      min: [0, "Population cannot be a negative number."],
+      min: [0, COUNTRY_VALIDATION.POPULATION_NEGATIVE],
       validate: {
         validator: (value: number) => value >= 0,
-        message: "Population cannot be a negative number.",
+        message: COUNTRY_VALIDATION.POPULATION_NEGATIVE,
       },
     },
     region: {
@@ -35,7 +36,7 @@ const countrySchema: Schema = new Schema(
       required: true,
       validate: {
         validator: (value: string) => /^[^\d]+$/.test(value.trim()),
-        message: "Region must not contain numbers.",
+        message: COUNTRY_VALIDATION.REGION_INVALID,
       },
     },
     cities: [

@@ -1,7 +1,7 @@
 import express from "express";
 import { checkAccessLevel } from "../middleware/authorizationMiddleware";
 import { authenticateToken } from "../middleware/authenticateMiddleware";
-import { AccessLevel } from "../types/accessLevel";
+import { AccessLevel } from "../constants/accessLevelEnum";
 import {
   createCity,
   deleteCity,

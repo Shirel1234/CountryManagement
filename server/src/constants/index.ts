@@ -21,6 +21,9 @@ export const MONGODB_URI =
 export const EMAIL_USER = process.env.EMAIL_USER;
 export const EMAIL_PASS = process.env.EMAIL_PASS;
 export const FRONTEND_URL = process.env.FRONTEND_URL;
+export const PASSWORD_RESET_SUBJECT = "Password Reset Request";
+export const PASSWORD_RESET_EMAIL_TEXT = (resetLink: string) =>
+  `You can reset your password using the following link: ${resetLink}`;
 
 // =======================
 // TRANSPORTER CONFIG
@@ -41,6 +44,7 @@ export const ALLOWED_ORIGINS = [
 ];
 export const ALLOWED_METHODS = ["GET", "POST", "PUT", "DELETE", "PATCH"];
 export const ALLOWED_HEADERS = ["Content-Type", "Authorization"];
+export const PASSWORD_RESET_EXPIRATION = 3600000;
 
 // =======================
 // API ROUTES
@@ -52,7 +56,6 @@ export const COUNTRY_PREFIX = "/countries";
 export const CITY_PREFIX = "/cities";
 export const USER_PREFIX = "/users";
 export const REQUEST_ACCESS_PREFIX = "/request-access";
-//export const PASSWORD_RESET_PREFIX = "/password-reset";
 
 export const AUTH_ROUTES = {
   LOGIN: "/login",
@@ -84,6 +87,7 @@ export const REQUEST_ACCESS_ROUTES = {
   REQUEST_ACCESS: `${REQUEST_ACCESS_PREFIX}`,
   GET_REQUESTS: `${REQUEST_ACCESS_PREFIX}`,
   PROCESS_REQUEST: `${REQUEST_ACCESS_PREFIX}/:requestId`,
+  GET_REQUESTS_BY_USER_ID: `${REQUEST_ACCESS_PREFIX}/:userId`, 
 };
 export const PASSWORD_RESET_ROUTES = {
   REQUEST_PASSWORD_RESET: "/request-password-reset",
@@ -99,6 +103,7 @@ export const HTTP_STATUS_CODES = {
   NO_CONTENT: 204,
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
   NOT_FOUND: 404,
   INTERNAL_SERVER_ERROR: 500,
 };
@@ -118,6 +123,7 @@ export const CITY_MESSAGES = {
   FAILED_TO_CREATE_CITY: "Failed to create city",
   FAILED_TO_UPDATE_CITY: "Failed to update city",
   FAILED_TO_DELETE_CITY: "Failed to delete city",
+  
 };
 export const COUNTRY_MESSAGES = {
   FETCH_ERROR: "Error fetching countries data.",
@@ -156,6 +162,10 @@ export const USER_MESSAGES = {
 // =======================
 // SERVICE LOGGER
 // =======================
+export const LOGGER_MESSAGES = {
+  SERVER_START: (port: string | number) => `Server is running on http://localhost:${port}`,
+  SERVER_ERROR: "Error starting the server:",
+};
 export const LOGGER_MESSAGES_AUTH = {
   USER_NOT_FOUND: "User not found with the provided username:",
   INVALID_CREDENTIALS: "Invalid username or password.",
@@ -223,6 +233,49 @@ export const LOGGER_MESSAGES_USER = {
   SUCCESS_DELETE_USER: "User deleted successfully!",
 };
 
+// =======================
+// VALIDATION MESSAGES
+// =======================
+export const CITY_VALIDATION = {
+  NAME_TOO_SHORT: "Name should have at least 3 characters.",
+  NAME_INVALID: "Name must not contain numbers.",
+};
+export const COUNTRY_VALIDATION = {
+  NAME_TOO_SHORT: "Name should have at least 3 characters.",
+  NAME_INVALID: "Name must not contain numbers.",
+  FLAG_INVALID: "Flag should be a valid image URL (jpg, jpeg, png, gif).",
+  POPULATION_NEGATIVE: "Population cannot be a negative number.",
+  REGION_INVALID: "Region must not contain numbers.",
+};
+export const USER_VALIDATION = {
+  FIRST_NAME_TOO_SHORT: "First name must have at least 2 characters.",
+  FIRST_NAME_INVALID: "First name can only contain letters.",
+  LAST_NAME_TOO_SHORT: "Last name must have at least 2 characters.",
+  LAST_NAME_INVALID: "Last name can only contain letters.",
+  USERNAME_INVALID: "Username can only contain letters, numbers, and underscores.",
+  EMAIL_INVALID: "Please provide a valid email address.",
+  PHONE_INVALID: "Please provide a valid phone number (e.g., 05XXXXXXXX).",
+  PROFILE_IMAGE_INVALID:
+    "Profile image must be a valid image URL (jpg, jpeg, png, gif) or a valid local file name (jpg, jpeg, png, gif).",
+  PASSWORD_TOO_SHORT: "Password must have at least 6 characters.",
+  PASSWORD_INVALID: "Password must have at least 6 characters.",
+};
+
+// =======================
+// MIDDLEWARE MESSAGES
+// =======================
+export const AUTHENTICATE_MESSAGES = {
+  ACCESS_ATTEMPT_WITHOUT_TOKEN: "Access attempt without token.",
+  ACCESS_DENIED_NO_TOKEN: "Access denied. No token provided.",
+  JWT_VERIFICATION_ERROR: "JWT Verification Error:",
+  INVALID_TOKEN: "Invalid token."
+};
+export const AUTHORIZATION_MESSAGES = {
+  USER_NOT_AUTHENTICATED: "User not authenticated.",
+  ACCESS_GRANTED: "Access granted.",
+  ACCESS_DENIED: "Access denied: Insufficient permissions.",
+  FORBIDDEN: "Forbidden: Insufficient permissions",
+};
 // =======================
 // LOGGING CONFIG
 // =======================

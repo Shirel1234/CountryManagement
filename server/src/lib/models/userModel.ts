@@ -1,7 +1,8 @@
 import mongoose, { Schema, Document } from "mongoose";
 import bcrypt from "bcrypt";
 import { IUser } from "../../types/user";
-import { AccessLevel } from "../../types/accessLevel";
+import { AccessLevel } from "../../constants/accessLevelEnum";
+import { USER_VALIDATION } from "../../constants";
 
 // Define the User schema
 const UserSchema: Schema = new Schema(
@@ -9,19 +10,19 @@ const UserSchema: Schema = new Schema(
     firstName: {
       type: String,
       required: true,
-      minlength: [2, "First name must have at least 2 characters."],
+      minlength: [2, USER_VALIDATION.FIRST_NAME_TOO_SHORT],
       validate: {
-        validator: (value: string) => /^[A-Za-z]+$/.test(value), 
-        message: "First name can only contain letters.",
+        validator: (value: string) => /^[A-Za-z]+$/.test(value),
+        message: USER_VALIDATION.FIRST_NAME_INVALID,
       },
     },
     lastName: {
       type: String,
       required: true,
-      minlength: [2, "Last name must have at least 2 characters."],
+      minlength: [2, USER_VALIDATION.LAST_NAME_TOO_SHORT],
       validate: {
-        validator: (value: string) => /^[A-Za-z]+$/.test(value), 
-        message: "Last name can only contain letters.",
+        validator: (value: string) => /^[A-Za-z]+$/.test(value),
+        message: USER_VALIDATION.LAST_NAME_INVALID,
       },
     },
     username: {
@@ -29,8 +30,8 @@ const UserSchema: Schema = new Schema(
       required: true,
       unique: true,
       validate: {
-        validator: (value: string) => /^[A-Za-z0-9_]+$/.test(value), 
-        message: "Username can only contain letters, numbers, and underscores.",
+        validator: (value: string) => /^[A-Za-z0-9_]+$/.test(value),
+        message: USER_VALIDATION.USERNAME_INVALID,
       },
     },
     email: {
@@ -39,39 +40,36 @@ const UserSchema: Schema = new Schema(
       unique: true,
       match: [
         /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-        "Please provide a valid email address.",
+        USER_VALIDATION.EMAIL_INVALID,
       ],
     },
     phone: {
       type: String,
       required: true,
-      match: [
-        /^05\d{8}$/,
-        "Please provide a valid phone number (e.g., +1234567890).",
-      ],
+      match: [/^05\d{8}$/, USER_VALIDATION.PHONE_INVALID],
     },
     profileImage: {
       type: String,
       required: false,
       match: [
         /^(https?:\/\/.*\.(jpg|jpeg|png|gif))$|^([a-zA-Z0-9_\-]+\.(jpg|jpeg|png|gif))$/i,
-        "Profile image must be a valid image URL (jpg, jpeg, png, gif) or a valid local file name (jpg, jpeg, png, gif)."
+        USER_VALIDATION.PROFILE_IMAGE_INVALID,
       ],
     },
     password: {
       type: String,
       required: true,
-      minlength: [6, "Password must have at least 6 characters."],
+      minlength: [6, USER_VALIDATION.PASSWORD_TOO_SHORT],
     },
     accessLevel: {
       type: Number,
       required: true,
-      enum:  Object.values(AccessLevel).filter((v) => typeof v === "number"),
+      enum: Object.values(AccessLevel).filter((v) => typeof v === "number"),
       default: AccessLevel.VIEWER,
     },
   },
   {
-    timestamps: true, 
+    timestamps: true,
   }
 );
 
@@ -81,7 +79,7 @@ UserSchema.pre("save", async function (next) {
 
   const saltRounds = 10;
   if (typeof this.password !== "string") {
-    throw new Error("Password must be a string");
+    throw new Error(USER_VALIDATION.PASSWORD_INVALID);
   }
   this.password = await bcrypt.hash(this.password, saltRounds);
   next();
