@@ -19,16 +19,17 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import "../styles/RequestAccess.scss";
-import { useAddRequestAccess } from "../hooks/mutations/useRequestMutation";
-import { useFetchRequests } from "../hooks/queries/useRequestsQuery";
-import Loader from "./Loader";
+import "../../styles/RequestAccess.scss";
+import { useAddRequestAccess } from "../../hooks/mutations/useRequestMutation";
+import { useFetchRequests } from "../../hooks/queries/useRequestsQuery";
+import Loader from "../ui/Loader";
 import { useNavigate } from "react-router-dom";
+import { RequestAccessAction } from "../../constants/requestAccessEnum";
 
 const requestOptions = [
-  { id: "add", label: "Request to Add", icon: <AddIcon /> },
-  { id: "update", label: "Request to Update", icon: <EditIcon /> },
-  { id: "delete", label: "Request to Delete", icon: <DeleteIcon /> },
+  { id: RequestAccessAction.ADD, label: "Request to Add", icon: <AddIcon /> },
+  { id: RequestAccessAction.UPDATE, label: "Request to Update", icon: <EditIcon /> },
+  { id: RequestAccessAction.DELETE, label: "Request to Delete", icon: <DeleteIcon /> },
 ];
 
 const RequestAccess = () => {

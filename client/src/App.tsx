@@ -1,37 +1,44 @@
 import { Routes, Route } from "react-router-dom";
-import DataList from "./components/DataList";
+import DataList from "./components/pages/DataList";
 import "./styles/global.scss";
-import EditCountryForm from "./components/EditCountryForm";
-import NavBar from "./components/NavBar";
-import SignUp from "./components/SignUp";
-import LoginForm from "./components/LoginForm";
-import LandingPage from "./components/LandingPage";
-import EditUserForm from "./components/EditUserForm";
-import ResetPassword from "./components/ResetPassword";
-import AdminDashboard from "./components/AdminDashboard";
-import RequestAccess from "./components/RequestAccess";
-import CountriesTable from "./components/CountriesTable";
-import UsersTable from "./components/UsersTable";
-import RequestsTable from "./components/RequestsTable";
+import EditCountryForm from "./components/forms/EditCountryForm";
+import NavBar from "./components/ui/NavBar";
+import SignUp from "./components/forms/SignUp";
+import LoginForm from "./components/forms/LoginForm";
+import LandingPage from "./components/pages/LandingPage";
+import EditUserForm from "./components/forms/EditUserForm";
+import ResetPassword from "./components/dialogs/ResetPassword";
+import AdminDashboard from "./components/pages/AdminPage";
+import RequestAccess from "./components/forms/RequestAccess";
+import CountriesTable from "./components/tables/CountriesTable";
+import UsersTable from "./components/tables/UsersTable";
+import RequestsTable from "./components/tables/RequestsTable";
+import { ROUTES } from "./constants";
 
 const App: React.FC = () => {
   return (
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<DataList />} />
-        <Route path="/manage-countries" element={<CountriesTable />} />
-        <Route path="/edit-country/:id" element={<EditCountryForm />} />
-        <Route path="/manage-users" element={<UsersTable />} />
-        <Route path="/edit-user/:id" element={<EditUserForm />} />
-        <Route path="/update-profile/:id" element={<EditUserForm />} />
-        <Route path="/manage-requests" element={<RequestsTable />} />
-        <Route path="/request-access/:id" element={<RequestAccess />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path={ROUTES.LANDING_PAGE} element={<LandingPage />} />
+        <Route path={ROUTES.HOME} element={<DataList />} />
+        <Route path={ROUTES.MANAGE_COUNTRIES} element={<CountriesTable />} />
+        <Route
+          path={ROUTES.EDIT_COUNTRY(":id")}
+          element={<EditCountryForm />}
+        />
+        <Route path={ROUTES.MANAGE_USERS} element={<UsersTable />} />
+        <Route path={ROUTES.EDIT_USER(":id")} element={<EditUserForm />} />
+        <Route path={ROUTES.UPDATE_PROFILE(":id")} element={<EditUserForm />} />
+        <Route path={ROUTES.MANAGE_REQUESTS} element={<RequestsTable />} />
+        <Route
+          path={ROUTES.REQUEST_ACCESS(":id")}
+          element={<RequestAccess />}
+        />
+        <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
+        <Route path={ROUTES.LOGIN} element={<LoginForm />} />
+        <Route path={ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
+        <Route path={ROUTES.ADMIN} element={<AdminDashboard />} />
       </Routes>
     </>
   );

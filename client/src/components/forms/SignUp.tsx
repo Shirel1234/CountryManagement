@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Button, TextField, Grid, Container, Typography } from "@mui/material";
 import { Formik, Field, Form } from "formik";
-import "../styles/SignUp.scss";
-import { userValidationSchema } from "../validation/userValidation";
-import { IUser } from "../types/user";
-import { useRegisterUser } from "../hooks/mutations/useUserMutation";
+import "../../styles/SignUp.scss";
+import { userValidationSchema } from "../../validation/userValidation";
+import { IUser } from "../../types/user";
+import { useRegisterUser } from "../../hooks/mutations/useUserMutation";
 
 const SignUp: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);

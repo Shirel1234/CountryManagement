@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { Button, TextField, Grid, Container, Typography } from "@mui/material";
-import "../styles/LoginForm.scss";
-import { loginUser } from "../services/authService";
-import { showErrorToast, showSuccessToast } from "./Toast";
+import "../../styles/LoginForm.scss";
+import { loginUser } from "../../services/authService";
+import { showErrorToast, showSuccessToast } from "../utils/Toast";
 import { useSetRecoilState } from "recoil";
-import { isLoggedInState } from "../state/atoms";
-import { userAccessLevelState } from "../state/atoms";
+import { isLoggedInState } from "../../state/atoms";
+import { userAccessLevelState } from "../../state/atoms";
 import { useNavigate } from "react-router-dom";
-import ForgotPasswordDialog from "./ForgotPasswordDialog";
+import ForgotPasswordDialog from "../dialogs/ForgotPasswordDialog";
 import { jwtDecode } from "jwt-decode";
-import { AccessLevel } from "../types/accessLevel";
+import { AccessLevel } from "../../constants/accessLevelEnum";
 
 const LoginForm = () => {
   const [username, setUsername] = useState<string>("");

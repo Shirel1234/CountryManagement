@@ -1,12 +1,13 @@
 import { Paper, Button, Typography, Tabs, Tab } from "@mui/material";
-import "../styles/RequestsTable.scss";
-import { useFetchRequests } from "../hooks/queries/useRequestsQuery";
+import "../../styles/RequestsTable.scss";
+import { useFetchRequests } from "../../hooks/queries/useRequestsQuery";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useUpdateRequest } from "../hooks/mutations/useRequestMutation";
+import { useUpdateRequest } from "../../hooks/mutations/useRequestMutation";
 import { useState } from "react";
-import { mapActionToAccessLevel } from "../utils/accessUtils";
-import { useUpdateUser } from "../hooks/mutations/useUserMutation";
+import { mapActionToAccessLevel } from "../../utils/accessUtils";
+import { useUpdateUser } from "../../hooks/mutations/useUserMutation";
 import { useNavigate } from "react-router-dom";
+import { RequestAccessAction, RequestAccessStatus } from "../../constants/requestAccessEnum";
 
 const RequestsTable = () => {
   const [idRequest, setIdRequest] = useState<string | null>(null);
@@ -19,13 +20,13 @@ const RequestsTable = () => {
   const handleAction = (
     id: string,
     userId: string,
-    action: "add" | "update" | "delete",
-    status: "approved" | "denied"
+    action: RequestAccessAction,
+    status: RequestAccessStatus.APPROVED | RequestAccessStatus.DENIED
   ) => {
     setIdRequest(id);
     console.log("idUser:", userId, "status:", status, "action:", action);
     updateRequestMutation({ id, status });
-    if (status === "approved") {
+    if (status === RequestAccessStatus.APPROVED) {
       const formData = new FormData();
 
       const newAccessLevel = mapActionToAccessLevel(action);
@@ -76,7 +77,7 @@ const RequestsTable = () => {
       headerName: "Actions",
       flex: 1,
       renderCell: (params) => {
-        if (params.row.status === "pending") {
+        if (params.row.status ===RequestAccessStatus.PENDING) {
           return (
             <div className="actions">
               <Button
@@ -88,7 +89,7 @@ const RequestsTable = () => {
                     params.row._id,
                     params.row.userId._id,
                     params.row.action,
-                    "approved"
+                    RequestAccessStatus.APPROVED
                   )
                 }
               >
@@ -103,7 +104,7 @@ const RequestsTable = () => {
                     params.row._id,
                     params.row.userId._id,
                     params.row.action,
-                    "denied"
+                    RequestAccessStatus.DENIED
                   )
                 }
               >

@@ -1,26 +1,25 @@
 import axios from "axios";
 import { IRequestAccess } from "../types/requestAccess";
+import {
+  API_ENDPOINTS_REQUEST_ACCESS,
+  ERROR_MESSAGES_REQUEST_ACCESS,
+  HEADERS,
+} from "../constants";
 
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-if (!BASE_URL) {
-  throw new Error("VITE_BASE_URL is not defined in the environment variables");
-}
-
-export const fetchRequests = async (userId?: string): Promise<IRequestAccess[]> => {
+export const fetchRequests = async (
+  userId?: string
+): Promise<IRequestAccess[]> => {
   try {
     const url = userId
-    ? `${BASE_URL}/api/request-access/${userId}` 
-    : `${BASE_URL}/api/request-access`;
+      ? API_ENDPOINTS_REQUEST_ACCESS.BY_USER_ID(userId)
+      : API_ENDPOINTS_REQUEST_ACCESS.ALL;
     const response = await axios.get(url, {
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: HEADERS.JSON,
       withCredentials: true,
     });
     return response.data;
   } catch (error) {
-    console.error(`Error fetching requests access: ${error}`);
+    console.error(`${ERROR_MESSAGES_REQUEST_ACCESS.FETCH_FAILED}: ${error}`);
     throw error;
   }
 };
@@ -29,17 +28,17 @@ export const fetchRequestsByUserId = async (
 ): Promise<IRequestAccess[]> => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/api/request-access/${userId}`,
+      API_ENDPOINTS_REQUEST_ACCESS.BY_USER_ID(userId),
       {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: HEADERS.JSON,
         withCredentials: true,
       }
     );
     return response.data;
   } catch (error) {
-    console.error(`Error fetching requests for user ${userId}: ${error}`);
+    console.error(
+      `${ERROR_MESSAGES_REQUEST_ACCESS.FETCH_BY_USER_FAILED}: ${error}`
+    );
     throw error;
   }
 };
@@ -48,18 +47,16 @@ export const addRequestAccess = async (newRequest: {
 }): Promise<IRequestAccess> => {
   try {
     const response = await axios.post(
-      `${BASE_URL}/api/request-access`,
+      API_ENDPOINTS_REQUEST_ACCESS.ALL,
       JSON.stringify(newRequest),
       {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: HEADERS.JSON,
         withCredentials: true,
       }
     );
     return response.data;
   } catch (error) {
-    console.error(`Error adding a request: ${error}`);
+    console.error(`${ERROR_MESSAGES_REQUEST_ACCESS.ADD_FAILED}: ${error}`);
     throw error;
   }
 };
@@ -69,18 +66,16 @@ export const updateRequest = async (
 ): Promise<IRequestAccess> => {
   try {
     const response = await axios.patch(
-      `${BASE_URL}/api/request-access/${id}`,
+      API_ENDPOINTS_REQUEST_ACCESS.BY_ID(id),
       updatedData,
       {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: HEADERS.JSON,
         withCredentials: true,
       }
     );
     return response.data;
   } catch (error) {
-    console.error(`Error updating request status: ${error}`);
+    console.error(`${ERROR_MESSAGES_REQUEST_ACCESS.UPDATE_FAILED}: ${error}`);
     throw error;
   }
 };

@@ -1,24 +1,16 @@
 import axios from "axios";
 import { IUser } from "../types/user";
-
-// Use the VITE_BASE_URL environment variable
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-if (!BASE_URL) {
-  throw new Error("VITE_BASE_URL is not defined in the environment variables");
-}
+import { API_ENDPOINTS_USER, ERROR_MESSAGES_USER, HEADERS } from "../constants";
 
 export const fetchUsers = async (): Promise<IUser[]> => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/users`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const response = await axios.get(API_ENDPOINTS_USER.ALL, {
+      headers: HEADERS.JSON,
       withCredentials: true,
     });
     return response.data;
   } catch (error) {
-    console.error(`Error fetching users: ${error}`);
+    console.error(`${ERROR_MESSAGES_USER.FETCH_FAILED}: ${error}`);
     throw error;
   }
 };
@@ -27,29 +19,25 @@ export const getUserById = async (id: string | null): Promise<IUser> => {
     throw new Error("User ID is required");
   }
   try {
-    const response = await axios.get(`${BASE_URL}/api/users/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const response = await axios.get(API_ENDPOINTS_USER.BY_ID(id), {
+      headers: HEADERS.JSON,
       withCredentials: true,
     });
     return response.data;
   } catch (error) {
-    console.error(`Error fetching user by id: ${error}`);
+    console.error(`${ERROR_MESSAGES_USER.FETCH_BY_ID_FAILED}: ${error}`);
     throw error;
   }
 };
 export const addUser = async (newUser: Omit<IUser, "_id">): Promise<IUser> => {
   try {
-    const response = await axios.post(`${BASE_URL}/api/users`, newUser, {
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const response = await axios.post(API_ENDPOINTS_USER.ALL, newUser, {
+      headers: HEADERS.JSON,
       withCredentials: true,
     });
     return response.data;
   } catch (error) {
-    console.error(`Error adding user: ${error}`);
+    console.error(`${ERROR_MESSAGES_USER.ADD_FAILED}: ${error}`);
     throw error;
   }
 };
@@ -61,28 +49,24 @@ export const updateUser = async (
     throw new Error("User ID is required");
   }
   try {
-    const response = await axios.put(`${BASE_URL}/api/users/${id}`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+    const response = await axios.put(API_ENDPOINTS_USER.BY_ID(id), formData, {
+      headers: HEADERS.MULTIPART,
       withCredentials: true,
     });
     return response.data;
   } catch (error) {
-    console.error(`Error updating user: ${error}`);
+    console.error(`${ERROR_MESSAGES_USER.UPDATE_FAILED}: ${error}`);
     throw error;
   }
 };
 export const deleteUser = async (id: string): Promise<void> => {
   try {
-    await axios.delete(`${BASE_URL}/api/users/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
+    await axios.delete(API_ENDPOINTS_USER.BY_ID(id), {
+      headers: HEADERS.JSON,
       withCredentials: true,
     });
   } catch (error) {
-    console.error(`Error deleting user: ${error}`);
+    console.error(`${ERROR_MESSAGES_USER.DELETE_FAILED}: ${error}`);
     throw error;
   }
 };

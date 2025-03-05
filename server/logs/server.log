@@ -3913,3 +3913,62 @@ Use mongoose.model(name, schema)
 2025-03-04 12:53:13 [[32minfo[39m]: Country updated successfully!
 2025-03-04 12:53:18 [[32minfo[39m]: Access granted.
 2025-03-04 12:53:18 [[32minfo[39m]: Access granted.
+2025-03-05 09:58:19 [[32minfo[39m]: Connecting to MongoDB...
+2025-03-05 09:58:21 [[32minfo[39m]: Mongodb connection saccessfull !!!
+2025-03-05 09:58:22 [[32minfo[39m]: Countries data already exists in the database!
+2025-03-05 09:58:22 [[32minfo[39m]: Initial country data fetched and stored.
+2025-03-05 09:58:22 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-03-05 09:59:00 [[32minfo[39m]: Fetched 3 requests.
+2025-03-05 10:14:34 [[32minfo[39m]: Fetched 3 requests.
+2025-03-05 10:44:51 [[32minfo[39m]: Fetched 3 requests.
+2025-03-05 10:51:11 [[32minfo[39m]: Fetched 3 requests.
+2025-03-05 11:08:23 [[32minfo[39m]: Access granted.
+2025-03-05 11:10:16 [[32minfo[39m]: Access granted.
+2025-03-05 11:10:16 [[32minfo[39m]: User successfully added!
+2025-03-05 11:10:22 [[32minfo[39m]: Access granted.
+2025-03-05 11:10:22 [[32minfo[39m]: Access granted.
+2025-03-05 11:10:48 [[32minfo[39m]: Access granted.
+2025-03-05 11:10:48 [[32minfo[39m]: User updated successfully!
+2025-03-05 11:11:44 [[32minfo[39m]: Access granted.
+2025-03-05 11:11:44 [[32minfo[39m]: User deleted successfully!
+2025-03-05 11:11:53 [[32minfo[39m]: Access granted.
+2025-03-05 11:12:50 [[32minfo[39m]: Fetched 3 requests.
+2025-03-05 11:12:50 [[32minfo[39m]: Fetched 2 requests.
+2025-03-05 11:12:58 [[32minfo[39m]: Request successfully added!
+2025-03-05 11:12:59 [[32minfo[39m]: Fetched 3 requests.
+2025-03-05 11:13:44 [[32minfo[39m]: Fetched 4 requests.
+2025-03-05 11:13:56 [[32minfo[39m]: Access granted.
+2025-03-05 11:13:56 [[32minfo[39m]: Request 67c8159a9cd10d679bfce54a updated to status: denied
+2025-03-05 11:13:57 [[32minfo[39m]: Fetched 4 requests.
+2025-03-05 11:15:26 [[32minfo[39m]: Fetched 3 requests.
+2025-03-05 11:23:02 [[32minfo[39m]: Access granted.
+2025-03-05 11:23:25 [[32minfo[39m]: Access granted.
+2025-03-05 11:55:28 [[32minfo[39m]: Access granted.
+2025-03-05 11:55:32 [[32minfo[39m]: Access granted.
+2025-03-05 11:55:41 [[32minfo[39m]: Access granted.
+2025-03-05 11:55:41 [[32minfo[39m]: City successfully added!
+2025-03-05 11:55:48 [[32minfo[39m]: Access granted.
+2025-03-05 11:55:48 [[32minfo[39m]: City updated successfully!
+2025-03-05 11:55:50 [[32minfo[39m]: Access granted.
+2025-03-05 11:55:51 [[32minfo[39m]: City deleted successfully!
+2025-03-05 11:55:52 [[32minfo[39m]: Access granted.
+2025-03-05 11:55:52 [[32minfo[39m]: Country updated successfully!
+2025-03-05 11:56:19 [[32minfo[39m]: No requests found.
+2025-03-05 11:56:19 [[32minfo[39m]: Fetched 4 requests.
+2025-03-05 11:56:21 [[32minfo[39m]: No requests found.
+2025-03-05 11:56:23 [[32minfo[39m]: No requests found.
+2025-03-05 12:02:39 [[32minfo[39m]: Access granted.
+2025-03-05 12:06:36 [[32minfo[39m]: Fetched 4 requests.
+2025-03-05 12:06:45 [[32minfo[39m]: No requests found.
+2025-03-05 12:06:47 [[32minfo[39m]: No requests found.
+2025-03-05 12:06:49 [[32minfo[39m]: No requests found.
+2025-03-05 12:07:09 [[32minfo[39m]: Request successfully added!
+2025-03-05 12:07:10 [[32minfo[39m]: Fetched 1 requests.
+2025-03-05 12:07:18 [[32minfo[39m]: Access granted.
+2025-03-05 12:07:18 [[32minfo[39m]: Access granted.
+2025-03-05 12:07:24 [[32minfo[39m]: Fetched 5 requests.
+2025-03-05 12:17:14 [[32minfo[39m]: Fetched 5 requests.
+2025-03-05 12:17:22 [[32minfo[39m]: Access granted.
+2025-03-05 12:28:00 [[32minfo[39m]: Access granted.
+2025-03-05 12:28:01 [[32minfo[39m]: Access granted.
+2025-03-05 12:28:58 [[32minfo[39m]: Access granted.

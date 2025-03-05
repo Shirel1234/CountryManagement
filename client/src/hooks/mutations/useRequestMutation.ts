@@ -4,7 +4,8 @@ import {
   addRequestAccess,
   updateRequest,
 } from "../../services/requestAccessService";
-import { showErrorToast, showSuccessToast } from "../../components/Toast";
+import { showErrorToast, showSuccessToast } from "../../components/utils/Toast";
+import { QUERY_KEYS, REQUEST_ACCESS_MUTATION_MESSAGES } from "../../constants";
 
 export const useAddRequestAccess = () => {
   const queryClient = useQueryClient();
@@ -13,25 +14,24 @@ export const useAddRequestAccess = () => {
     mutationFn: (newRequest) => addRequestAccess(newRequest),
     onSuccess: (newRequestAccess) => {
       queryClient.setQueryData(
-        ["requests"],
+        [QUERY_KEYS.REQUESTS],
         (oldData: IRequestAccess[] | undefined) => {
           return oldData ? [...oldData, newRequestAccess] : [newRequestAccess];
         }
       );
-      queryClient.invalidateQueries({ queryKey: ["requests"] });
-      console.log("Request sent to the admin!");
-      showSuccessToast("Request sent to the admin!");
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.REQUESTS] });
+      console.log(REQUEST_ACCESS_MUTATION_MESSAGES.REQUEST_SENT);
+      showSuccessToast(REQUEST_ACCESS_MUTATION_MESSAGES.REQUEST_SENT);
     },
     onError: (error) => {
-      console.error("Error sending request:", error);
-      showErrorToast("Failed to send request.");
+      console.error(REQUEST_ACCESS_MUTATION_MESSAGES.REQUEST_FAILED, error);
+      showErrorToast(REQUEST_ACCESS_MUTATION_MESSAGES.REQUEST_FAILED);
     },
   });
 
   return addMutation;
 };
-
-export const useUpdateRequest = (id: string| null ) => {
+export const useUpdateRequest = (id: string | null) => {
   const queryClient = useQueryClient();
 
   const updateMutation = useMutation<
@@ -42,7 +42,7 @@ export const useUpdateRequest = (id: string| null ) => {
     mutationFn: (updatedRequest) => updateRequest(id, updatedRequest),
     onSuccess: (updatedRequest) => {
       queryClient.setQueryData(
-        ["requests"],
+        [QUERY_KEYS.REQUESTS],
         (oldData: IRequestAccess[] | undefined) => {
           if (!oldData) return [];
 
@@ -54,16 +54,18 @@ export const useUpdateRequest = (id: string| null ) => {
         }
       );
 
-      queryClient.invalidateQueries({ queryKey: ["requests"] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.REQUESTS] });
 
-      console.log("Request updated successfully!");
-      showSuccessToast("Request updated successfully!");
+      console.log(REQUEST_ACCESS_MUTATION_MESSAGES.REQUEST_UPDATED);
+      showSuccessToast(REQUEST_ACCESS_MUTATION_MESSAGES.REQUEST_UPDATED);
     },
     onError: (error) => {
       console.error(
-        `Failed to update the request: ${(error as Error).message}`
+        `${REQUEST_ACCESS_MUTATION_MESSAGES.UPDATE_FAILED}: ${
+          (error as Error).message
+        }`
       );
-      showErrorToast("Failed to update the request.");
+      showErrorToast(REQUEST_ACCESS_MUTATION_MESSAGES.UPDATE_FAILED);
     },
   });
 

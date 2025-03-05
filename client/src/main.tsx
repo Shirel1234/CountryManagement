@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import App from "./App.tsx";
-import ErrorBoundary from "./components/ErrorBoundary.tsx";
+import ErrorBoundary from "./components/utils/ErrorBoundary.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ToastContainer } from "react-toastify";

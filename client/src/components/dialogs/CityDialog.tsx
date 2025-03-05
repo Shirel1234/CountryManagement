@@ -14,10 +14,10 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
-import { ICountry } from "../types/country";
-import { ICity } from "../types/city";
-import { useAddCity, useUpdateCity } from "../hooks/mutations/useCityMutation";
-import { useDeleteCity } from "../hooks/mutations/useCityMutation";
+import { ICountry } from "../../types/country";
+import { ICity } from "../../types/city";
+import { useAddCity, useUpdateCity } from "../../hooks/mutations/useCityMutation";
+import { useDeleteCity } from "../../hooks/mutations/useCityMutation";
 
 interface CityDialogProps {
   open: boolean;

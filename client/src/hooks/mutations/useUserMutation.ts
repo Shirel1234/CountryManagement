@@ -1,11 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IUser } from "../../types/user";
 import { addUser, deleteUser, updateUser } from "../../services/userServices";
-import { showErrorToast, showSuccessToast } from "../../components/Toast";
+import { showErrorToast, showSuccessToast } from "../../components/utils/Toast";
 import { registerUser } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 import { isLoggedInState } from "../../state/atoms";
 import { useSetRecoilState } from "recoil";
+import { QUERY_KEYS, USER_MUTATION_MESSAGES } from "../../constants";
 
 export const useAddUser = () => {
   const queryClient = useQueryClient();
@@ -13,15 +14,20 @@ export const useAddUser = () => {
   const addMutation = useMutation<IUser, Error, Omit<IUser, "_id">>({
     mutationFn: (newUser) => addUser(newUser),
     onSuccess: (newUser) => {
-      queryClient.setQueryData(["users"], (oldData: IUser[] | undefined) => {
-        return oldData ? [...oldData, newUser] : [newUser];
-      });
-      console.log("User added successfully!");
-      showSuccessToast("User added successfully!");
+      queryClient.setQueryData(
+        [QUERY_KEYS.USERS],
+        (oldData: IUser[] | undefined) => {
+          return oldData ? [...oldData, newUser] : [newUser];
+        }
+      );
+      console.log(USER_MUTATION_MESSAGES.USER_ADDED);
+      showSuccessToast(USER_MUTATION_MESSAGES.USER_ADDED);
     },
     onError: (error) => {
-      console.error(`Add failed: ${(error as Error).message}`);
-      showErrorToast("Failed to add User.");
+      console.error(
+        `${USER_MUTATION_MESSAGES.ADD_USER_FAILED}: ${(error as Error).message}`
+      );
+      showErrorToast(USER_MUTATION_MESSAGES.ADD_USER_FAILED);
     },
   });
 
@@ -37,15 +43,22 @@ export const useRegisterUser = () => {
       return registerUser(formData);
     },
     onSuccess: (newUser) => {
-      queryClient.setQueryData(["users"], (oldData: IUser[] | undefined) => {
-        return oldData ? [...oldData, newUser] : [newUser];
-      });
-      showSuccessToast("User registered successfully!");
+      queryClient.setQueryData(
+        [QUERY_KEYS.USERS],
+        (oldData: IUser[] | undefined) => {
+          return oldData ? [...oldData, newUser] : [newUser];
+        }
+      );
+      showSuccessToast(USER_MUTATION_MESSAGES.USER_REGISTERED);
       setIsLoggedIn(true);
       navigate("/home");
     },
     onError: (error) => {
-      showErrorToast(`Error: ${(error as Error).message}`);
+      showErrorToast(
+        `${USER_MUTATION_MESSAGES.REGISTER_USER_FAILED}: ${
+          (error as Error).message
+        }`
+      );
     },
   });
 
@@ -54,22 +67,35 @@ export const useRegisterUser = () => {
 export const useUpdateUser = () => {
   const queryClient = useQueryClient();
 
-  const updateMutation = useMutation<IUser, Error, {id: string; formData: FormData}>({
-    mutationFn: ({id, formData}) => updateUser(id, formData),
+  const updateMutation = useMutation<
+    IUser,
+    Error,
+    { id: string; formData: FormData }
+  >({
+    mutationFn: ({ id, formData }) => updateUser(id, formData),
     onSuccess: (updatedUser) => {
-      queryClient.setQueryData(["users"], (oldData: IUser[] | undefined) => {
-        return oldData
-          ? oldData.map((User) =>
-              User._id === updatedUser._id ? { ...User, ...updatedUser } : User
-            )
-          : [];
-      });
-      console.log("User updated successfully!");
-      showSuccessToast("User updated successfully!");
+      queryClient.setQueryData(
+        [QUERY_KEYS.USERS],
+        (oldData: IUser[] | undefined) => {
+          return oldData
+            ? oldData.map((User) =>
+                User._id === updatedUser._id
+                  ? { ...User, ...updatedUser }
+                  : User
+              )
+            : [];
+        }
+      );
+      console.log(USER_MUTATION_MESSAGES.USER_UPDATED);
+      showSuccessToast(USER_MUTATION_MESSAGES.USER_UPDATED);
     },
     onError: (error) => {
-      console.error(`Failed to update the User: ${(error as Error).message}`);
-      showErrorToast("Failed to update the User.");
+      console.error(
+        `${USER_MUTATION_MESSAGES.UPDATE_USER_FAILED}: ${
+          (error as Error).message
+        }`
+      );
+      showErrorToast(USER_MUTATION_MESSAGES.UPDATE_USER_FAILED);
     },
   });
 
@@ -82,15 +108,22 @@ export const useDeleteUser = () => {
     mutationFn: (userId: string) => deleteUser(userId),
     onSuccess: (_data, variables) => {
       const userId = variables;
-      queryClient.setQueryData(["users"], (oldData: IUser[] | undefined) => {
-        return oldData ? oldData.filter((user) => user._id !== userId) : [];
-      });
-      console.log("User deleted successfully!");
-      showSuccessToast("User deleted successfully!");
+      queryClient.setQueryData(
+        [QUERY_KEYS.USERS],
+        (oldData: IUser[] | undefined) => {
+          return oldData ? oldData.filter((user) => user._id !== userId) : [];
+        }
+      );
+      console.log(USER_MUTATION_MESSAGES.USER_DELETED);
+      showSuccessToast(USER_MUTATION_MESSAGES.USER_DELETED);
     },
     onError: (error) => {
-      console.error(`Delete failed: ${(error as Error).message}`);
-      showErrorToast("Failed to delete user.");
+      console.error(
+        `${USER_MUTATION_MESSAGES.DELETE_USER_FAILED}: ${
+          (error as Error).message
+        }`
+      );
+      showErrorToast(USER_MUTATION_MESSAGES.DELETE_USER_FAILED);
     },
   });
 

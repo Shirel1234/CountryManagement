@@ -1,8 +1,9 @@
 import * as Yup from "yup";
+import { VALIDATION_MESSAGES_CITY } from "../constants";
 
 export const cityValidationSchema = Yup.object({
   name: Yup.string()
-    .required("City name is required")
-    .min(3, "Name should have at least 3 characters.")
-    .matches(/^[^\d]+$/, "Name must not contain numbers."),
+    .required(VALIDATION_MESSAGES_CITY.REQUIRED)
+    .min(3, VALIDATION_MESSAGES_CITY.MIN_LENGTH)
+    .matches(/^[^\d]+$/, VALIDATION_MESSAGES_CITY.NO_NUMBERS),
 });

@@ -1,50 +1,42 @@
 import axios from "axios";
-
-// Use the VITE_BASE_URL environment variable
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-if (!BASE_URL) {
-  throw new Error("VITE_BASE_URL is not defined in the environment variables");
-}
+import {
+  API_ENDPOINTS_PASSWORD_RESET,
+  ERROR_MESSAGES_PASSWORD_RESET,
+  HEADERS,
+} from "../constants";
 
 export const requestPasswordResetClient = async (
   email: string
 ): Promise<void> => {
   try {
-    console.log("hereeeee", `${BASE_URL}/api/request-password-reset`)
     await axios.post(
-      `${BASE_URL}/api/request-password-reset`,
+      API_ENDPOINTS_PASSWORD_RESET.REQUEST_PASSWORD_RESET,
       { email },
       {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: HEADERS.JSON,
         withCredentials: true,
       }
     );
   } catch (error) {
-    console.error(`Error requesting password reset: ${error}`);
+    console.error(ERROR_MESSAGES_PASSWORD_RESET.REQUEST_FAILED, error);
     throw error;
   }
 };
-
 export const resetPassword = async (
   token: string,
   newPassword: string
 ): Promise<void> => {
   try {
     await axios.post(
-      `${BASE_URL}/api/reset-password`,
+      API_ENDPOINTS_PASSWORD_RESET.RESET_PASSWORD,
       { token, newPassword },
       {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: HEADERS.JSON,
         withCredentials: true,
       }
     );
   } catch (error) {
-    console.error(`Error resetting password: ${error}`);
+    console.error(ERROR_MESSAGES_PASSWORD_RESET.RESET_FAILED, error);
     throw error;
   }
 };

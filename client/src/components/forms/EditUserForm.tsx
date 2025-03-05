@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { TextField, Button, Container, Typography, Grid } from "@mui/material";
 import { Formik, Field, Form } from "formik";
-import "../styles/EditUserForm.scss";
-import { IUser } from "../types/user";
-import ConfirmLeaveDialog from "./ConfirmLeaveDialog";
-import { useUpdateUser } from "../hooks/mutations/useUserMutation";
-import { userValidationSchema } from "../validation/userValidation";
-import { getUserById } from "../services/userServices";
+import "../../styles/EditUserForm.scss";
+import { IUser } from "../../types/user";
+import ConfirmLeaveDialog from "../dialogs/ConfirmLeaveDialog";
+import { useUpdateUser } from "../../hooks/mutations/useUserMutation";
+import { userValidationSchema } from "../../validation/userValidation";
+import { getUserById } from "../../services/userServices";
 import { useRecoilValue } from "recoil";
-import { userAccessLevelState } from "../state/atoms";
-import { AccessLevel } from "../types/accessLevel";
+import { userAccessLevelState } from "../../state/atoms";
+import { AccessLevel } from "../../constants/accessLevelEnum";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -28,7 +28,7 @@ const EditUserForm: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const { mutate: updateUserMutation } = useUpdateUser(null);
+  const { mutate: updateUserMutation } = useUpdateUser();
 
   useEffect(() => {
     const fetchuser = async () => {
