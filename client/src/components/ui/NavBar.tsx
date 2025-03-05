@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { isLoggedInState, selectedCountryState } from "../state/atoms";
-import { logoutUser } from "../services/authService";
+import { isLoggedInState, selectedCountryState } from "../../state/atoms";
+import { logoutUser } from "../../services/authService";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -13,7 +13,7 @@ import {
   ListItem,
 } from "@mui/material";
 import { AccountCircle, AdminPanelSettings, Logout } from "@mui/icons-material";
-import "../styles/NavBar.scss";
+import "../../styles/NavBar.scss";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 

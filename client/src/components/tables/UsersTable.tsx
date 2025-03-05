@@ -2,13 +2,13 @@ import { useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Paper, Button, Box, IconButton, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import "../styles/UsersTable.scss";
-import { IUser } from "../types/user";
-import { useFetchUsers } from "../hooks/queries/useUsersQuery";
-import DeleteConfirmDialog from "./DeleteConfirmDialog";
-import { useAddUser, useDeleteUser } from "../hooks/mutations/useUserMutation";
+import "../../styles/UsersTable.scss";
+import { IUser } from "../../types/user";
+import { useFetchUsers } from "../../hooks/queries/useUsersQuery";
+import DeleteConfirmDialog from "../dialogs/DeleteConfirmDialog";
+import { useAddUser, useDeleteUser } from "../../hooks/mutations/useUserMutation";
 import { useNavigate } from "react-router-dom";
-import AddUserDialog from "./AddUserDialog";
+import AddUserDialog from "../dialogs/AddUserDialog";
 
 const UsersTable = () => {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);

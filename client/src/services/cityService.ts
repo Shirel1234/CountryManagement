@@ -1,36 +1,16 @@
 import axios from "axios";
 import { ICity } from "../types/city";
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-if (!BASE_URL) {
-  throw new Error("VITE_BASE_URL is not defined in the environment variables");
-}
+import { API_ENDPOINTS_CITY, ERROR_MESSAGES_CITY, HEADERS } from "../constants";
 
 export const fetchCities = async (): Promise<ICity[]> => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/cities`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const response = await axios.get(API_ENDPOINTS_CITY.CITIES, {
+      headers: HEADERS.JSON,
       withCredentials: true,
     });
     return response.data;
   } catch (error) {
-    console.error(`Error fetching data: ${error}`);
-    throw error;
-  }
-};
-export const deleteCity = async (id: string): Promise<void> => {
-  try {
-    await axios.delete(`${BASE_URL}/api/cities/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-    });
-  } catch (error) {
-    console.error(`Error deleting city: ${error}`);
+    console.error(`${ERROR_MESSAGES_CITY.FETCH_CITIES_FAILED}: ${error}`);
     throw error;
   }
 };
@@ -39,15 +19,25 @@ export const getCityById = async (id: string | undefined): Promise<ICity> => {
     throw new Error("City ID is required");
   }
   try {
-    const response = await axios.get(`${BASE_URL}/api/cities/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const response = await axios.get(API_ENDPOINTS_CITY.CITY_BY_ID(id), {
+      headers: HEADERS.JSON,
       withCredentials: true,
     });
     return response.data;
   } catch (error) {
-    console.error(`Error fetching city by id: ${error}`);
+    console.error(`${ERROR_MESSAGES_CITY.FETCH_CITY_FAILED}: ${error}`);
+    throw error;
+  }
+};
+export const addCity = async (newCity: Omit<ICity, "_id">): Promise<ICity> => {
+  try {
+    const response = await axios.post(API_ENDPOINTS_CITY.CITIES, newCity, {
+      headers: HEADERS.JSON,
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(`${ERROR_MESSAGES_CITY.ADD_CITY_FAILED}: ${error}`);
     throw error;
   }
 };
@@ -57,32 +47,27 @@ export const updateCity = async (
 ): Promise<ICity> => {
   try {
     const response = await axios.put(
-      `${BASE_URL}/api/cities/${id}`,
+      API_ENDPOINTS_CITY.CITY_BY_ID(id),
       updatedData,
       {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: HEADERS.JSON,
         withCredentials: true,
       }
     );
     return response.data;
   } catch (error) {
-    console.error(`Error updating city: ${error}`);
+    console.error(`${ERROR_MESSAGES_CITY.UPDATE_CITY_FAILED}: ${error}`);
     throw error;
   }
 };
-export const addCity = async (newCity: Omit<ICity, "_id">): Promise<ICity> => {
+export const deleteCity = async (id: string): Promise<void> => {
   try {
-    const response = await axios.post(`${BASE_URL}/api/cities`, newCity, {
-      headers: {
-        "Content-Type": "application/json",
-      },
+    await axios.delete(API_ENDPOINTS_CITY.CITY_BY_ID(id), {
+      headers: HEADERS.JSON,
       withCredentials: true,
     });
-    return response.data;
   } catch (error) {
-    console.error(`Error adding city: ${error}`);
+    console.error(`${ERROR_MESSAGES_CITY.DELETE_CITY_FAILED}: ${error}`);
     throw error;
   }
 };

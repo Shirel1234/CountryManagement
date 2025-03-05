@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import { useFetchCountries } from "../hooks/queries/useCountriesQuery";
-import Loader from "./Loader";
-import { showSuccessToast, showErrorToast } from "./Toast";
-import "../styles/DataList.scss";
-import CountriesTable from "./CountriesTable";
+import { useFetchCountries } from "../../hooks/queries/useCountriesQuery";
+import Loader from "../ui/Loader";
+import { showSuccessToast, showErrorToast } from "../utils/Toast";
+import "../../styles/DataList.scss";
+import CountriesTable from "../tables/CountriesTable";
 
 const DataList: React.FC = () => {
   const { isLoading, isError, isSuccess, error } = useFetchCountries();

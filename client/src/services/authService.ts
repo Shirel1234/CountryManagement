@@ -1,67 +1,66 @@
 import axios from "axios";
+import {
+  API_ENDPOINTS_AUTH,
+  ERROR_MESSAGES_AUTH,
+  HEADERS,
+  LOCAL_STORAGE_KEYS,
+} from "../constants";
 
-// Use the VITE_BASE_URL environment variable
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+export const registerUser = async (
+  formData: FormData
+): Promise<{ token: string }> => {
+  try {
+    const response = await axios.post(API_ENDPOINTS_AUTH.REGISTER, formData, {
+      headers: HEADERS.MULTIPART,
+      withCredentials: true,
+    });
+    const { token, myId, myUsername, myProfileImage } = response.data;
+    localStorage.setItem(
+      LOCAL_STORAGE_KEYS.USER_DATA,
+      JSON.stringify({ myId, myUsername, myProfileImage })
+    );
 
-if (!BASE_URL) {
-  throw new Error("VITE_BASE_URL is not defined in the environment variables");
-}
+    return { token };
+  } catch (error) {
+    console.error(`${ERROR_MESSAGES_AUTH.REGISTER_FAILED}: ${error}`);
+    throw error;
+  }
+};
 export const loginUser = async (
   username: string,
   password: string
 ): Promise<{ token: string }> => {
   try {
     const response = await axios.post(
-      `${BASE_URL}/auth/login`,
+      API_ENDPOINTS_AUTH.LOGIN,
       { username, password },
       {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: HEADERS.JSON,
         withCredentials: true,
       }
     );
     const { token, myId, myUsername, myProfileImage } = response.data;
     localStorage.setItem(
-      "userData",
+      LOCAL_STORAGE_KEYS.USER_DATA,
       JSON.stringify({ myId, myUsername, myProfileImage })
     );
     return { token };
   } catch (error) {
-    console.error(`Error logging in: ${error}`);
+    console.error(`${ERROR_MESSAGES_AUTH.LOGIN_FAILED}: ${error}`);
     throw error;
   }
 };
-
 export const logoutUser = async (): Promise<void> => {
-  await axios.post(
-    `${BASE_URL}/auth/logout`,
-    {},
-    {
-      withCredentials: true,
-    }
-  );
-};
-
-export const registerUser = async (
-  formData: FormData
-): Promise<{ token: string }> => {
   try {
-    const response = await axios.post(`${BASE_URL}/auth/register`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      withCredentials: true,
-    });
-    const { token, myId, myUsername, myProfileImage } = response.data;
-    localStorage.setItem(
-      "userData",
-      JSON.stringify({ myId, myUsername, myProfileImage })
+    await axios.post(
+      API_ENDPOINTS_AUTH.LOGOUT,
+      {},
+      {
+        withCredentials: true,
+      }
     );
-
-    return { token };
   } catch (error) {
-    console.error(`Error registering user: ${error}`);
+    console.error(`${ERROR_MESSAGES_AUTH.GENERAL_ERROR}: ${error}`);
     throw error;
   }
 };

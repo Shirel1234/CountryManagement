@@ -8,9 +8,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import "../styles/ForgotPasswordDialog.scss";
-import { showSuccessToast, showErrorToast } from "./Toast";
-import { requestPasswordResetClient } from "../services/passwordResetService";
+import "../../styles/ForgotPasswordDialog.scss";
+import { showSuccessToast, showErrorToast } from "../utils/Toast";
+import { requestPasswordResetClient } from "../../services/passwordResetService";
 
 interface ForgotPasswordDialogProps {
   open: boolean;

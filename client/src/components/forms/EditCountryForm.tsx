@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { TextField, Button, Container, Typography } from "@mui/material";
 import { Formik, Field, Form } from "formik";
-import "../styles/EditCountryForm.scss";
-import { getCountryById } from "../services/countryService";
-import { ICountry } from "../types/country";
-import ConfirmLeaveDialog from "./ConfirmLeaveDialog";
-import { useUpdateCountry } from "../hooks/mutations/useCountryMutation";
-import { countryValidationSchema } from "../validation/countryValidation";
+import "../../styles/EditCountryForm.scss";
+import { getCountryById } from "../../services/countryService";
+import { ICountry } from "../../types/country";
+import ConfirmLeaveDialog from "../dialogs/ConfirmLeaveDialog";
+import { useUpdateCountry } from "../../hooks/mutations/useCountryMutation";
+import { countryValidationSchema } from "../../validation/countryValidation";
 import { useSetRecoilState } from "recoil";
-import { selectedCountryState } from "../state/atoms";
+import { selectedCountryState } from "../../state/atoms";
 
 const EditCountryForm: React.FC = () => {
   const [country, setCountry] = useState<ICountry | null>(null);

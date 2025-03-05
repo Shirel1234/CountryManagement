@@ -13,8 +13,8 @@ import {
   InputLabel,
 } from "@mui/material";
 import { useFormik } from "formik";
-import { userValidationSchema } from "../validation/userValidation";
-import { AccessLevel } from "../types/accessLevel";
+import { userValidationSchema } from "../../validation/userValidation";
+import { AccessLevel } from "../../constants/accessLevelEnum";
 
 interface AddUserDialogProps {
   open: boolean;

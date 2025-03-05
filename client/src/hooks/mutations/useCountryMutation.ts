@@ -5,7 +5,8 @@ import {
   updateCountry,
 } from "../../services/countryService";
 import { ICountry } from "../../types/country";
-import { showErrorToast, showSuccessToast } from "../../components/Toast";
+import { showErrorToast, showSuccessToast } from "../../components/utils/Toast";
+import { COUNTRY_MUTATION_MESSAGES, QUERY_KEYS } from "../../constants";
 
 export const useDeleteCountry = () => {
   const queryClient = useQueryClient();
@@ -15,25 +16,28 @@ export const useDeleteCountry = () => {
     onSuccess: (_data, variables) => {
       const countryId = variables;
       queryClient.setQueryData(
-        ["countries"],
+        [QUERY_KEYS.COUNTRIES],
         (oldData: ICountry[] | undefined) => {
           return oldData
             ? oldData.filter((country) => country._id !== countryId)
             : [];
         }
       );
-      console.log("Country deleted successfully!");
-      showSuccessToast("Country deleted successfully!");
+      console.log(COUNTRY_MUTATION_MESSAGES.COUNTRY_DELETED);
+      showSuccessToast(COUNTRY_MUTATION_MESSAGES.COUNTRY_DELETED);
     },
     onError: (error) => {
-      console.error(`Delete failed: ${(error as Error).message}`);
-      showErrorToast("Failed to delete country.");
+      console.error(
+        `${COUNTRY_MUTATION_MESSAGES.COUNTRY_DELETED}: ${
+          (error as Error).message
+        }`
+      );
+      showErrorToast(COUNTRY_MUTATION_MESSAGES.DELETE_COUNTRY_FAILED);
     },
   });
 
   return deleteMutation;
 };
-
 export const useAddCountry = () => {
   const queryClient = useQueryClient();
 
@@ -41,23 +45,26 @@ export const useAddCountry = () => {
     mutationFn: (newCountry) => addCountry(newCountry),
     onSuccess: (newCountry) => {
       queryClient.setQueryData(
-        ["countries"],
+        [QUERY_KEYS.COUNTRIES],
         (oldData: ICountry[] | undefined) => {
           return oldData ? [...oldData, newCountry] : [newCountry];
         }
       );
-      console.log("Country added successfully!");
-      showSuccessToast("Country added successfully!");
+      console.log(COUNTRY_MUTATION_MESSAGES.COUNTRY_ADDED);
+      showSuccessToast(COUNTRY_MUTATION_MESSAGES.COUNTRY_ADDED);
     },
     onError: (error) => {
-      console.error(`Add failed: ${(error as Error).message}`);
-      showErrorToast("Failed to add country.");
+      console.error(
+        `${COUNTRY_MUTATION_MESSAGES.ADD_COUNTRY_FAILED}: ${
+          (error as Error).message
+        }`
+      );
+      showErrorToast(COUNTRY_MUTATION_MESSAGES.ADD_COUNTRY_FAILED);
     },
   });
 
   return addMutation;
 };
-
 export const useUpdateCountry = (id: string | undefined) => {
   const queryClient = useQueryClient();
 
@@ -65,7 +72,7 @@ export const useUpdateCountry = (id: string | undefined) => {
     mutationFn: (updatedCountry) => updateCountry(id, updatedCountry),
     onSuccess: (updatedCountry) => {
       queryClient.setQueryData(
-        ["countries"],
+        [QUERY_KEYS.COUNTRIES],
         (oldData: ICountry[] | undefined) => {
           return oldData
             ? oldData.map((country) =>
@@ -76,14 +83,16 @@ export const useUpdateCountry = (id: string | undefined) => {
             : [];
         }
       );
-      console.log("Country updated successfully!");
-      showSuccessToast("Country updated successfully!");
+      console.log(COUNTRY_MUTATION_MESSAGES.COUNTRY_UPDATED);
+      showSuccessToast(COUNTRY_MUTATION_MESSAGES.COUNTRY_UPDATED);
     },
     onError: (error) => {
       console.error(
-        `Failed to update the country: ${(error as Error).message}`
+        `${COUNTRY_MUTATION_MESSAGES.UPDATE_COUNTRY_FAILED}: ${
+          (error as Error).message
+        }`
       );
-      showErrorToast("Failed to update the country.");
+      showErrorToast(COUNTRY_MUTATION_MESSAGES.UPDATE_COUNTRY_FAILED);
     },
   });
 

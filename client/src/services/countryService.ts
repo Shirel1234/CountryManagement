@@ -1,36 +1,20 @@
 import axios from "axios";
 import { ICountry } from "../types/country";
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-if (!BASE_URL) {
-  throw new Error("VITE_BASE_URL is not defined in the environment variables");
-}
+import {
+  API_ENDPOINTS_COUNTRY,
+  ERROR_MESSAGES_COUNTRY,
+  HEADERS,
+} from "../constants";
 
 export const fetchCountries = async (): Promise<ICountry[]> => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/countries`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const response = await axios.get(API_ENDPOINTS_COUNTRY.COUNTRIES, {
+      headers: HEADERS.JSON,
       withCredentials: true,
     });
     return response.data;
   } catch (error) {
-    console.error(`Error fetching data: ${error}`);
-    throw error;
-  }
-};
-export const deleteCountry = async (id: string): Promise<void> => {
-  try {
-    await axios.delete(`${BASE_URL}/api/countries/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-    });
-  } catch (error) {
-    console.error(`Error fetching country: ${error}`);
+    console.error(ERROR_MESSAGES_COUNTRY.FETCH_COUNTRIES_FAILED, error);
     throw error;
   }
 };
@@ -41,15 +25,42 @@ export const getCountryById = async (
     throw new Error("Country ID is required");
   }
   try {
-    const response = await axios.get(`${BASE_URL}/api/countries/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const response = await axios.get(API_ENDPOINTS_COUNTRY.COUNTRY_BY_ID(id), {
+      headers: HEADERS.JSON,
       withCredentials: true,
     });
     return response.data;
   } catch (error) {
-    console.error(`Error fetching country by id: ${error}`);
+    console.error(ERROR_MESSAGES_COUNTRY.FETCH_COUNTRY_FAILED, error);
+    throw error;
+  }
+};
+export const addCountry = async (
+  newCountry: Omit<ICountry, "_id">
+): Promise<ICountry> => {
+  try {
+    const response = await axios.post(
+      API_ENDPOINTS_COUNTRY.COUNTRIES,
+      newCountry,
+      {
+        headers: HEADERS.JSON,
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(ERROR_MESSAGES_COUNTRY.ADD_COUNTRY_FAILED, error);
+    throw error;
+  }
+};
+export const deleteCountry = async (id: string): Promise<void> => {
+  try {
+    await axios.delete(API_ENDPOINTS_COUNTRY.COUNTRY_BY_ID(id), {
+      headers: HEADERS.JSON,
+      withCredentials: true,
+    });
+  } catch (error) {
+    console.error(ERROR_MESSAGES_COUNTRY.DELETE_COUNTRY_FAILED, error);
     throw error;
   }
 };
@@ -59,34 +70,16 @@ export const updateCountry = async (
 ): Promise<ICountry> => {
   try {
     const response = await axios.put(
-      `${BASE_URL}/api/countries/${id}`,
+      API_ENDPOINTS_COUNTRY.COUNTRY_BY_ID(id),
       updatedData,
       {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: HEADERS.JSON,
         withCredentials: true,
       }
     );
     return response.data;
   } catch (error) {
-    console.error(`Error updating country: ${error}`);
-    throw error;
-  }
-};
-export const addCountry = async (
-  newCountry: Omit<ICountry, "_id">
-): Promise<ICountry> => {
-  try {
-    const response = await axios.post(`${BASE_URL}/api/countries`, newCountry, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-    });
-    return response.data;
-  } catch (error) {
-    console.error(`Error adding country: ${error}`);
+    console.error(ERROR_MESSAGES_COUNTRY.UPDATE_COUNTRY_FAILED, error);
     throw error;
   }
 };

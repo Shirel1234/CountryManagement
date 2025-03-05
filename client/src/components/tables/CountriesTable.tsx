@@ -5,22 +5,22 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
-import { useFetchCountries } from "../hooks/queries/useCountriesQuery";
-import { ICountry } from "../types/country";
-import AddCountryDialog from "./AddCountryDialog";
+import { useFetchCountries } from "../../hooks/queries/useCountriesQuery";
+import { ICountry } from "../../types/country";
+import AddCountryDialog from "../dialogs/AddCountryDialog";
 
 import { useSetRecoilState } from "recoil";
-import { selectedCountryState } from "../state/atoms";
-import DeleteConfirmDialog from "./DeleteConfirmDialog";
+import { selectedCountryState } from "../../state/atoms";
+import DeleteConfirmDialog from "../dialogs/DeleteConfirmDialog";
 import { Tooltip } from "@mui/material";
-import "../styles/CountriesTable.scss";
+import "../../styles/CountriesTable.scss";
 import {
   useAddCountry,
   useDeleteCountry,
   useUpdateCountry,
-} from "../hooks/mutations/useCountryMutation";
-import CityDialog from "./CityDialog";
-import { ICity } from "../types/city";
+} from "../../hooks/mutations/useCountryMutation";
+import CityDialog from "../dialogs/CityDialog";
+import { ICity } from "../../types/city";
 
 const CountriesTable: React.FC = () => {
   const navigate = useNavigate();

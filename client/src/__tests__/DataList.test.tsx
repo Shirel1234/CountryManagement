@@ -3,7 +3,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { useFetchCountries } from "../hooks/queries/useCountriesQuery";
 import DataList from "../components/DataList";
-import { showSuccessToast, showErrorToast } from "../components/Toast";
+import { showSuccessToast, showErrorToast } from "../components/utils/Toast";
 import { vi } from "vitest";
 
 // Mock the dependencies

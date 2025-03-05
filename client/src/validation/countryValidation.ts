@@ -1,29 +1,33 @@
 import * as Yup from "yup";
+import {
+  VALIDATION_MESSAGES_CITY,
+  VALIDATION_MESSAGES_COUNTRY,
+} from "../constants";
 
 export const countryValidationSchema = Yup.object({
   name: Yup.string()
-    .required("Country name is required")
-    .min(3, "Name should have at least 3 characters.")
-    .matches(/^[^\d]+$/, "Name must not contain numbers."),
+    .required(VALIDATION_MESSAGES_COUNTRY.NAME_REQUIRED)
+    .min(3, VALIDATION_MESSAGES_COUNTRY.NAME_MIN_LENGTH)
+    .matches(/^[^\d]+$/, VALIDATION_MESSAGES_COUNTRY.NAME_NO_NUMBERS),
   flag: Yup.string()
-    .required("Flag is required")
+    .required(VALIDATION_MESSAGES_COUNTRY.FLAG_REQUIRED)
     .matches(
       /^https?:\/\/.*\.(jpg|jpeg|png|gif)$/i,
-      "Flag should be a valid image URL (jpg, jpeg, png, gif)."
+      VALIDATION_MESSAGES_COUNTRY.FLAG_INVALID
     ),
   population: Yup.number()
-    .required("Population is required")
-    .min(0, "Population cannot be a negative number"),
+    .required(VALIDATION_MESSAGES_COUNTRY.POPULATION_REQUIRED)
+    .min(0, VALIDATION_MESSAGES_COUNTRY.POPULATION_MIN),
   region: Yup.string()
-    .required("Region is required")
-    .matches(/^[^\d]+$/, "Region must not contain numbers."),
+    .required(VALIDATION_MESSAGES_COUNTRY.REGION_REQUIRED)
+    .matches(/^[^\d]+$/, VALIDATION_MESSAGES_COUNTRY.REGION_NO_NUMBERS),
   cities: Yup.array()
     .of(
       Yup.object({
-        _id: Yup.string().required("City ID is required"),
+        _id: Yup.string().required(VALIDATION_MESSAGES_CITY.ID_REQUIRED),
         name: Yup.string()
-          .required("City name is required")
-          .matches(/^[^\d]+$/, "City name must not contain numbers."),
+          .required(VALIDATION_MESSAGES_CITY.REQUIRED)
+          .matches(/^[^\d]+$/, VALIDATION_MESSAGES_CITY.NO_NUMBERS),
       })
     )
     .default([]),

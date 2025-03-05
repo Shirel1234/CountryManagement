@@ -1,6 +1,6 @@
 import { Button, Box, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import "../styles/AdminDashboard.scss";
+import "../../styles/AdminPage.scss";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
