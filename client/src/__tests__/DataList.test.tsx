@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { useFetchCountries } from "../hooks/queries/useCountriesQuery";
-import DataList from "../components/DataList";
+import DataList from "../components/pages/DataList";
 import { showSuccessToast, showErrorToast } from "../components/utils/Toast";
 import { vi } from "vitest";
 

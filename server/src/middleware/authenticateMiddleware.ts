@@ -23,7 +23,6 @@ export const authenticateToken = async (
       `${API_PREFIX} ${PASSWORD_RESET_ROUTES.REQUEST_PASSWORD_RESET}` ||
     req.originalUrl === `${API_PREFIX}${PASSWORD_RESET_ROUTES.RESET_PASSWORD}`
   ) {
-    console.log("goodddddddddd");
     return next();
   }
   const token = req.cookies.token;

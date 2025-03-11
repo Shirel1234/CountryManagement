@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { resetPassword } from "../../services/passwordResetService";
+import { ROUTES } from "../../constants";
 
 const ResetPassword = () => {
   const location = useLocation();
@@ -29,7 +30,7 @@ const ResetPassword = () => {
       await resetPassword(token, newPassword);
       setMessage("Password reset successful. Redirecting to login...");
       setTimeout(() => {
-        navigate("/login");
+        navigate(ROUTES.LOGIN);
       }, 3000);
     } catch (error) {
       console.error(`Failed to reset password ${(error as Error).message}`);

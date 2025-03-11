@@ -11,6 +11,7 @@ import {
 import "../../styles/ForgotPasswordDialog.scss";
 import { showSuccessToast, showErrorToast } from "../utils/Toast";
 import { requestPasswordResetClient } from "../../services/passwordResetService";
+import { TOAST_MESSAGES_FORGOT_PASSWORD } from "../../constants";
 
 interface ForgotPasswordDialogProps {
   open: boolean;
@@ -26,11 +27,11 @@ const ForgotPasswordDialog: React.FC<ForgotPasswordDialogProps> = ({
   const handleSubmit = async () => {
     try {
       await requestPasswordResetClient(email);
-      showSuccessToast("Reset link sent! Check your email.");
+      showSuccessToast(TOAST_MESSAGES_FORGOT_PASSWORD.RESET_LINK_SUCCESS);
       onClose();
     } catch (error) {
       console.error(`Send reset link failed: ${(error as Error).message}`);
-      showErrorToast("Failed to send reset link. Try again.");
+      showErrorToast(TOAST_MESSAGES_FORGOT_PASSWORD.RESET_LINK_FAILURE);
     }
   };
 

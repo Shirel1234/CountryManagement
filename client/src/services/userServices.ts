@@ -29,10 +29,10 @@ export const getUserById = async (id: string | null): Promise<IUser> => {
     throw error;
   }
 };
-export const addUser = async (newUser: Omit<IUser, "_id">): Promise<IUser> => {
+export const addUser = async (formData: FormData): Promise<IUser> => {
   try {
-    const response = await axios.post(API_ENDPOINTS_USER.ALL, newUser, {
-      headers: HEADERS.JSON,
+    const response = await axios.post(API_ENDPOINTS_USER.ALL, formData, {
+      headers: HEADERS.MULTIPART,
       withCredentials: true,
     });
     return response.data;

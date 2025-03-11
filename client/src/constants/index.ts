@@ -1,5 +1,3 @@
-// constants/apiConstants.ts
-
 // =======================
 // API BASE URL
 // =======================
@@ -178,6 +176,21 @@ export const VALIDATION_MESSAGES_USER = {
   PASSWORD_MIN_LENGTH: "Password must have at least 6 characters",
 };
 // =======================
+// TOAST MESSAGES
+// =======================
+export const TOAST_MESSAGES_LOGIN = {
+  LOGIN_SUCCESS: "Login successful! Welcome back!",
+  LOGIN_FAILURE: "Failed to log in. Please try again.",
+};
+export const TOAST_MESSAGES_FORGOT_PASSWORD = {
+  RESET_LINK_SUCCESS: "Reset link sent! Check your email.",
+  RESET_LINK_FAILURE: "Failed to send reset link. Try again.",
+};
+export const TOAST_MESSAGES_DATA_LIST = {
+  LOAD_DATA_SUCCESS: "Data loaded successfully!",
+  LOAD_DATA_FAILURE: "Failed to load data.",
+};
+// =======================
 // ROUTES
 // =======================
 export const ROUTES = {
@@ -187,9 +200,9 @@ export const ROUTES = {
   EDIT_COUNTRY: (id: string) => `/edit-country/${id}`,
   MANAGE_USERS: "/manage-users",
   EDIT_USER: (id: string) => `/edit-user/${id}`,
-  UPDATE_PROFILE: (id: string) => `/update-profile/${id}`,
+  UPDATE_PROFILE: (id: string | undefined) => `/update-profile/${id}`,
   MANAGE_REQUESTS: "/manage-requests",
-  REQUEST_ACCESS: (id: string) => `/request-access/${id}`,
+  REQUEST_ACCESS: (id: string | undefined) => `/request-access/${id}`,
   SIGN_UP: "/sign-up",
   LOGIN: "/login",
   RESET_PASSWORD: "/reset-password",

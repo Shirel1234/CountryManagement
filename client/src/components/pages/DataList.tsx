@@ -3,17 +3,18 @@ import { useFetchCountries } from "../../hooks/queries/useCountriesQuery";
 import Loader from "../ui/Loader";
 import { showSuccessToast, showErrorToast } from "../utils/Toast";
 import "../../styles/DataList.scss";
-import CountriesTable from "../tables/CountriesTable";
+import CountriesTable from "../country/CountriesTable";
+import { TOAST_MESSAGES_DATA_LIST } from "../../constants";
 
 const DataList: React.FC = () => {
   const { isLoading, isError, isSuccess, error } = useFetchCountries();
   const hasShownSuccessToast = useRef(false);
   useEffect(() => {
     if (isSuccess && !hasShownSuccessToast.current) {
-      showSuccessToast("Data loaded successfully!");
+      showSuccessToast(TOAST_MESSAGES_DATA_LIST.LOAD_DATA_SUCCESS);
       hasShownSuccessToast.current = true;
     }
-    if (isError) showErrorToast("Failed to load data.");
+    if (isError) showErrorToast(TOAST_MESSAGES_DATA_LIST.LOAD_DATA_FAILURE);
   }, [isSuccess, isError]);
 
   if (isLoading) return <Loader />;

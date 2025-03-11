@@ -6,9 +6,13 @@ import "../../styles/UsersTable.scss";
 import { IUser } from "../../types/user";
 import { useFetchUsers } from "../../hooks/queries/useUsersQuery";
 import DeleteConfirmDialog from "../dialogs/DeleteConfirmDialog";
-import { useAddUser, useDeleteUser } from "../../hooks/mutations/useUserMutation";
+import {
+  useAddUser,
+  useDeleteUser,
+} from "../../hooks/mutations/useUserMutation";
 import { useNavigate } from "react-router-dom";
-import AddUserDialog from "../dialogs/AddUserDialog";
+import AddUserDialog from "./AddUserDialog";
+import { ROUTES } from "../../constants";
 
 const UsersTable = () => {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
@@ -22,7 +26,7 @@ const UsersTable = () => {
 
   const handleEditClick = (user: IUser) => {
     setTimeout(() => {
-      navigate(`/edit-user/${user._id}`);
+      navigate(ROUTES.EDIT_USER(user._id));
     }, 0);
   };
   const handleDeleteClick = async (user: IUser) => {
@@ -36,8 +40,18 @@ const UsersTable = () => {
     }
   };
   const handleAddUser = (newUser: Omit<IUser, "_id">) => {
-    console.log("Adding user:", newUser);
-    addUserMutation(newUser);
+    const formData = new FormData();
+    formData.append("firstName", newUser.firstName);
+    formData.append("lastName", newUser.lastName);
+    formData.append("username", newUser.username);
+    formData.append("email", newUser.email);
+    formData.append("phone", newUser.phone);
+    formData.append("password", newUser.password);
+    formData.append("accessLevel", newUser.accessLevel.toString());
+    if (newUser.profileImage) {
+      formData.append("profileImage", newUser.profileImage);
+    }
+    addUserMutation(formData);
     setAddDialogOpen(false);
   };
   const handleGoBack = () => {

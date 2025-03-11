@@ -16,8 +16,13 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import { ICountry } from "../../types/country";
 import { ICity } from "../../types/city";
-import { useAddCity, useUpdateCity } from "../../hooks/mutations/useCityMutation";
+import {
+  useAddCity,
+  useUpdateCity,
+} from "../../hooks/mutations/useCityMutation";
 import { useDeleteCity } from "../../hooks/mutations/useCityMutation";
+import { useRecoilValue } from "recoil";
+import { userAccessLevelState } from "../../state/atoms";
 
 interface CityDialogProps {
   open: boolean;
@@ -35,6 +40,7 @@ const CityDialog: React.FC<CityDialogProps> = ({
   const [cities, setCities] = useState<ICity[]>([]);
   const [newCityName, setNewCityName] = useState("");
   const [editingCity, setEditingCity] = useState<ICity | null>(null);
+  const userAccessLevel = useRecoilValue(userAccessLevelState);
   const { mutate: addCityMutation } = useAddCity();
   const { mutate: deleteCityMutation } = useDeleteCity();
   const { mutate: updateCityMutation } = useUpdateCity();
@@ -97,15 +103,19 @@ const CityDialog: React.FC<CityDialogProps> = ({
               key={city._id}
               secondaryAction={
                 <>
-                  <IconButton onClick={() => handleEditCity(city)}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    onClick={() => handleDeleteCity(city)}
-                    color="error"
-                  >
-                    <DeleteIcon />
-                  </IconButton>
+                  {userAccessLevel && userAccessLevel >= 3 && (
+                    <IconButton onClick={() => handleEditCity(city)}>
+                      <EditIcon />
+                    </IconButton>
+                  )}
+                  {userAccessLevel && userAccessLevel >= 4 && (
+                    <IconButton
+                      onClick={() => handleDeleteCity(city)}
+                      color="error"
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  )}
                 </>
               }
             >
@@ -113,32 +123,36 @@ const CityDialog: React.FC<CityDialogProps> = ({
             </ListItem>
           ))}
         </List>
-
-        <TextField
-          label="City Name"
-          fullWidth
-          value={newCityName}
-          onChange={(e) => setNewCityName(e.target.value)}
-          margin="normal"
-        />
+        {userAccessLevel && userAccessLevel >= 2 && (
+          <TextField
+            label="City Name"
+            fullWidth
+            value={newCityName}
+            onChange={(e) => setNewCityName(e.target.value)}
+            margin="normal"
+          />
+        )}
 
         {editingCity ? (
           <Button onClick={handleSaveEdit} color="primary" variant="contained">
             Save Edit
           </Button>
         ) : (
-          <IconButton onClick={handleAddCity} color="primary">
-            <AddIcon />
-          </IconButton>
+          (userAccessLevel ?? 0) >= 2 && (
+            <IconButton onClick={handleAddCity} color="primary">
+              <AddIcon />
+            </IconButton>
+          )
         )}
       </DialogContent>
-
-      <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={handleSaveChanges} color="primary">
-          Save
-        </Button>
-      </DialogActions>
+      {userAccessLevel && userAccessLevel >= 2 && (
+        <DialogActions>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button onClick={handleSaveChanges} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+      )}
     </Dialog>
   );
 };

@@ -42,7 +42,6 @@ export const getUserById = async (req: Request, res: Response) => {
 export const createUser = async (req: Request, res: Response) => {
   try {
     const createData = req.body;
-
     if (req.file) {
       createData.profileImage = req.file.filename;
     }

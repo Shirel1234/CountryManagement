@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import ForgotPasswordDialog from "../dialogs/ForgotPasswordDialog";
 import { jwtDecode } from "jwt-decode";
 import { AccessLevel } from "../../constants/accessLevelEnum";
+import { ROUTES, TOAST_MESSAGES_LOGIN } from "../../constants";
 
 const LoginForm = () => {
   const [username, setUsername] = useState<string>("");
@@ -24,20 +25,19 @@ const LoginForm = () => {
     event.preventDefault();
     try {
       const { token } = await loginUser(username, password);
-      console.log("Login successful. Token:", token);
       setIsLoggedIn(true);
       const decodedToken = jwtDecode<{ accessLevel: number }>(token);
       const accessLevel = decodedToken.accessLevel;
       setUserAccessLevelState(accessLevel);
       if (accessLevel === AccessLevel.ADMIN) {
-        navigate("/admin");
+        navigate(ROUTES.ADMIN);
       } else {
-        navigate("/home");
+        navigate(ROUTES.HOME);
       }
-      showSuccessToast("Login successful! Welcome back!");
+      showSuccessToast(TOAST_MESSAGES_LOGIN.LOGIN_SUCCESS);
     } catch (error) {
       console.error(`Login failed: ${(error as Error).message}`);
-      showErrorToast("Failed to log in. Please try again.");
+      showErrorToast(TOAST_MESSAGES_LOGIN.LOGIN_FAILURE);
     }
   };
 

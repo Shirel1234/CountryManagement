@@ -7,10 +7,10 @@ import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 import { useFetchCountries } from "../../hooks/queries/useCountriesQuery";
 import { ICountry } from "../../types/country";
-import AddCountryDialog from "../dialogs/AddCountryDialog";
+import AddCountryDialog from "./AddCountryDialog";
 
-import { useSetRecoilState } from "recoil";
-import { selectedCountryState } from "../../state/atoms";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { selectedCountryState, userAccessLevelState } from "../../state/atoms";
 import DeleteConfirmDialog from "../dialogs/DeleteConfirmDialog";
 import { Tooltip } from "@mui/material";
 import "../../styles/CountriesTable.scss";
@@ -19,8 +19,9 @@ import {
   useDeleteCountry,
   useUpdateCountry,
 } from "../../hooks/mutations/useCountryMutation";
-import CityDialog from "../dialogs/CityDialog";
+import CityDialog from "../city/CityDialog";
 import { ICity } from "../../types/city";
+import { ROUTES } from "../../constants";
 
 const CountriesTable: React.FC = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const CountriesTable: React.FC = () => {
   const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [cityDialogOpen, setCityDialogOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<ICountry | null>(null);
+  const userAccessLevel = useRecoilValue(userAccessLevelState);
   const setSelectedCountryState = useSetRecoilState(selectedCountryState);
 
   const { data: countries, isLoading } = useFetchCountries();
@@ -58,7 +60,7 @@ const CountriesTable: React.FC = () => {
   const handleEditClick = (country: ICountry) => {
     setSelectedCountryState(country);
     setTimeout(() => {
-      navigate(`/edit-country/${country._id}`);
+      navigate(ROUTES.EDIT_COUNTRY(country._id));
     }, 0);
   };
   const handleOpenCitiesDialog = (country: ICountry) => {
@@ -144,6 +146,7 @@ const CountriesTable: React.FC = () => {
           <Box display="flex" alignItems="center">
             <span>{displayCities}</span>
             {showMore && <span>...</span>}
+
             <IconButton
               color="primary"
               onClick={() => handleOpenCitiesDialog(params.row)}
@@ -168,23 +171,29 @@ const CountriesTable: React.FC = () => {
       ),
       getActions: (params) => {
         const country = params.row as ICountry;
-        return [
-          <GridActionsCellItem
-            data-testid="edit-button"
-            icon={<EditIcon />}
-            label="Edit"
-            className="textPrimary"
-            onClick={() => handleEditClick(country)}
-            color="inherit"
-          />,
-          <GridActionsCellItem
-            data-testid="delete-button"
-            icon={<DeleteIcon />}
-            label="Delete"
-            onClick={() => handleDeleteClick(country)}
-            color="error"
-          />,
-        ];
+        const actions = [];
+        if (userAccessLevel && userAccessLevel >= 3) {
+          actions.push(
+            <GridActionsCellItem
+              data-testid="edit-button"
+              icon={<EditIcon />}
+              label="Edit"
+              onClick={() => handleEditClick(country)}
+              color="inherit"
+            />
+          );
+        }
+        if (userAccessLevel && userAccessLevel >= 4) {
+          actions.push(
+            <GridActionsCellItem
+              icon={<DeleteIcon />}
+              label="Delete"
+              onClick={() => handleDeleteClick(country)}
+              color="error"
+            />
+          );
+        }
+        return actions;
       },
     },
   ];
@@ -201,15 +210,17 @@ const CountriesTable: React.FC = () => {
           pageSizeOptions={[5, 10, 25]}
           disableRowSelectionOnClick
         />
-        <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
-          <IconButton
-            color="primary"
-            onClick={() => setAddDialogOpen(true)}
-            data-testid="add-button"
-          >
-            <AddIcon />
-          </IconButton>
-        </Box>
+        {userAccessLevel && userAccessLevel >= 2 && (
+          <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
+            <IconButton
+              color="primary"
+              onClick={() => setAddDialogOpen(true)}
+              data-testid="add-button"
+            >
+              <AddIcon />
+            </IconButton>
+          </Box>
+        )}
         <AddCountryDialog
           open={addDialogOpen}
           onClose={() => setAddDialogOpen(false)}

@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography, Container, Box } from "@mui/material";
-import "../../styles/LandingPage.scss"; // Import the SCSS styles
+import "../../styles/LandingPage.scss";
 
 const LandingPage: React.FC = () => {
   return (

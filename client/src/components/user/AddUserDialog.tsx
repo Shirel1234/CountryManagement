@@ -1,4 +1,3 @@
-// AddUserDialog.jsx
 import React from "react";
 import {
   Dialog,
@@ -124,22 +123,25 @@ const AddUserDialog: React.FC<AddUserDialogProps> = ({
             helperText={formik.touched.phone && formik.errors.phone}
             id="phone"
           />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="ProfileImage"
+          <input
+            type="file"
             name="profileImage"
-            value={formik.values.profileImage}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={
-              formik.touched.profileImage && Boolean(formik.errors.profileImage)
-            }
-            helperText={
-              formik.touched.profileImage && formik.errors.profileImage
-            }
             id="profileImage"
+            onChange={(event) => {
+              formik.setFieldValue(
+                "profileImage",
+                event.currentTarget.files?.[0]
+              );
+            }}
+            onBlur={formik.handleBlur}
+            style={{ marginBottom: "16px" }}
+            accept="image/*"
           />
+          {formik.touched.profileImage && formik.errors.profileImage && (
+            <div style={{ color: "red", fontSize: "12px" }}>
+              {formik.errors.profileImage}
+            </div>
+          )}
           <TextField
             fullWidth
             margin="normal"
@@ -166,7 +168,7 @@ const AddUserDialog: React.FC<AddUserDialogProps> = ({
               }
             >
               {Object.entries(AccessLevel)
-                .filter(([key]) => isNaN(Number(key))) // Filter out numeric keys
+                .filter(([key]) => isNaN(Number(key))) 
                 .map(([key, value]) => (
                   <MenuItem key={value} value={value}>
                     {key}

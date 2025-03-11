@@ -28,8 +28,16 @@ import { RequestAccessAction } from "../../constants/requestAccessEnum";
 
 const requestOptions = [
   { id: RequestAccessAction.ADD, label: "Request to Add", icon: <AddIcon /> },
-  { id: RequestAccessAction.UPDATE, label: "Request to Update", icon: <EditIcon /> },
-  { id: RequestAccessAction.DELETE, label: "Request to Delete", icon: <DeleteIcon /> },
+  {
+    id: RequestAccessAction.UPDATE,
+    label: "Request to Update",
+    icon: <EditIcon />,
+  },
+  {
+    id: RequestAccessAction.DELETE,
+    label: "Request to Delete",
+    icon: <DeleteIcon />,
+  },
 ];
 
 const RequestAccess = () => {
@@ -37,15 +45,19 @@ const RequestAccess = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const navigate = useNavigate();
+
   useEffect(() => {
     const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
       const userData = JSON.parse(storedUserData);
-      setUserId(userData.myId); // Set the userId from localStorage
+      setUserId(userData.myId);
     }
   }, []);
+
   const { mutate: addRequestAccessMutation } = useAddRequestAccess();
-  const { data: userRequests, isLoading } = useFetchRequests(userId ?? undefined);
+  const { data: userRequests, isLoading } = useFetchRequests(
+    userId ?? undefined
+  );
 
   const handleRequestClick = (requestId: string) => {
     setSelectedRequest(requestId);
@@ -62,10 +74,10 @@ const RequestAccess = () => {
   };
   return (
     <div className="request-access">
-       <div className="go-back-container">
-      <button className="go-back-button" onClick={handleGoBack}>
-        ← Go Back
-      </button>
+      <div className="go-back-container">
+        <button className="go-back-button" onClick={handleGoBack}>
+          ← Go Back
+        </button>
       </div>
       <Card className="request-card">
         <CardContent>

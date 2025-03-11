@@ -1,18 +1,18 @@
 import { Routes, Route } from "react-router-dom";
 import DataList from "./components/pages/DataList";
 import "./styles/global.scss";
-import EditCountryForm from "./components/forms/EditCountryForm";
+import EditCountryForm from "./components/country/EditCountryForm";
 import NavBar from "./components/ui/NavBar";
-import SignUp from "./components/forms/SignUp";
-import LoginForm from "./components/forms/LoginForm";
+import SignUp from "./components/auth/SignUp";
+import LoginForm from "./components/auth/LoginForm";
 import LandingPage from "./components/pages/LandingPage";
-import EditUserForm from "./components/forms/EditUserForm";
+import EditUserForm from "./components/user/EditUserForm";
 import ResetPassword from "./components/dialogs/ResetPassword";
 import AdminDashboard from "./components/pages/AdminPage";
-import RequestAccess from "./components/forms/RequestAccess";
-import CountriesTable from "./components/tables/CountriesTable";
-import UsersTable from "./components/tables/UsersTable";
-import RequestsTable from "./components/tables/RequestsTable";
+import RequestAccess from "./components/requestAccess/RequestAccess";
+import CountriesTable from "./components/country/CountriesTable";
+import UsersTable from "./components/user/UsersTable";
+import RequestsTable from "./components/requestAccess/RequestsTable";
 import { ROUTES } from "./constants";
 
 const App: React.FC = () => {

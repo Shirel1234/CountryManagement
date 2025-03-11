@@ -35,7 +35,6 @@ const EditCountryForm: React.FC = () => {
         }
       }
     };
-
     fetchCountry();
   }, [id]);
 
@@ -62,6 +61,7 @@ const EditCountryForm: React.FC = () => {
     navigate(-1);
   };
   const handleCloseModal = () => setOpenModal(false);
+
   return (
     <Container className="edit-country-form">
       <button className="go-back-button" onClick={handleGoBack}>

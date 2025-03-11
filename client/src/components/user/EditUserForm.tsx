@@ -8,9 +8,6 @@ import ConfirmLeaveDialog from "../dialogs/ConfirmLeaveDialog";
 import { useUpdateUser } from "../../hooks/mutations/useUserMutation";
 import { userValidationSchema } from "../../validation/userValidation";
 import { getUserById } from "../../services/userServices";
-import { useRecoilValue } from "recoil";
-import { userAccessLevelState } from "../../state/atoms";
-import { AccessLevel } from "../../constants/accessLevelEnum";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -24,7 +21,6 @@ const EditUserForm: React.FC = () => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isFormModified, setIsFormModified] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const userAccessLevel = useRecoilValue(userAccessLevelState);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -55,38 +51,22 @@ const EditUserForm: React.FC = () => {
     } else if (values.profileImage) {
       formData.append("profileImage", values.profileImage);
     }
-    updateUserMutation({id: id ?? "", formData});
-    if (userAccessLevel === AccessLevel.ADMIN) {
-      navigate("/admin");
-    } else {
-      navigate("/home");
-    }
+    updateUserMutation({ id: id ?? "", formData });
+    navigate(-1);
   };
   const handleCancel = () => {
     if (isFormModified) {
       setOpenModal(true);
     } else {
-      if (userAccessLevel === AccessLevel.ADMIN) {
-        navigate("/admin");
-      } else {
-        navigate("/home");
-      }
+      navigate(-1);
     }
   };
   const handleConfirmCancel = () => {
     setOpenModal(false);
-    if (userAccessLevel === AccessLevel.ADMIN) {
-      navigate("/admin");
-    } else {
-      navigate("/home");
-    }
+    navigate(-1);
   };
   const handleGoBack = () => {
-    if (userAccessLevel === AccessLevel.ADMIN) {
-      navigate("/admin");
-    } else {
-      navigate("/home");
-    }
+    navigate(-1);
   };
   const handleCloseModal = () => setOpenModal(false);
 

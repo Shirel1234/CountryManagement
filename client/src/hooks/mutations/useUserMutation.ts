@@ -6,12 +6,12 @@ import { registerUser } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 import { isLoggedInState } from "../../state/atoms";
 import { useSetRecoilState } from "recoil";
-import { QUERY_KEYS, USER_MUTATION_MESSAGES } from "../../constants";
+import { QUERY_KEYS, ROUTES, USER_MUTATION_MESSAGES } from "../../constants";
 
 export const useAddUser = () => {
   const queryClient = useQueryClient();
 
-  const addMutation = useMutation<IUser, Error, Omit<IUser, "_id">>({
+  const addMutation = useMutation<IUser, Error, FormData>({
     mutationFn: (newUser) => addUser(newUser),
     onSuccess: (newUser) => {
       queryClient.setQueryData(
@@ -51,7 +51,7 @@ export const useRegisterUser = () => {
       );
       showSuccessToast(USER_MUTATION_MESSAGES.USER_REGISTERED);
       setIsLoggedIn(true);
-      navigate("/home");
+      navigate(ROUTES.HOME);
     },
     onError: (error) => {
       showErrorToast(

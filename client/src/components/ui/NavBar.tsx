@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { AccountCircle, AdminPanelSettings, Logout } from "@mui/icons-material";
 import "../../styles/NavBar.scss";
+import { ROUTES } from "../../constants";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -36,23 +37,20 @@ const NavBar: React.FC = () => {
   const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClosePopup = () => {
     setAnchorEl(null);
   };
-
   const handleLogout = async () => {
     try {
       await logoutUser();
       setIsLoggedIn(false);
       localStorage.removeItem("userData");
       handleClosePopup();
-      navigate("/");
+      navigate(ROUTES.LANDING_PAGE);
     } catch (error) {
       console.error("Error logging out:", error);
     }
   };
-
   useEffect(() => {
     const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
@@ -108,7 +106,7 @@ const NavBar: React.FC = () => {
                 <List className="popup-menu">
                   <ListItem
                     component={Link}
-                    to={`/update-profile/${user?.myId}`}
+                    to={ROUTES.UPDATE_PROFILE(user?.myId)}
                   >
                     <AccountCircle sx={{ marginRight: 1 }} />
                     <Typography variant="body2" className="popup-text">
@@ -117,7 +115,7 @@ const NavBar: React.FC = () => {
                   </ListItem>
                   <ListItem
                     component={Link}
-                    to={`/request-access/${user?.myId}`}
+                    to={ROUTES.REQUEST_ACCESS(user?.myId)}
                   >
                     <AdminPanelSettings sx={{ marginRight: 1 }} />{" "}
                     <Typography variant="body2" className="popup-text">
@@ -135,7 +133,7 @@ const NavBar: React.FC = () => {
             </div>
           ) : (
             <>
-              <Link to="/login">
+              <Link to={ROUTES.LOGIN}>
                 <Button
                   variant="contained"
                   color="primary"
@@ -144,7 +142,7 @@ const NavBar: React.FC = () => {
                   Login
                 </Button>
               </Link>
-              <Link to="/sign-up">
+              <Link to={ROUTES.SIGN_UP}>
                 <Button
                   variant="outlined"
                   color="primary"

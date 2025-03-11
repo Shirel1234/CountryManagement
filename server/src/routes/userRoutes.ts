@@ -10,15 +10,17 @@ import upload from "../utils/multer.ts";
 import { checkAccessLevel } from "../middleware/authorizationMiddleware";
 import { authenticateToken } from "../middleware/authenticateMiddleware";
 import { AccessLevel } from "../constants/accessLevelEnum";
-import {
-  USER_ROUTES
-} from "../constants";
+import { USER_ROUTES } from "../constants";
 
 const router = express.Router();
 router.use(authenticateToken);
 
 // Route to get and update users data if needed
-router.get(USER_ROUTES.GET_USERS, checkAccessLevel(AccessLevel.VIEWER), getUsers);
+router.get(
+  USER_ROUTES.GET_USERS,
+  checkAccessLevel(AccessLevel.VIEWER),
+  getUsers
+);
 router.get(
   USER_ROUTES.GET_USER_BY_ID,
   checkAccessLevel(AccessLevel.VIEWER),

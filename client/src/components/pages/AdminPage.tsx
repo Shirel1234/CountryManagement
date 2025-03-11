@@ -1,6 +1,7 @@
 import { Button, Box, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "../../styles/AdminPage.scss";
+import { ROUTES } from "../../constants";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -13,21 +14,21 @@ const AdminDashboard = () => {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => navigate("/manage-countries")}
+            onClick={() => navigate(ROUTES.MANAGE_COUNTRIES)}
           >
             Manage Countries
           </Button>
           <Button
             variant="contained"
             color="secondary"
-            onClick={() => navigate("/manage-users")}
+            onClick={() => navigate(ROUTES.MANAGE_USERS)}
           >
             Manage Users
           </Button>
           <Button
             variant="contained"
             color="success"
-            onClick={() => navigate("/manage-requests")}
+            onClick={() => navigate(ROUTES.MANAGE_REQUESTS)}
           >
             Manage Requests
           </Button>
