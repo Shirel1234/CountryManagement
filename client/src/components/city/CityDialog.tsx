@@ -23,6 +23,7 @@ import {
 import { useDeleteCity } from "../../hooks/mutations/useCityMutation";
 import { useRecoilValue } from "recoil";
 import { userAccessLevelState } from "../../state/atoms";
+import { CITY_ERROR_MESSAGES } from "../../constants";
 
 interface CityDialogProps {
   open: boolean;
@@ -63,7 +64,7 @@ const CityDialog: React.FC<CityDialogProps> = ({
         setNewCityName("");
       },
       onError: (error) => {
-        console.error("Error in adding city", error);
+        console.error(CITY_ERROR_MESSAGES, error);
       },
     });
   };

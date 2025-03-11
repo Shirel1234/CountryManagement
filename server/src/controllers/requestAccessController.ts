@@ -11,7 +11,6 @@ import { RequestAccessStatus } from "../constants/requestAccessEnum";
 export const requestAccess = async (req: Request, res: Response) => {
   try {
     const { action } = req.body;
-    console.log("action", action);
     const userId = res.locals.id;
 
     const request = await createAccessRequest(userId, action);

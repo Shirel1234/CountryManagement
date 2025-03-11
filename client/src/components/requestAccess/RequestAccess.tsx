@@ -25,6 +25,7 @@ import { useFetchRequests } from "../../hooks/queries/useRequestsQuery";
 import Loader from "../ui/Loader";
 import { useNavigate } from "react-router-dom";
 import { RequestAccessAction } from "../../constants/requestAccessEnum";
+import { LOCAL_STORAGE_KEYS } from "../../constants";
 
 const requestOptions = [
   { id: RequestAccessAction.ADD, label: "Request to Add", icon: <AddIcon /> },
@@ -47,7 +48,7 @@ const RequestAccess = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUserData = localStorage.getItem("userData");
+    const storedUserData = localStorage.getItem(LOCAL_STORAGE_KEYS.USER_DATA);
     if (storedUserData) {
       const userData = JSON.parse(storedUserData);
       setUserId(userData.myId);

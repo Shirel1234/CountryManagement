@@ -191,6 +191,12 @@ export const TOAST_MESSAGES_DATA_LIST = {
   LOAD_DATA_FAILURE: "Failed to load data.",
 };
 // =======================
+// CONSOLE MESSAGES
+// =======================
+export const CITY_ERROR_MESSAGES="Error in adding city";
+export const NAVBAR_ERROR_MESSAGES="Error logging out:";
+export const BOUNDARY_ERROR_MESSAGES="Uncaught error:";
+// =======================
 // ROUTES
 // =======================
 export const ROUTES = {

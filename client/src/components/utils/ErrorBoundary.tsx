@@ -1,4 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from "react";
+import { BOUNDARY_ERROR_MESSAGES } from "../../constants";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -20,7 +21,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.error("Uncaught error:", error, errorInfo);
+    console.error(BOUNDARY_ERROR_MESSAGES, error, errorInfo);
   }
 
   render() {

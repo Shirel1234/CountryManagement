@@ -14,13 +14,7 @@ import {
 } from "@mui/material";
 import { AccountCircle, AdminPanelSettings, Logout } from "@mui/icons-material";
 import "../../styles/NavBar.scss";
-import { ROUTES } from "../../constants";
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-if (!BASE_URL) {
-  throw new Error("VITE_BASE_URL is not defined in the environment variables");
-}
+import { BASE_URL, LOCAL_STORAGE_KEYS, NAVBAR_ERROR_MESSAGES, ROUTES } from "../../constants";
 
 const NavBar: React.FC = () => {
   const [user, setUser] = useState<{
@@ -44,15 +38,15 @@ const NavBar: React.FC = () => {
     try {
       await logoutUser();
       setIsLoggedIn(false);
-      localStorage.removeItem("userData");
+      localStorage.removeItem(LOCAL_STORAGE_KEYS.USER_DATA);
       handleClosePopup();
       navigate(ROUTES.LANDING_PAGE);
     } catch (error) {
-      console.error("Error logging out:", error);
+      console.error(NAVBAR_ERROR_MESSAGES, error);
     }
   };
   useEffect(() => {
-    const storedUserData = localStorage.getItem("userData");
+    const storedUserData = localStorage.getItem(LOCAL_STORAGE_KEYS.USER_DATA);
     if (storedUserData) {
       setUser(JSON.parse(storedUserData));
     }

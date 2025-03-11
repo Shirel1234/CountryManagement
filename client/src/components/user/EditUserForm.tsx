@@ -8,12 +8,7 @@ import ConfirmLeaveDialog from "../dialogs/ConfirmLeaveDialog";
 import { useUpdateUser } from "../../hooks/mutations/useUserMutation";
 import { userValidationSchema } from "../../validation/userValidation";
 import { getUserById } from "../../services/userServices";
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-if (!BASE_URL) {
-  throw new Error("VITE_BASE_URL is not defined in the environment variables");
-}
+import { BASE_URL } from "../../constants";
 
 const EditUserForm: React.FC = () => {
   const [user, setUser] = useState<IUser | null>(null);

@@ -7,7 +7,10 @@ import { useState } from "react";
 import { mapActionToAccessLevel } from "../../utils/accessUtils";
 import { useUpdateUser } from "../../hooks/mutations/useUserMutation";
 import { useNavigate } from "react-router-dom";
-import { RequestAccessAction, RequestAccessStatus } from "../../constants/requestAccessEnum";
+import {
+  RequestAccessAction,
+  RequestAccessStatus,
+} from "../../constants/requestAccessEnum";
 
 const RequestsTable = () => {
   const [idRequest, setIdRequest] = useState<string | null>(null);
@@ -24,7 +27,6 @@ const RequestsTable = () => {
     status: RequestAccessStatus.APPROVED | RequestAccessStatus.DENIED
   ) => {
     setIdRequest(id);
-    console.log("idUser:", userId, "status:", status, "action:", action);
     updateRequestMutation({ id, status });
     if (status === RequestAccessStatus.APPROVED) {
       const formData = new FormData();
@@ -77,7 +79,7 @@ const RequestsTable = () => {
       headerName: "Actions",
       flex: 1,
       renderCell: (params) => {
-        if (params.row.status ===RequestAccessStatus.PENDING) {
+        if (params.row.status === RequestAccessStatus.PENDING) {
           return (
             <div className="actions">
               <Button
