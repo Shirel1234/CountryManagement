@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { ICity } from "../../types/city";
+import { ICity } from "../types/city";
 import { CITY_VALIDATION } from "../../constants";
 
 const citySchema = new Schema<ICity>({

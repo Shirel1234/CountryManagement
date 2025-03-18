@@ -44,6 +44,7 @@ export const useAddCountry = () => {
   const addMutation = useMutation<ICountry, Error, Omit<ICountry, "_id">>({
     mutationFn: (newCountry) => addCountry(newCountry),
     onSuccess: (newCountry) => {
+      console.log("Mutation succeeded, new country:", newCountry);
       queryClient.setQueryData(
         [QUERY_KEYS.COUNTRIES],
         (oldData: ICountry[] | undefined) => {

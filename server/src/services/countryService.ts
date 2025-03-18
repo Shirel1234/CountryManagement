@@ -1,6 +1,6 @@
 import axios from "axios";
 import Country from "../lib/models/countryModel";
-import { ICountry } from "../types/country";
+import { ICountry } from "../lib/types/country";
 import logger from "../utils/logger";
 import { API_URL, LOGGER_MESSAGES_COUNTRY } from "../constants";
 

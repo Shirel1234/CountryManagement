@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { authenticateUser, registerUser } from "../services/authService";
-import { IUser } from "../types/user";
+import { IUser } from "../lib/types/user";
 import { AUTH_MESSAGES, HTTP_STATUS_CODES } from "../constants";
 
 export const login = async (req: Request, res: Response) => {
@@ -13,32 +13,31 @@ export const login = async (req: Request, res: Response) => {
     return;
   }
   try {
-    const { token, myId, myUsername, myProfileImage } = await authenticateUser(
-      username,
-      password
-    );
+    const result = await authenticateUser(username, password);
 
-    if (!token) {
+    if (!result) {
       res
         .status(HTTP_STATUS_CODES.UNAUTHORIZED)
         .json({ message: AUTH_MESSAGES.INVALID_USERNAME_PASSWORD });
-    } else {
-      res
-        .cookie("token", token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "strict",
-          maxAge: 7 * 24 * 60 * 60 * 1000,
-        })
-        .status(HTTP_STATUS_CODES.OK)
-        .json({
-          message: AUTH_MESSAGES.LOGIN_SUCCESSFUL,
-          token,
-          myId,
-          myUsername,
-          myProfileImage,
-        });
+      return;
     }
+
+    const { token, myId, myUsername, myProfileImage } = result;
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      })
+      .status(HTTP_STATUS_CODES.OK)
+      .json({
+        message: AUTH_MESSAGES.LOGIN_SUCCESSFUL,
+        token,
+        myId,
+        myUsername,
+        myProfileImage,
+      });
   } catch (error) {
     res
       .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
@@ -77,7 +76,7 @@ export const register = async (req: Request, res: Response) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    res.status(HTTP_STATUS_CODES.OK).json({
+    res.status(HTTP_STATUS_CODES.CREATED).json({
       message: AUTH_MESSAGES.REGISTRATION_SUCCESSFUL,
       myId,
       myUsername,

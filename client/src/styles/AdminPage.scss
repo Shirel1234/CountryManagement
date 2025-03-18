@@ -1,3 +1,4 @@
+@use './_colors' as colors; 
 .admin-dashboard {
   display: flex;
   flex-direction: column;
@@ -5,7 +6,7 @@
   gap: 20px;
 
   h2 {
-    color: #333;
+    color: colors.$dark-text;
   }
 
   .MuiPaper-root {

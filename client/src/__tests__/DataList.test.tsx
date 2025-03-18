@@ -5,12 +5,13 @@ import { useFetchCountries } from "../hooks/queries/useCountriesQuery";
 import DataList from "../components/pages/DataList";
 import { showSuccessToast, showErrorToast } from "../components/utils/Toast";
 import { vi } from "vitest";
+import { RecoilRoot } from "recoil";
 
 // Mock the dependencies
 vi.mock("../hooks/queries/useCountriesQuery", () => ({
-  useFetchCountries: vi.fn(), 
+  useFetchCountries: vi.fn(),
 }));
-vi.mock("../components/Toast", () => ({
+vi.mock("../components/utils/Toast", () => ({
   showSuccessToast: vi.fn(),
   showErrorToast: vi.fn(),
 }));
@@ -63,9 +64,11 @@ describe("DataList Component", () => {
     });
 
     renderWithQueryClient(
-      <MemoryRouter>
-        <DataList />
-      </MemoryRouter>
+      <RecoilRoot>
+        <MemoryRouter>
+          <DataList />
+        </MemoryRouter>
+      </RecoilRoot>
     );
 
     // Check that the CountriesTable component is rendered when data is fetched successfully
@@ -98,9 +101,11 @@ describe("DataList Component", () => {
       error: null,
     });
     renderWithQueryClient(
-      <MemoryRouter>
-        <DataList />
-      </MemoryRouter>
+      <RecoilRoot>
+        <MemoryRouter>
+          <DataList />
+        </MemoryRouter>
+      </RecoilRoot>
     );
     await waitFor(() =>
       expect(showSuccessToast).toHaveBeenCalledWith("Data loaded successfully!")

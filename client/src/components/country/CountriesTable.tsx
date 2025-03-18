@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { DataGrid, GridColDef, GridActionsCellItem } from "@mui/x-data-grid";
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
@@ -22,6 +22,7 @@ import {
 import CityDialog from "../city/CityDialog";
 import { ICity } from "../../types/city";
 import { ROUTES } from "../../constants";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 
 const CountriesTable: React.FC = () => {
   const navigate = useNavigate();
@@ -80,7 +81,10 @@ const CountriesTable: React.FC = () => {
       updateCountryMutation(updatedCountry);
     }
   };
-
+  const handleGoBack = () => {
+    setSelectedCountryState(null);
+    navigate(-1);
+  };
   const columns: GridColDef[] = [
     {
       field: "name",
@@ -152,7 +156,7 @@ const CountriesTable: React.FC = () => {
               onClick={() => handleOpenCitiesDialog(params.row)}
               sx={{ marginLeft: 1 }}
             >
-              <EditIcon />
+              <EditNoteIcon />
             </IconButton>
           </Box>
         );
@@ -186,6 +190,7 @@ const CountriesTable: React.FC = () => {
         if (userAccessLevel && userAccessLevel >= 4) {
           actions.push(
             <GridActionsCellItem
+              data-testid="delete-button"
               icon={<DeleteIcon />}
               label="Delete"
               onClick={() => handleDeleteClick(country)}
@@ -199,8 +204,15 @@ const CountriesTable: React.FC = () => {
   ];
 
   return (
-    <div data-testid="countries-table">
-      <h2>Countries</h2>
+    <div data-testid="countries-table" className="countries-table">
+      {userAccessLevel === 5 && (
+        <button className="go-back-button" onClick={handleGoBack}>
+          ← Go Back
+        </button>
+      )}
+      <Typography variant="h4" className="title">
+        Countries
+      </Typography>
       <Box sx={{ height: 700, width: "100%" }}>
         <DataGrid
           rows={countries || []}

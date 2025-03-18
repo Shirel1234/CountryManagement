@@ -1,3 +1,5 @@
+@use './_colors' as colors; 
+
 .edit-country-form {
   margin-top: 2rem;
   max-width: 600px;
@@ -31,11 +33,11 @@
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
-    color:  #34495e;
+    color:  colors.$dark-blue-gray;
   }
 
   .modal-box {
-    background: white;
+    background: colors.$white;
     padding: 1.5rem;
     border-radius: 8px;
     max-width: 400px;

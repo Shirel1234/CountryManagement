@@ -4,11 +4,9 @@ import { User } from "../lib/models/userModel";
 import dotenv from "dotenv";
 import logger from "../utils/logger";
 import {
-  API_PREFIX,
   HTTP_STATUS_CODES,
   LOGGER_MESSAGES_USER,
   AUTHENTICATE_MESSAGES,
-  PASSWORD_RESET_ROUTES,
   USER_MESSAGES,
 } from "../constants";
 dotenv.config();
@@ -18,14 +16,7 @@ export const authenticateToken = async (
   res: Response,
   next: NextFunction
 ) => {
-  if (
-    req.originalUrl ===
-      `${API_PREFIX} ${PASSWORD_RESET_ROUTES.REQUEST_PASSWORD_RESET}` ||
-    req.originalUrl === `${API_PREFIX}${PASSWORD_RESET_ROUTES.RESET_PASSWORD}`
-  ) {
-    return next();
-  }
-  const token = req.cookies.token;
+  const token = req.cookies.token ||  req.header("Authorization")?.split(" ")[1];;
   if (!token) {
     logger.warn(AUTHENTICATE_MESSAGES.ACCESS_ATTEMPT_WITHOUT_TOKEN);
     res
@@ -43,7 +34,7 @@ export const authenticateToken = async (
     if (!user) {
       logger.warn(LOGGER_MESSAGES_USER.USER_NOT_FOUND_BY_ID(decoded.id));
       res
-        .status(HTTP_STATUS_CODES.UNAUTHORIZED)
+        .status(HTTP_STATUS_CODES.NOT_FOUND)
         .json({ message: USER_MESSAGES.USER_NOT_FOUND });
       return;
     }

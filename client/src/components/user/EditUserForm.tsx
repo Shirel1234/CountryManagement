@@ -9,6 +9,8 @@ import { useUpdateUser } from "../../hooks/mutations/useUserMutation";
 import { userValidationSchema } from "../../validation/userValidation";
 import { getUserById } from "../../services/userServices";
 import { BASE_URL } from "../../constants";
+import { useRecoilValue } from "recoil";
+import { userAccessLevelState } from "../../state/atoms";
 
 const EditUserForm: React.FC = () => {
   const [user, setUser] = useState<IUser | null>(null);
@@ -16,6 +18,7 @@ const EditUserForm: React.FC = () => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isFormModified, setIsFormModified] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const userAccessLevel = useRecoilValue(userAccessLevelState);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -46,6 +49,7 @@ const EditUserForm: React.FC = () => {
     } else if (values.profileImage) {
       formData.append("profileImage", values.profileImage);
     }
+    formData.append("accessLevel", values.accessLevel.toString());
     updateUserMutation({ id: id ?? "", formData });
     navigate(-1);
   };
@@ -173,6 +177,20 @@ const EditUserForm: React.FC = () => {
                       }}
                     />
                   </Grid>
+                )}
+                {userAccessLevel === 5 && (
+                  <Field
+                    as={TextField}
+                    label="Access Level"
+                    name="accessLevel"
+                    value={values.accessLevel}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    fullWidth
+                    margin="normal"
+                    error={touched.accessLevel && Boolean(errors.accessLevel)}
+                    helperText={touched.accessLevel && errors.accessLevel}
+                  />
                 )}
                 <div className="buttons-container">
                   <Button

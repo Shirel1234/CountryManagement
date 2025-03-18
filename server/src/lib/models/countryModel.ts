@@ -1,5 +1,5 @@
 import mongoose, { Schema, Types } from "mongoose";
-import { ICountry } from "../../types/country";
+import { ICountry } from "../types/country";
 import { COUNTRY_VALIDATION } from "../../constants";
 
 const countrySchema: Schema = new Schema(

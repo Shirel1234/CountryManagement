@@ -1,3 +1,5 @@
+@use './_colors' as colors; 
+
 .manage-requests {
   display: flex;
   flex-direction: column;
@@ -6,7 +8,7 @@
   padding: 20px;
 
   .title {
-    color: #333;
+    color: colors.$dark-text;
   }
   .go-back-button {
     position: absolute;
@@ -16,12 +18,12 @@
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
-    color:  #34495e;
+    color:  colors.$dark-blue-gray;
   }
   .table-container {
     width: 80%;
     padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px colors.$box-shadow-dark;
   }
 
   .MuiTableCell-root {
@@ -52,7 +54,7 @@
   }
 
   .action-delete {
-    color: crimson;
+    color: colors.$error-red;
   }
 
   .MuiButton-root {

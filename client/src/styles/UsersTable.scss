@@ -1,13 +1,15 @@
+@use './_colors' as colors; 
+
 .users-table {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
   padding: 20px;
-  background-color: #f4f6f9;
+  background-color: colors.$bg-light-blue;
 
   .title {
-    color: #333;
+    color: colors.$dark-text;
   }
   .go-back-button {
     position: absolute;
@@ -17,24 +19,24 @@
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
-    color: #34495e;
+    color: colors.$dark-blue-gray;
   }
 
   .MuiPaper-root {
     margin-bottom: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px colors.$box-shadow-dark;
   }
 
   .MuiDataGrid-root {
     border: none;
     .MuiDataGrid-columnHeader {
-      background-color: #1976d2;
-      color: white;
+      background-color: colors.$primary-blue;
+      color: colors.$white;
       font-weight: bold;
     }
     .MuiDataGrid-cell {
-      color: #555;
+      color: colors.$dark-gray;
       font-size: 0.9rem;
     }
   }
@@ -45,8 +47,8 @@
 
   .MuiDialog-root {
     .MuiDialogTitle-root {
-      background-color: #1976d2;
-      color: white;
+      background-color:colors.$primary-blue;
+      color: colors.$white;
       font-size: 1.25rem;
       font-weight: 600;
     }
@@ -72,16 +74,16 @@
   }
 
   .MuiButton-containedPrimary {
-    background-color: #1976d2;
+    background-color: colors.$primary-blue;
     &:hover {
-      background-color: #1565c0;
+      background-color: colors.$hover-blue;
     }
   }
 
   .MuiButton-containedSecondary {
-    background-color: #d32f2f;
+    background-color: colors.$error-dark-red;
     &:hover {
-      background-color: #c62828;
+      background-color:  colors.$error-hover-red;
     }
   }
 

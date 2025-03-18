@@ -1,10 +1,9 @@
 import mongoose, { Schema, Document } from "mongoose";
 import bcrypt from "bcrypt";
-import { IUser } from "../../types/user";
+import { IUser } from "../types/user";
 import { AccessLevel } from "../../constants/accessLevelEnum";
 import { USER_VALIDATION } from "../../constants";
 
-// Define the User schema
 const UserSchema: Schema = new Schema(
   {
     firstName: {

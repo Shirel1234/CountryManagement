@@ -20,6 +20,10 @@ import {
   AUTH_PREFIX,
   UPLOADS_DIR,
   LOGGER_MESSAGES,
+  COUNTRY_PREFIX,
+  CITY_PREFIX,
+  USER_PREFIX,
+  REQUEST_ACCESS_PREFIX,
 } from "../src/constants";
 
 const app = express();
@@ -42,26 +46,26 @@ app.use(xssClean());
 
 app.use("/uploads", express.static(UPLOADS_DIR));
 
-app.use(API_PREFIX, countryRoutes);
-app.use(API_PREFIX, cityRoutes);
-app.use(API_PREFIX, userRoutes);
+app.use(`${API_PREFIX}${COUNTRY_PREFIX}`, countryRoutes);
+app.use(`${API_PREFIX}${CITY_PREFIX}`, cityRoutes);
+app.use(`${API_PREFIX}${USER_PREFIX}`, userRoutes);
 app.use(AUTH_PREFIX, authRoutes);
 app.use(API_PREFIX, passwordResetRoutes);
-app.use(API_PREFIX, requestAccessRoutes);
+app.use(`${API_PREFIX}${REQUEST_ACCESS_PREFIX}`, requestAccessRoutes);
 
-// Start the server only if this file is run directly
 const startServer = async () => {
   try {
     await connect();
+    console.log("listennnnnn")
     app.listen(PORT, () => {
       logger.info(LOGGER_MESSAGES.SERVER_START(PORT));
     });
   } catch (error) {
     logger.error(LOGGER_MESSAGES.SERVER_ERROR, error);
-    process.exit(1);
+    throw new Error(LOGGER_MESSAGES.SERVER_ERROR);
   }
 };
 
-startServer();
+  // startServer();
 
-export default app;
+  export { app, startServer };

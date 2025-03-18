@@ -47,6 +47,12 @@ export const ALLOWED_HEADERS = ["Content-Type", "Authorization"];
 export const PASSWORD_RESET_EXPIRATION = 3600000;
 
 // =======================
+// AUTHORIZATION_HEADER
+// =======================
+export const AUTHORIZATION_HEADER = (token: string) => ({
+  Authorization: `Bearer ${token}`,
+});
+// =======================
 // API ROUTES
 // =======================
 export const API_URL = "https://restcountries.com/v3.1/all";
@@ -63,31 +69,31 @@ export const AUTH_ROUTES = {
   LOGOUT: "/logout",
 };
 export const COUNTRY_ROUTES = {
-  GET_COUNTRIES: `${COUNTRY_PREFIX}`,
-  GET_COUNTRY_BY_ID: `${COUNTRY_PREFIX}/:id`,
-  CREATE_COUNTRY: `${COUNTRY_PREFIX}`,
-  UPDATE_COUNTRY: `${COUNTRY_PREFIX}/:id`,
-  DELETE_COUNTRY: `${COUNTRY_PREFIX}/:id`,
+  GET_COUNTRIES: `/`,
+  GET_COUNTRY_BY_ID: `/:id`,
+  CREATE_COUNTRY: `/`,
+  UPDATE_COUNTRY: `/:id`,
+  DELETE_COUNTRY: `/:id`,
 };
 export const CITY_ROUTES = {
-  GET_CITIES: `${CITY_PREFIX}`,
-  GET_CITY_BY_ID: `${CITY_PREFIX}/:id`,
-  CREATE_CITY: `${CITY_PREFIX}`,
-  UPDATE_CITY: `${CITY_PREFIX}/:id`,
-  DELETE_CITY: `${CITY_PREFIX}/:id`,
+  GET_CITIES: `/`,
+  GET_CITY_BY_ID: `/:id`,
+  CREATE_CITY: `/`,
+  UPDATE_CITY: `/:id`,
+  DELETE_CITY: `/:id`,
 };
 export const USER_ROUTES = {
-  GET_USERS: `${USER_PREFIX}`,
-  GET_USER_BY_ID: `${USER_PREFIX}/:id`,
-  CREATE_USER: `${USER_PREFIX}`,
-  UPDATE_USER: `${USER_PREFIX}/:id`,
-  DELETE_USER: `${USER_PREFIX}/:id`,
+  GET_USERS: `/`,
+  GET_USER_BY_ID: `/:id`,
+  CREATE_USER: `/`,
+  UPDATE_USER: `/:id`,
+  DELETE_USER: `/:id`,
 };
 export const REQUEST_ACCESS_ROUTES = {
-  REQUEST_ACCESS: `${REQUEST_ACCESS_PREFIX}`,
-  GET_REQUESTS: `${REQUEST_ACCESS_PREFIX}`,
-  PROCESS_REQUEST: `${REQUEST_ACCESS_PREFIX}/:requestId`,
-  GET_REQUESTS_BY_USER_ID: `${REQUEST_ACCESS_PREFIX}/:userId`, 
+  REQUEST_ACCESS: `/`,
+  GET_REQUESTS: `/`,
+  PROCESS_REQUEST: `/:requestId`,
+  GET_REQUESTS_BY_USER_ID: `/:userId`,
 };
 export const PASSWORD_RESET_ROUTES = {
   REQUEST_PASSWORD_RESET: "/request-password-reset",
@@ -123,7 +129,6 @@ export const CITY_MESSAGES = {
   FAILED_TO_CREATE_CITY: "Failed to create city",
   FAILED_TO_UPDATE_CITY: "Failed to update city",
   FAILED_TO_DELETE_CITY: "Failed to delete city",
-  
 };
 export const COUNTRY_MESSAGES = {
   FETCH_ERROR: "Error fetching countries data.",
@@ -163,7 +168,8 @@ export const USER_MESSAGES = {
 // SERVICE LOGGER
 // =======================
 export const LOGGER_MESSAGES = {
-  SERVER_START: (port: string | number) => `Server is running on http://localhost:${port}`,
+  SERVER_START: (port: string | number) =>
+    `Server is running on http://localhost:${port}`,
   SERVER_ERROR: "Error starting the server:",
 };
 export const LOGGER_MESSAGES_AUTH = {
@@ -232,7 +238,13 @@ export const LOGGER_MESSAGES_USER = {
   ERROR_DELETE_USER: "Error deleting user:",
   SUCCESS_DELETE_USER: "User deleted successfully!",
 };
-
+export const LOGGER_MESSAGES_DB = {
+  CONNECTING: "Connecting to MongoDB...",
+  ALREADY_CONNECTED: "Already connected to MongoDB",
+  CONNECTION_SUCCESS: "MongoDB connection successful !!!",
+  INITIAL_COUNTRIES_FETCHED: "Initial country data fetched and stored.",
+  CONNECTION_ERROR: "Error in connection to MongoDB: ",
+};
 // =======================
 // VALIDATION MESSAGES
 // =======================
@@ -252,7 +264,8 @@ export const USER_VALIDATION = {
   FIRST_NAME_INVALID: "First name can only contain letters.",
   LAST_NAME_TOO_SHORT: "Last name must have at least 2 characters.",
   LAST_NAME_INVALID: "Last name can only contain letters.",
-  USERNAME_INVALID: "Username can only contain letters, numbers, and underscores.",
+  USERNAME_INVALID:
+    "Username can only contain letters, numbers, and underscores.",
   EMAIL_INVALID: "Please provide a valid email address.",
   PHONE_INVALID: "Please provide a valid phone number (e.g., 05XXXXXXXX).",
   PROFILE_IMAGE_INVALID:
@@ -268,13 +281,17 @@ export const AUTHENTICATE_MESSAGES = {
   ACCESS_ATTEMPT_WITHOUT_TOKEN: "Access attempt without token.",
   ACCESS_DENIED_NO_TOKEN: "Access denied. No token provided.",
   JWT_VERIFICATION_ERROR: "JWT Verification Error:",
-  INVALID_TOKEN: "Invalid token."
+  INVALID_TOKEN: "Invalid token.",
 };
 export const AUTHORIZATION_MESSAGES = {
   USER_NOT_AUTHENTICATED: "User not authenticated.",
   ACCESS_GRANTED: "Access granted.",
   ACCESS_DENIED: "Access denied: Insufficient permissions.",
   FORBIDDEN: "Forbidden: Insufficient permissions",
+};
+export const RATE_LIMIT_MESSAGES = {
+  LOGIN_ATTEMPT_EXCEEDED:
+    "You have tried to log in too many times. Please try again in 15 minutes.",
 };
 // =======================
 // LOGGING CONFIG

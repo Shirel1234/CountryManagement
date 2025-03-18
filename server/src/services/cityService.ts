@@ -1,6 +1,6 @@
 import axios from "axios";
 import { City } from "../lib/models/cityModel";
-import { ICity } from "../types/city";
+import { ICity } from "../lib/types/city";
 import logger from "../utils/logger";
 import { LOGGER_MESSAGES_CITY } from "../constants";
 

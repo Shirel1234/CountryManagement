@@ -1,87 +1,87 @@
-import app from "../../app";
+import { app } from "../../app";
 import request from "supertest";
-import {
-  afterAll,
-  beforeAll,
-  describe,
-  expect,
-  it,
-} from "@jest/globals";
-import { afterEach } from "node:test";
-import { connectDB, clearDB, closeDB } from "../mocks/mongoose";
+import { describe, expect, it } from "@jest/globals";
+import { token } from "../setupTests";
+import mongoose from "mongoose";
+import { HTTP_STATUS_CODES } from "../../constants";
 
 describe("Country Controller Tests", () => {
   beforeAll(async () => {
-    await connectDB();
-  });
-
-  afterEach(async () => {
-    await clearDB();
+    await mongoose.connect(process.env.MONGODB_URI!);
   });
 
   afterAll(async () => {
-    await closeDB();
+    await mongoose.connection.close();
   });
-
+  
   it("should create a new country", async () => {
     const newCountry = {
       name: "Testland",
-      flag: "test.png",
+      flag: "https://example.com/test.png",
       population: 5000,
       region: "Test Region",
     };
 
     const response = await request(app)
       .post("/api/countries")
+      .set("Authorization", `Bearer ${token}`)
       .send(newCountry)
-      .expect(201);
+      .expect(HTTP_STATUS_CODES.CREATED);
 
     expect(response.body.name).toBe("Testland");
   });
 
   it("should fetch all countries", async () => {
-    const response = await request(app).get("/api/countries").expect(200);
+    const response = await request(app)
+      .get("/api/countries")
+      .set("Authorization", `Bearer ${token}`)
+      .expect(HTTP_STATUS_CODES.OK);
+
     expect(Array.isArray(response.body)).toBe(true);
   });
 
   it("should fetch a specific country by ID", async () => {
     const newCountry = {
       name: "Testland",
-      flag: "test.png",
+      flag: "https://example.com/test.png",
       population: 5000,
       region: "Test Region",
     };
     const savedCountry = await request(app)
       .post("/api/countries")
+      .set("Authorization", `Bearer ${token}`)
       .send(newCountry);
 
     const response = await request(app)
       .get(`/api/countries/${savedCountry.body._id}`)
-      .expect(200);
+      .set("Authorization", `Bearer ${token}`)
+      .expect(HTTP_STATUS_CODES.OK);
     expect(response.body.name).toBe("Testland");
   });
 
   it("should update an existing country", async () => {
     const newCountry = {
       name: "Oldland",
-      flag: "old.png",
+      flag: "https://example.com/old.png",
       population: 3000,
       region: "Old Region",
     };
     const savedCountry = await request(app)
       .post("/api/countries")
+      .set("Authorization", `Bearer ${token}`)
       .send(newCountry);
 
     const updatedData = {
       name: "Newland",
-      flag: "new.png",
+      flag: "https://example.com/new.png",
       population: 6000,
       region: "New Region",
     };
     const response = await request(app)
       .put(`/api/countries/${savedCountry.body._id}`)
+      .set("Authorization", `Bearer ${token}`)
       .send(updatedData)
-      .expect(200);
+      .expect(HTTP_STATUS_CODES.OK);
 
     expect(response.body.name).toBe("Newland");
   });
@@ -89,21 +89,24 @@ describe("Country Controller Tests", () => {
   it("should delete a specific country", async () => {
     const newCountry = {
       name: "Deleteland",
-      flag: "delete.png",
+      flag: "https://example.com/delete.png",
       population: 2000,
       region: "Delete Region",
     };
     const savedCountry = await request(app)
       .post("/api/countries")
+      .set("Authorization", `Bearer ${token}`)
       .send(newCountry);
 
     await request(app)
       .delete(`/api/countries/${savedCountry.body._id}`)
-      .expect(204);
+      .set("Authorization", `Bearer ${token}`)
+      .expect(HTTP_STATUS_CODES.NO_CONTENT);
 
     const response = await request(app)
       .get(`/api/countries/${savedCountry.body._id}`)
-      .expect(404);
+      .set("Authorization", `Bearer ${token}`)
+      .expect(HTTP_STATUS_CODES.NOT_FOUND);
     expect(response.body).toEqual({ error: "Country not found" });
   });
 });

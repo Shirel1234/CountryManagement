@@ -15,16 +15,16 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
     return;
   }
   try {
-    await sendPasswordResetEmail(email);
+    const user = await sendPasswordResetEmail(email);
+    if (!user) {
+    }
     res
       .status(HTTP_STATUS_CODES.OK)
       .json({ message: PASSWORD_RESET_MESSAGES.EMAIL_SENT });
   } catch (error) {
-    res
-      .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
-      .json({
-        message: `${PASSWORD_RESET_MESSAGES.INTERNAL_SERVER_ERROR} ${error}`,
-      });
+    res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).json({
+      message: `${PASSWORD_RESET_MESSAGES.INTERNAL_SERVER_ERROR} ${error}`,
+    });
   }
 };
 export const resetPasswordHandler = async (req: Request, res: Response) => {

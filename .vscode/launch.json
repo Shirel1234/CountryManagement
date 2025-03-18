@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Launch Program",
+        "skipFiles": ["<node_internals>/**"],
+        "program": "${workspaceFolder}/server/src/app.ts",
+        "runtimeArgs": ["-r", "ts-node/register", "-r", "tsconfig-paths/register","server/src/app.ts"],
+        "console": "integratedTerminal",
+        "outFiles": ["${workspaceFolder}/**/*.ts"]
+      }
+    ]
+  }
+  

@@ -1,50 +1,44 @@
-import { connectDB, clearDB, closeDB } from "../mocks/mongoose";
 import {
-  fetchCountriesData,
   saveCountry,
   fetchCountryById,
   modifyCountry,
   removeCountry,
 } from "../../services/countryService";
-import { afterAll, beforeAll, describe, expect, it } from "@jest/globals";
-import { afterEach } from "node:test";
-import { ICountry } from "../../types/country";
+import { describe, expect, it } from "@jest/globals";
+import { ICountry } from "../../lib/types/country";
+import mongoose from "mongoose";
 
 describe("Country Service Tests", () => {
   beforeAll(async () => {
-    await connectDB();
-  });
-
-  afterEach(async () => {
-    await clearDB();
+    await mongoose.connect(process.env.MONGODB_URI!);
   });
 
   afterAll(async () => {
-    await closeDB();
+    await mongoose.connection.close();
   });
 
   it("should save a new country", async () => {
     const countryData = {
       name: "Testland",
-      flag: "test.png",
+      flag: "https://example.com/test.png",
       population: 1000,
       region: "Test Region",
     };
     const savedCountry = await saveCountry(countryData as ICountry);
     expect(savedCountry.name).toBe("Testland");
-    expect(savedCountry.flag).toBe("test.png");
+    expect(savedCountry.flag).toBe("https://example.com/test.png");
   });
 
   it("should fetch a country by ID", async () => {
     const countryData = {
       name: "Testland",
-      flag: "test.png",
+      flag: "https://example.com/test.png",
       population: 1000,
       region: "Test Region",
+      cities: [],
     };
     const savedCountry = await saveCountry(countryData as ICountry);
-
-    const fetchedCountry = await fetchCountryById(savedCountry._id.toString());
+    const fetchedCountry = await fetchCountryById(savedCountry._id);
     expect(fetchedCountry?.name).toBe("Testland");
   });
 
@@ -55,17 +49,19 @@ describe("Country Service Tests", () => {
   it("should modify an existing country", async () => {
     const countryData = {
       name: "Oldland",
-      flag: "old.png",
+      flag: "https://example.com/old.png",
       population: 5000,
       region: "Old Region",
+      cities: [],
     };
     const savedCountry = await saveCountry(countryData as ICountry);
 
     const updatedData = {
       name: "Newland",
-      flag: "new.png",
+      flag: "https://example.com/new.png",
       population: 7000,
       region: "New Region",
+      cities: [],
     };
     const updatedCountry = await modifyCountry(
       savedCountry._id.toString(),
@@ -78,7 +74,7 @@ describe("Country Service Tests", () => {
   it("should remove an existing country", async () => {
     const countryData = {
       name: "Testland",
-      flag: "test.png",
+      flag: "https://example.com/test.png",
       population: 1000,
       region: "Test Region",
     };

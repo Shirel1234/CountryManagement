@@ -4,7 +4,7 @@ import crypto from "crypto";
 import { User } from "../lib/models/userModel";
 import { PasswordReset } from "../lib/models/passwordResetModel";
 import nodemailer from "nodemailer";
-import { IUser } from "../types/user";
+import { IUser } from "../lib/types/user";
 import logger from "../utils/logger";
 import {
   EMAIL_USER,
@@ -25,7 +25,7 @@ export const sendPasswordResetEmail = async (email: string) => {
     const user = await User.findOne({ email });
     if (!user) {
       logger.error(`${LOGGER_MESSAGES_PASSWORD_RESET.USER_NOT_FOUND} ${email}`);
-      throw new Error(LOGGER_MESSAGES_PASSWORD_RESET.USER_NOT_FOUND);
+      return null;
     }
 
     const resetTokenEntry = await createPasswordResetEntry(user);

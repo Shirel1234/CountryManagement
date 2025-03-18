@@ -1,5 +1,5 @@
 import { User } from "../lib/models/userModel";
-import { IUser } from "../types/user";
+import { IUser } from "../lib/types/user";
 import logger from "../utils/logger";
 import { LOGGER_MESSAGES_USER } from "../constants";
 

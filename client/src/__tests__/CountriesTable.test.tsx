@@ -7,6 +7,7 @@ import { RecoilRoot } from "recoil";
 import CountriesTable from "../components/country/CountriesTable";
 import { addCountry, deleteCountry } from "../services/countryService";
 import { useNavigate } from "react-router-dom";
+import { userAccessLevelState } from "../state/atoms";
 
 vi.mock("../hooks/queries/useCountriesQuery", () => ({
   useFetchCountries: () => ({
@@ -30,7 +31,7 @@ vi.mock("../hooks/queries/useCountriesQuery", () => ({
   }),
 }));
 
-vi.mock("../services/countryService", () => ({
+vi.mock("../services/countryService.ts", () => ({
   addCountry: vi.fn(),
   deleteCountry: vi.fn(),
 }));
@@ -75,7 +76,17 @@ describe("CountriesTable", () => {
   });
 
   it("opens the Add Country dialog when the add button is clicked", () => {
-    customRender(<CountriesTable />);
+    const userAccessLevel = 3;
+
+    customRender(
+      <RecoilRoot
+        initializeState={({ set }) =>
+          set(userAccessLevelState, userAccessLevel)
+        }
+      >
+        <CountriesTable />
+      </RecoilRoot>
+    );
 
     const addButton = screen.getByTestId("add-button");
     fireEvent.click(addButton);
@@ -84,35 +95,53 @@ describe("CountriesTable", () => {
   });
 
   it("calls the addCountry function when a new country is added", async () => {
-    customRender(<CountriesTable />);
+    const userAccessLevel = 2;
+    customRender(
+      <RecoilRoot
+        initializeState={({ set }) =>
+          set(userAccessLevelState, userAccessLevel)
+        }
+      >
+        <CountriesTable />
+      </RecoilRoot>
+    );
 
     const addButton = screen.getByTestId("add-button");
     fireEvent.click(addButton);
     await waitFor(() => screen.getByRole("dialog"));
 
-    const input = screen.getByLabelText(/country name/i, { selector: '[id="country-name"]' });
+    const input = screen.getByLabelText(/country name/i, {
+      selector: '[id="country-name"]',
+    });
     fireEvent.change(input, { target: { value: "New Country" } });
 
     fireEvent.change(screen.getByLabelText(/flag url/i), {
       target: { value: "https://newflag.url" },
     });
-    fireEvent.change(screen.getByLabelText(/population/i, { selector: '[id="population"]' }), {
-      target: { value: 5000000 },
-    });
-    fireEvent.change(screen.getByLabelText(/region/i, { selector: '[id="region"]' }), {
-      target: { value: "Africa" },
-    });
+    fireEvent.change(
+      screen.getByLabelText(/population/i, { selector: '[id="population"]' }),
+      {
+        target: { value: 5000000 },
+      }
+    );
+    fireEvent.change(
+      screen.getByLabelText(/region/i, { selector: '[id="region"]' }),
+      {
+        target: { value: "Africa" },
+      }
+    );
     fireEvent.click(screen.getByTestId("add-country-button"));
 
-    await waitFor(() =>
+    await waitFor(() =>{
+      console.log("addCountry:", addCountry);
       expect(addCountry).toHaveBeenCalledWith({
         name: "New Country",
-        flag: "https://newflag.png",
+        flag: "https://newflag.url",
         population: 5000000,
         region: "Africa",
         cities: [],
-      } )
-    );
+      })
+   } );
 
     await waitFor(() =>
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
@@ -120,7 +149,16 @@ describe("CountriesTable", () => {
   });
 
   it("opens the delete confirmation dialog when the delete button is clicked", () => {
-    customRender(<CountriesTable />);
+    const userAccessLevel = 4;
+    customRender(
+      <RecoilRoot
+        initializeState={({ set }) =>
+          set(userAccessLevelState, userAccessLevel)
+        }
+      >
+        <CountriesTable />
+      </RecoilRoot>
+    );
 
     const deleteButtons = screen.getAllByTestId("delete-button");
     fireEvent.click(deleteButtons[0]);
@@ -129,7 +167,16 @@ describe("CountriesTable", () => {
   });
 
   it("calls the deleteCountry function when the delete is confirmed", async () => {
-    customRender(<CountriesTable />);
+    const userAccessLevel = 4;
+    customRender(
+      <RecoilRoot
+        initializeState={({ set }) =>
+          set(userAccessLevelState, userAccessLevel)
+        }
+      >
+        <CountriesTable />
+      </RecoilRoot>
+    );
 
     const deleteButtons = screen.getAllByTestId("delete-button");
     fireEvent.click(deleteButtons[0]);
@@ -142,8 +189,19 @@ describe("CountriesTable", () => {
   it("navigates to the edit page when the edit button is clicked", async () => {
     const mockNavigate = vi.fn();
     (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
-
-    customRender(<CountriesTable />);
+    const userAccessLevel = 4;
+    customRender(
+      <RecoilRoot
+        initializeState={({ set }) =>
+          set(userAccessLevelState, userAccessLevel)
+        }
+      >
+        <CountriesTable />
+      </RecoilRoot>
+    );
+    await waitFor(() => {
+      expect(screen.getAllByTestId("edit-button").length).toBeGreaterThan(0);
+    });
 
     const editButtons = screen.getAllByTestId("edit-button");
     fireEvent.click(editButtons[0]);

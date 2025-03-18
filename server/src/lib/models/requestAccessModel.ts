@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { IRequestAccess } from "../../types/requestAccess";
+import { IRequestAccess } from "../types/requestAccess";
 import {
   RequestAccessAction,
   RequestAccessStatus,

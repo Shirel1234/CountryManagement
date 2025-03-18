@@ -1,16 +1,18 @@
+@use './_colors' as colors; 
+
 .loader {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: colors.$white-transparent;
 }
 
 .spinner {
   width: 50px;
   height: 50px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #007bff;
+  border: 4px solid colors.$spinner-gray;
+  border-top: 4px solid colors.$primary-blue;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { User } from "../lib/models/userModel";
 import { generateToken } from "../utils/tokenUtils";
-import { IUser } from "../types/user";
+import { IUser } from "../lib/types/user";
 import logger from "../utils/logger";
 import { LOGGER_MESSAGES_AUTH } from "../constants";
 
@@ -35,7 +35,7 @@ export const authenticateUser = async (
     };
   } catch (error) {
     logger.error(LOGGER_MESSAGES_AUTH.AUTH_ERROR, error);
-    throw error;
+    return null;
   }
 };
 export const registerUser = async (
