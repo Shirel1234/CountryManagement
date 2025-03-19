@@ -12,12 +12,16 @@ import { token } from "../setupTests";
 import { RequestAccess } from "../../lib/models/requestAccessModel";
 import {
   API_PREFIX,
+  AUTH_PREFIX,
   AUTH_ROUTES,
   AUTHORIZATION_HEADER,
   HTTP_STATUS_CODES,
   REQUEST_ACCESS_MESSAGES,
+  REQUEST_ACCESS_PREFIX,
   REQUEST_ACCESS_ROUTES,
 } from "../../constants";
+
+const BASE_URL = `${API_PREFIX}${REQUEST_ACCESS_PREFIX}`;
 
 describe("Request Access Controller Tests", () => {
   let userId;
@@ -27,7 +31,7 @@ describe("Request Access Controller Tests", () => {
     await mongoose.connect(process.env.MONGODB_URI!);
 
     const registerResponse = await request(app)
-      .post(`${API_PREFIX}${AUTH_ROUTES.REGISTER}`)
+      .post(`${AUTH_PREFIX}${AUTH_ROUTES.REGISTER}`)
       .send({
         firstName: "John",
         lastName: "Doe",
@@ -40,7 +44,7 @@ describe("Request Access Controller Tests", () => {
 
     userId = registerResponse.body.myId;
     const loginResponse = await request(app)
-      .post(`${API_PREFIX}${AUTH_ROUTES.LOGIN}`)
+      .post(`${AUTH_PREFIX}${AUTH_ROUTES.LOGIN}`)
       .send({ username: "user1", password: "password123" })
       .expect(HTTP_STATUS_CODES.OK);
 
@@ -49,13 +53,15 @@ describe("Request Access Controller Tests", () => {
 
   afterAll(async () => {
     await RequestAccess.deleteMany({});
+    await User.deleteMany({ username: { $ne: "admin" } });
     await mongoose.connection.close();
   });
 
   it("should create a new access request", async () => {
+
     const response = await request(app)
-      .post(`${API_PREFIX}${REQUEST_ACCESS_ROUTES.REQUEST_ACCESS}`)
-      .set(AUTHORIZATION_HEADER(token))
+      .post(`${BASE_URL}${REQUEST_ACCESS_ROUTES.REQUEST_ACCESS}`)
+      .set(AUTHORIZATION_HEADER(tokenUser))
       .send({ action: RequestAccessAction.UPDATE })
       .expect(HTTP_STATUS_CODES.CREATED);
 
@@ -66,7 +72,7 @@ describe("Request Access Controller Tests", () => {
 
   it("should fetch all access requests", async () => {
     const response = await request(app)
-      .get(`${API_PREFIX}${REQUEST_ACCESS_ROUTES.REQUEST_ACCESS}`)
+      .get(`${BASE_URL}${REQUEST_ACCESS_ROUTES.REQUEST_ACCESS}`)
       .set(AUTHORIZATION_HEADER(token))
       .expect(HTTP_STATUS_CODES.OK);
 
@@ -75,7 +81,7 @@ describe("Request Access Controller Tests", () => {
 
   it("should fetch access requests by user ID", async () => {
     const response = await request(app)
-      .get(`${API_PREFIX}${REQUEST_ACCESS_ROUTES.REQUEST_ACCESS}/${userId}`)
+      .get(`${BASE_URL}${REQUEST_ACCESS_ROUTES.REQUEST_ACCESS}${userId}`)
       .set(AUTHORIZATION_HEADER(tokenUser))
       .expect(HTTP_STATUS_CODES.OK);
 
@@ -84,7 +90,7 @@ describe("Request Access Controller Tests", () => {
 
   it("should process an access request and update status", async () => {
     const requestResponse = await request(app)
-      .post(`${API_PREFIX}${REQUEST_ACCESS_ROUTES.REQUEST_ACCESS}`)
+      .post(`${BASE_URL}${REQUEST_ACCESS_ROUTES.REQUEST_ACCESS}`)
       .set(AUTHORIZATION_HEADER(tokenUser))
       .send({ action: RequestAccessAction.UPDATE })
       .expect(HTTP_STATUS_CODES.CREATED);
@@ -92,9 +98,7 @@ describe("Request Access Controller Tests", () => {
     const requestId = requestResponse.body.request._id;
 
     const updateResponse = await request(app)
-      .patch(
-        `${API_PREFIX}${REQUEST_ACCESS_ROUTES.REQUEST_ACCESS}/${requestId}`
-      )
+      .patch(`${BASE_URL}${REQUEST_ACCESS_ROUTES.REQUEST_ACCESS}/${requestId}`)
       .set(AUTHORIZATION_HEADER(token))
       .send({ status: RequestAccessStatus.APPROVED })
       .expect(HTTP_STATUS_CODES.OK);
