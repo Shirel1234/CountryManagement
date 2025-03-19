@@ -4,7 +4,15 @@ import { afterAll, beforeAll, describe, expect, it } from "@jest/globals";
 import { User } from "../../lib/models/userModel";
 import mongoose from "mongoose";
 import { token } from "../setupTests";
-import { HTTP_STATUS_CODES } from "../../constants";
+import {
+  API_PREFIX,
+  AUTHORIZATION_HEADER,
+  HTTP_STATUS_CODES,
+  USER_PREFIX,
+  USER_ROUTES,
+} from "../../constants";
+
+const BASE_URL = `${API_PREFIX}${USER_PREFIX}`;
 
 describe("User Controller Tests", () => {
   let userId: string;
@@ -26,7 +34,7 @@ describe("User Controller Tests", () => {
   });
 
   afterAll(async () => {
-    await User.deleteMany({ username: { $ne: 'admin' } });
+    await User.deleteMany({ username: { $ne: "admin" } });
     await mongoose.connection.close();
   });
 
@@ -41,8 +49,8 @@ describe("User Controller Tests", () => {
     };
 
     const response = await request(app)
-      .post("/api/users")
-      .set("Authorization", `Bearer ${token}`)
+      .post(`${BASE_URL}${USER_ROUTES.CREATE_USER}`)
+      .set(AUTHORIZATION_HEADER(token))
       .send(newUser)
       .expect(HTTP_STATUS_CODES.CREATED);
 
@@ -51,8 +59,8 @@ describe("User Controller Tests", () => {
 
   it("should fetch all users", async () => {
     const response = await request(app)
-      .get("/api/users")
-      .set("Authorization", `Bearer ${token}`)
+      .get(`${BASE_URL}${USER_ROUTES.GET_USERS}`)
+      .set(AUTHORIZATION_HEADER(token))
       .expect(HTTP_STATUS_CODES.OK);
 
     expect(Array.isArray(response.body)).toBe(true);
@@ -60,10 +68,10 @@ describe("User Controller Tests", () => {
 
   it("should fetch a specific user by ID", async () => {
     const response = await request(app)
-      .get(`/api/users/${userId}`)
-      .set("Authorization", `Bearer ${token}`)
+      .get(`${BASE_URL}${USER_ROUTES.GET_USER_BY_ID.replace(":id", userId)}`)
+      .set(AUTHORIZATION_HEADER(token))
       .expect(HTTP_STATUS_CODES.OK);
-    
+
     expect(response.body._id).toBe(userId);
   });
 
@@ -75,8 +83,8 @@ describe("User Controller Tests", () => {
     };
 
     const response = await request(app)
-      .put(`/api/users/${userId}`)
-      .set("Authorization", `Bearer ${token}`)
+      .put(`${BASE_URL}${USER_ROUTES.UPDATE_USER.replace(":id", userId)}`)
+      .set(AUTHORIZATION_HEADER(token))
       .send(updatedData)
       .expect(HTTP_STATUS_CODES.OK);
 
@@ -85,15 +93,13 @@ describe("User Controller Tests", () => {
 
   it("should delete a specific user", async () => {
     await request(app)
-      .delete(`/api/users/${userId}`)
-      .set("Authorization", `Bearer ${token}`)
+      .delete(`${BASE_URL}${USER_ROUTES.DELETE_USER.replace(":id", userId)}`)
+      .set(AUTHORIZATION_HEADER(token))
       .expect(HTTP_STATUS_CODES.NO_CONTENT);
 
     const response = await request(app)
-      .get(`/api/users/${userId}`)
-      .set("Authorization", `Bearer ${token}`);
-    
-    console.log("GET response:", response.status, response.body); // Debugging log
+      .get(`${BASE_URL}${USER_ROUTES.GET_USER_BY_ID.replace(":id", userId)}`)
+      .set(AUTHORIZATION_HEADER(token));
 
     expect(response.status).toBe(HTTP_STATUS_CODES.NOT_FOUND);
   });
