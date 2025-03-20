@@ -81,33 +81,19 @@ npm run dev
 
 ## Database Schema Overview
 
-| Schema          | Field         | Explanation |
-|---------------|--------------|-------------|
-| **City** | name | The name of the city. It must have at least 3 characters and cannot contain numbers. |
-| **Country** | name | The official name of the country. It must be at least 3 characters long and cannot contain numbers. |
-|  | flag | A URL linking to the country's flag image. The image must be in JPG, JPEG, PNG, or GIF format. |
-|  | population | The total number of people living in the country. It must be a non-negative number. |
-|  | region | The geographical region where the country is located. It cannot contain numbers. |
-|  | cities | A list of cities that belong to the country, referenced from the `City` schema. |
-| **PasswordReset** | userId | A reference to the user who requested a password reset. |
-|  | resetToken | A unique token generated for resetting the user's password. |
-|  | expiresAt | The expiration date and time of the reset token. After this time, the token is no longer valid. |
-| **RequestAccess** | userId | A reference to the user requesting access. |
-|  | action | The type of access request being made, selected from predefined options in `RequestAccessAction`. |
-|  | status | The current status of the request (e.g., pending, approved, or rejected). Defaults to `PENDING`. |
-| **User** | firstName | The user's first name. It must be at least 2 characters long and contain only letters. |
-|  | lastName | The user's last name. It must be at least 2 characters long and contain only letters. |
-|  | username | A unique username for the user, consisting of letters, numbers, and underscores. |
-|  | email | The user's email address, which must follow a valid email format. |
-|  | phone | The user's phone number, which must start with '05' and have 10 digits. |
-|  | profileImage | An optional profile image URL or filename for the user. Must be a valid image format. |
-|  | password | The user's password, which must be at least 6 characters long. The password is hashed before storing. |
-|  | accessLevel | Defines the user's level of access, selected from predefined values in `AccessLevel`. Defaults to `VIEWER`. |
+| Schema          | Fields | Explanation |
+|---------------|--------|-------------|
+| **City** | `name` | Represents a city with a name that must contain only letters and be at least 3 characters long. |
+| **Country** | `name`, `flag`, `population`, `region`, `cities` | Represents a country, including its name, flag (image URL), population count, region, and a list of cities it contains. |
+| **PasswordReset** | `userId`, `resetToken`, `expiresAt` | Stores password reset requests, linking a user to a reset token with an expiration time. |
+| **RequestAccess** | `userId`, `action`, `status` | Manages access requests from users, storing the requested action and the current status of the request. |
+| **User** | `firstName`, `lastName`, `username`, `email`, `phone`, `profileImage`, `password`, `accessLevel` | Stores user information, including personal details, authentication credentials, and access permissions. |
 
 ---
-#### Additional Information:
+### Additional Notes:
 - **Timestamps**: The `Country`, `RequestAccess`, and `User` schemas automatically track creation and update times.
-- **Password Security**: The `User` schema hashes passwords before saving them to the database.
+- **Password Security**: The `User` schema hashes passwords before storing them.
+- **Relationships**: `Country` references `City`, `PasswordReset` and `RequestAccess` reference `User`.
 
 
 ## Security Measures
