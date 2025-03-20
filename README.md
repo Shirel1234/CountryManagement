@@ -39,7 +39,7 @@ npm install
 ```
 #### 8. Create .env file and fill up the credentials (still inside client folder).
 ```
-VITE_BASE_URL=http://localhost:5000
+VITE_BASE_URL=react_app_api
 ```
 
 #### 9. Run the client.
