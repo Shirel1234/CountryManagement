@@ -88,6 +88,13 @@ To protect the application from common security threats, the following middlewar
   ```js
   import mongoSanitize from "express-mongo-sanitize";
   app.use(mongoSanitize());
+
+ - **XSS (Cross-Site Scripting) Protection** (`xss-clean`):  
+  Prevents attackers from injecting malicious scripts into user input fields, which could execute in the browser and steal sensitive data.  
+  ```js
+  import xssClean from "xss-clean";
+  app.use(xssClean());
+
 ## Screenshots
 (Add screenshots here to showcase the interface)
 
