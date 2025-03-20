@@ -78,7 +78,54 @@ npm run dev
 ### Testing
 - Jest
 - React Testing Library
-    
+
+## Database Schema Overview
+
+### City
+| Field  | Type   | Required | Validation |
+|--------|--------|----------|------------|
+| name   | String | ✅       | Min 3 chars, No digits |
+
+### Country
+| Field      | Type                  | Required | Validation |
+|------------|-----------------------|----------|------------|
+| name       | String                | ✅       | Min 3 chars, No digits |
+| flag       | String (URL)          | ✅       | Must be a valid image URL (jpg, jpeg, png, gif) |
+| population | Number                | ✅       | Min 0 |
+| region     | String                | ✅       | No digits |
+| cities     | Array of ObjectId (City) | ❌      | References `City` |
+
+### PasswordReset
+| Field       | Type        | Required | Validation |
+|-------------|------------|----------|------------|
+| userId      | ObjectId   | ✅       | References `User` |
+| resetToken  | String     | ✅       | - |
+| expiresAt   | Date       | ✅       | - |
+
+### RequestAccess
+| Field   | Type      | Required | Validation |
+|---------|----------|----------|------------|
+| userId  | ObjectId | ✅       | References `User` |
+| action  | String   | ✅       | Enum from `RequestAccessAction` |
+| status  | String   | ❌ (default: PENDING) | Enum from `RequestAccessStatus` |
+
+### User
+| Field        | Type      | Required | Validation |
+|-------------|----------|----------|------------|
+| firstName   | String   | ✅       | Min 2 chars, Letters only |
+| lastName    | String   | ✅       | Min 2 chars, Letters only |
+| username    | String   | ✅       | Unique, Alphanumeric & underscores only |
+| email       | String   | ✅       | Valid email format |
+| phone       | String   | ✅       | Must start with '05' and have 10 digits |
+| profileImage | String (URL) | ❌   | Valid image URL or filename |
+| password    | String   | ✅       | Min 6 chars, Hashed before saving |
+| accessLevel | Number   | ✅       | Enum from `AccessLevel` (default: VIEWER) |
+
+---
+#### Additional Notes:
+- **Timestamps**: `Country`, `RequestAccess`, and `User` schemas include automatic `createdAt` and `updatedAt` timestamps.
+- **Password Hashing**: `User.password` is hashed using bcrypt before saving.
+
 ## Security Measures
 
 To protect the application from common security threats, the following middleware is implemented:
@@ -90,7 +137,8 @@ To protect the application from common security threats, the following middlewar
   app.use(mongoSanitize());
 
  - **XSS (Cross-Site Scripting) Protection** (`xss-clean`):  
-  Prevents attackers from injecting malicious scripts into user input fields, which could execute in the browser and steal sensitive data.  
+  Prevents attackers from injecting malicious scripts into user input fields, which could execute in the browser and steal 
+  sensitive data.  
   ```js
   import xssClean from "xss-clean";
   app.use(xssClean());
@@ -110,7 +158,6 @@ Verifies user authentication using a JWT token:
 - Stores user details in `res.locals` for further requests.  
 
 Used to protect routes requiring authentication.  
-
 
 ### Authorization Middleware: `checkAccessLevel`
 The `checkAccessLevel` function ensures that a user has the required access level before proceeding. It:
