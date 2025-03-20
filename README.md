@@ -47,18 +47,16 @@ AdminNation is a management system for handling countries, cities, and access re
    ```sh
    git clone https://github.com/your-username/your-repo.git
 
-
-## More Explanations
-
-### config
-.env file 
+## config .env
 MONGODB_URI=your_mongodb_url
 PORT=your_port
 JWT_SECRET=your_secret_key
 JWT_EXPIRES_IN=your_expires_in_number
 EMAIL_USER=your_mail
 EMAIL_PASS=your_mail_password
-FRONTEND_URL=your_fronted_url
+FRONTEND_URL=your_frontend_url
+
+## Middleware Explanation
 
 ### Authentication Middleware: `authenticateToken`  
 Verifies user authentication using a JWT token:  
