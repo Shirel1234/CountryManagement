@@ -21,11 +21,31 @@ git clone https://github.com/Shirel1234/CountryManagement.git
 ```
 MONGODB_URI=your_mongodb_url
 PORT=your_port
-  JWT_SECRET=your_secret_key
-  JWT_EXPIRES_IN=your_expires_in_number
-  EMAIL_USER=your_mail
-  EMAIL_PASS=your_mail_password
-  FRONTEND_URL=your_frontend_url
+JWT_SECRET=your_secret_key
+JWT_EXPIRES_IN=your_expires_in_number
+EMAIL_USER=your_mail
+EMAIL_PASS=your_mail_password
+FRONTEND_URL=your_frontend_url
+```
+#### 6. Run the server.
+```sh
+npm run dev
+```
+
+#### 7. Open another new VS code terminal and go to client folder.
+```sh
+cd client
+npm install
+```
+#### 8. Create .env file and fill up the credentials (still inside client folder).
+```
+VITE_BASE_URL=http://localhost:5000
+```
+
+#### 9. Run the client.
+
+```sh
+npm run dev
 ```
 ## Features
 - Manage users, countries, and cities.
@@ -36,7 +56,8 @@ PORT=your_port
 - Data stored in MongoDB.
 
 ## Tech Stack
-### Frontend
+
+### client
 - React vite
 - TypeScript
 - Recoil (State Management)
@@ -47,7 +68,7 @@ PORT=your_port
 - MUI (UI-Material) for table and form styling
 - Boundary Error for global error handling
 
-### Backend
+### server
 - Node.js
 - Express
 - TypeScript
@@ -60,26 +81,6 @@ PORT=your_port
 
 ## Screenshots
 (Add screenshots here to showcase the interface)
-
-## Installation & Setup
-### Prerequisites
-- Node.js & npm
-- MongoDB installed or a cloud database (e.g., MongoDB Atlas)
-
-### Steps
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/your-username/your-repo.git
-
-## config .env
-
-  `MONGODB_URI=your_mongodb_url
-  PORT=your_port
-  JWT_SECRET=your_secret_key
-  JWT_EXPIRES_IN=your_expires_in_number
-  EMAIL_USER=your_mail
-  EMAIL_PASS=your_mail_password
-  FRONTEND_URL=your_frontend_url`
 
 ## Middleware Explanation
 
