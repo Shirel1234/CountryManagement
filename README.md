@@ -165,4 +165,16 @@ The system includes different access levels that determine what actions a user c
 - If a user has `DELETE` access (level 4), they also have all lower permissions, meaning they can **delete, update, add, and view** data.
 - The `ADMIN` level (5) grants full access to all functionalities.
 
+### Implementation in Code  
+In the project, access levels are defined as an **enum** to ensure consistency and easy management:  
+
+```typescript
+export enum AccessLevel {
+    VIEWER = 1,
+    ADD = 2,
+    UPDATE = 3,
+    DELETE = 4,
+    ADMIN = 5,
+}
+
 This hierarchy ensures a clear and structured permission system where higher levels inherit lower-level permissions automatically.
