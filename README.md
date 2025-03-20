@@ -1,6 +1,6 @@
 # Country Management System
 
-![Alt text](screenshots/image.png)
+![Alt text](screenshots/image_1.png)
 AdminNation is a management system for handling countries, cities, and access requests. It allows administrators to manage users, approve or reject access requests, and perform operations on countries and cities. The system features a modern interface with authentication, forms, and dialogs.
 
 ## How to use?
