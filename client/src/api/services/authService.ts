@@ -1,26 +1,21 @@
 import axios from "axios";
-import {
-  API_ENDPOINTS_AUTH,
-  ERROR_MESSAGES_AUTH,
-  HEADERS,
-  LOCAL_STORAGE_KEYS,
-} from "../constants";
+import { API_ENDPOINTS_AUTH, ERROR_MESSAGES_AUTH, HEADERS } from "../../constants";
 
 export const registerUser = async (
   formData: FormData
-): Promise<{ token: string }> => {
+): Promise<{
+  token: string;
+  myId: string;
+  myUsername: string;
+  myProfileImage: string;
+}> => {
   try {
     const response = await axios.post(API_ENDPOINTS_AUTH.REGISTER, formData, {
       headers: HEADERS.MULTIPART,
       withCredentials: true,
     });
-    const { token, myId, myUsername, myProfileImage } = response.data;
-    localStorage.setItem(
-      LOCAL_STORAGE_KEYS.USER_DATA,
-      JSON.stringify({ myId, myUsername, myProfileImage })
-    );
 
-    return { token };
+    return response.data;
   } catch (error) {
     console.error(`${ERROR_MESSAGES_AUTH.REGISTER_FAILED}: ${error}`);
     throw error;
@@ -29,7 +24,12 @@ export const registerUser = async (
 export const loginUser = async (
   username: string,
   password: string
-): Promise<{ token: string }> => {
+): Promise<{
+  token: string;
+  myId: string;
+  myUsername: string;
+  myProfileImage: string;
+}> => {
   try {
     const response = await axios.post(
       API_ENDPOINTS_AUTH.LOGIN,
@@ -39,12 +39,7 @@ export const loginUser = async (
         withCredentials: true,
       }
     );
-    const { token, myId, myUsername, myProfileImage } = response.data;
-    localStorage.setItem(
-      LOCAL_STORAGE_KEYS.USER_DATA,
-      JSON.stringify({ myId, myUsername, myProfileImage })
-    );
-    return { token };
+    return response.data;
   } catch (error) {
     console.error(`${ERROR_MESSAGES_AUTH.LOGIN_FAILED}: ${error}`);
     throw error;

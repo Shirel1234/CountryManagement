@@ -1,22 +1,25 @@
 import { useState } from "react";
 import { Button, TextField, Grid, Container, Typography } from "@mui/material";
 import "../../styles/LoginForm.scss";
-import { loginUser } from "../../services/authService";
+import { loginUser } from "../../api/services/authService";
 import { showErrorToast, showSuccessToast } from "../utils/Toast";
 import { useSetRecoilState } from "recoil";
-import { isLoggedInState } from "../../state/atoms";
-import { userAccessLevelState } from "../../state/atoms";
+import { userAccessLevelState, userState } from "../../state/atoms";
 import { useNavigate } from "react-router-dom";
 import ForgotPasswordDialog from "../dialogs/ForgotPasswordDialog";
 import { jwtDecode } from "jwt-decode";
 import { AccessLevel } from "../../constants/accessLevelEnum";
-import { ROUTES, TOAST_MESSAGES_LOGIN } from "../../constants";
+import {
+  LOCAL_STORAGE_KEYS,
+  ROUTES,
+  TOAST_MESSAGES_LOGIN,
+} from "../../constants";
 
 const LoginForm = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
-  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+  const setUser = useSetRecoilState(userState);
   const setUserAccessLevelState = useSetRecoilState(userAccessLevelState);
 
   const navigate = useNavigate();
@@ -24,8 +27,14 @@ const LoginForm = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const { token } = await loginUser(username, password);
-      setIsLoggedIn(true);
+      const { token, myId, myUsername, myProfileImage } = await loginUser(
+        username,
+        password
+      );
+      const userData = { myId, myUsername, myProfileImage };
+      setUser(userData);
+      localStorage.setItem(LOCAL_STORAGE_KEYS.USER_DATA, JSON.stringify(userData));
+
       const decodedToken = jwtDecode<{ accessLevel: number }>(token);
       const accessLevel = decodedToken.accessLevel;
       setUserAccessLevelState(accessLevel);

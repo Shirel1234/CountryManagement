@@ -1,10 +1,6 @@
 import { atom } from "recoil";
-import { ICountry } from "../types/country";
+import { ICountry } from "../api/types/country";
 
-export const isLoggedInState = atom<boolean>({
-  key: "isLoggedInState", 
-  default: false, 
-});
 export const selectedCountryState = atom<ICountry | null>({
   key: "selectedCountryState",
   default: null,
@@ -14,4 +10,12 @@ export const userAccessLevelState = atom({
   default: 1, 
 });
 
+export const userState = atom({
+  key: "userState",
+  default: {
+    myId: "",
+    myUsername: "",
+    myProfileImage: "",
+  },
+});
 

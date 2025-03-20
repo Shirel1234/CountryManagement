@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchRequests } from "../../services/requestAccessService";
+import { fetchRequests } from "../services/requestAccessService";
 import { API_CONFIG, QUERY_KEYS } from "../../constants";
 
 export const useFetchRequests = (userId?: string) => {

@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IRequestAccess } from "../../types/requestAccess";
+import { IRequestAccess } from "../types/requestAccess";
 import {
   addRequestAccess,
   updateRequest,
-} from "../../services/requestAccessService";
+} from "../services/requestAccessService";
 import { showErrorToast, showSuccessToast } from "../../components/utils/Toast";
 import { QUERY_KEYS, REQUEST_ACCESS_MUTATION_MESSAGES } from "../../constants";
 

@@ -3,7 +3,7 @@ import {
   API_ENDPOINTS_PASSWORD_RESET,
   ERROR_MESSAGES_PASSWORD_RESET,
   HEADERS,
-} from "../constants";
+} from "../../constants";
 
 export const requestPasswordResetClient = async (
   email: string

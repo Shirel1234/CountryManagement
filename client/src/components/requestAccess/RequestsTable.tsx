@@ -1,11 +1,11 @@
 import { Paper, Button, Typography, Tabs, Tab } from "@mui/material";
 import "../../styles/RequestsTable.scss";
-import { useFetchRequests } from "../../hooks/queries/useRequestsQuery";
+import { useFetchRequests } from "../../api/queries/useRequestsQuery";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useUpdateRequest } from "../../hooks/mutations/useRequestMutation";
+import { useUpdateRequest } from "../../api/mutations/useRequestMutation";
 import { useState } from "react";
 import { mapActionToAccessLevel } from "../../utils/accessUtils";
-import { useUpdateUser } from "../../hooks/mutations/useUserMutation";
+import { useUpdateUser } from "../../api/mutations/useUserMutation";
 import { useNavigate } from "react-router-dom";
 import {
   RequestAccessAction,

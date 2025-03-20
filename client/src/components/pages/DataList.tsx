@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useFetchCountries } from "../../hooks/queries/useCountriesQuery";
+import { useFetchCountries } from "../../api/queries/useCountriesQuery";
 import Loader from "../ui/Loader";
 import { showSuccessToast, showErrorToast } from "../utils/Toast";
 import "../../styles/DataList.scss";

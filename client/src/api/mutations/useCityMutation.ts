@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCity, addCity, updateCity } from "../../services/cityService";
-import { ICity } from "../../types/city";
+import { deleteCity, addCity, updateCity } from "../services/cityService";
+import { ICity } from "../types/city";
 import { showErrorToast, showSuccessToast } from "../../components/utils/Toast";
 import { CITY_MUTATION_MESSAGES, QUERY_KEYS } from "../../constants";
 

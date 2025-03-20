@@ -2,7 +2,7 @@ import * as Yup from "yup";
 import {
   VALIDATION_MESSAGES_CITY,
   VALIDATION_MESSAGES_COUNTRY,
-} from "../constants";
+} from "../../constants";
 
 export const countryValidationSchema = Yup.object({
   name: Yup.string()

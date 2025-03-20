@@ -8,8 +8,8 @@ import {
   TextField,
 } from "@mui/material";
 import { useFormik } from "formik";
-import { countryValidationSchema } from "../../validation/countryValidation";
-import { ICity } from "../../types/city";
+import { countryValidationSchema } from "../../utils/validation/countryValidation";
+import { ICity } from "../../api/types/city";
 
 interface AddCountryDialogProps {
   open: boolean;

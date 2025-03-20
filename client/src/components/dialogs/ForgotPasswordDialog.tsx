@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import "../../styles/ForgotPasswordDialog.scss";
 import { showSuccessToast, showErrorToast } from "../utils/Toast";
-import { requestPasswordResetClient } from "../../services/passwordResetService";
+import { requestPasswordResetClient } from "../../api/services/passwordResetService";
 import { TOAST_MESSAGES_FORGOT_PASSWORD } from "../../constants";
 
 interface ForgotPasswordDialogProps {

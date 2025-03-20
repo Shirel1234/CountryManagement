@@ -3,11 +3,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import { TextField, Button, Container, Typography } from "@mui/material";
 import { Formik, Field, Form } from "formik";
 import "../../styles/EditCountryForm.scss";
-import { getCountryById } from "../../services/countryService";
-import { ICountry } from "../../types/country";
+import { getCountryById } from "../../api/services/countryService";
+import { ICountry } from "../../api/types/country";
 import ConfirmLeaveDialog from "../dialogs/ConfirmLeaveDialog";
-import { useUpdateCountry } from "../../hooks/mutations/useCountryMutation";
-import { countryValidationSchema } from "../../validation/countryValidation";
+import { useUpdateCountry } from "../../api/mutations/useCountryMutation";
+import { countryValidationSchema } from "../../utils/validation/countryValidation";
 import { useSetRecoilState } from "recoil";
 import { selectedCountryState } from "../../state/atoms";
 

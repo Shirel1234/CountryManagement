@@ -1,6 +1,6 @@
 import axios from "axios";
 import { IUser } from "../types/user";
-import { API_ENDPOINTS_USER, ERROR_MESSAGES_USER, HEADERS } from "../constants";
+import { API_ENDPOINTS_USER, ERROR_MESSAGES_USER, HEADERS } from "../../constants";
 
 export const fetchUsers = async (): Promise<IUser[]> => {
   try {
