@@ -48,6 +48,7 @@ AdminNation is a management system for handling countries, cities, and access re
    git clone https://github.com/your-username/your-repo.git
 
 ## config .env
+```sh
 MONGODB_URI=your_mongodb_url
 PORT=your_port
 JWT_SECRET=your_secret_key
