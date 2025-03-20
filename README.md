@@ -83,7 +83,7 @@ npm run dev
 
 | Schema          | Fields | Explanation |
 |---------------|--------|-------------|
-| **City** | `name` | Represents a city with a name that must contain only letters and be at least 3 characters long. |
+| **City** | `name` | Represents a city. |
 | **Country** | `name`, `flag`, `population`, `region`, `cities` | Represents a country, including its name, flag (image URL), population count, region, and a list of cities it contains. |
 | **PasswordReset** | `userId`, `resetToken`, `expiresAt` | Stores password reset requests, linking a user to a reset token with an expiration time. |
 | **RequestAccess** | `userId`, `action`, `status` | Manages access requests from users, storing the requested action and the current status of the request. |
