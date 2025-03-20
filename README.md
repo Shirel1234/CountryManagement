@@ -148,3 +148,21 @@ Uses `express-rate-limit` to restrict login attempts:
 
 Ensures secure and controlled login attempts.  
 
+## Access Level System
+
+The system includes different access levels that determine what actions a user can perform. Each level includes all permissions from the lower levels. The access levels are defined as follows:
+
+| Access Level | Value | Permissions |
+|-------------|-------|-------------|
+| **Viewer**  | 1     | Can view data but cannot modify it. |
+| **Add**     | 2     | Can add new data and also view existing data. |
+| **Update**  | 3     | Can update existing data, add new data, and view data. |
+| **Delete**  | 4     | Can delete, update, add, and view data. |
+| **Admin**   | 5     | Has full control, including deleting users and managing permissions. |
+
+### How It Works
+- If a user has `UPDATE` access (level 3), they can **update**, **add**, and **view** data.
+- If a user has `DELETE` access (level 4), they also have all lower permissions, meaning they can **delete, update, add, and view** data.
+- The `ADMIN` level (5) grants full access to all functionalities.
+
+This hierarchy ensures a clear and structured permission system where higher levels inherit lower-level permissions automatically.
