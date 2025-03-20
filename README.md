@@ -94,7 +94,7 @@ To protect the application from common security threats, the following middlewar
   ```js
   import xssClean from "xss-clean";
   app.use(xssClean());
-
+```
 ## Screenshots
 (Add screenshots here to showcase the interface)
 
