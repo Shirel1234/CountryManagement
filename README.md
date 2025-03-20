@@ -1,8 +1,32 @@
 # Country Management System
 
-## Description
+![Alt text](screenshots/image.png)
 AdminNation is a management system for handling countries, cities, and access requests. It allows administrators to manage users, approve or reject access requests, and perform operations on countries and cities. The system features a modern interface with authentication, forms, and dialogs.
 
+## How to use?
+#### 1. Clone the repo.
+```sh
+git clone https://github.com/Shirel1234/CountryManagement.git
+```
+#### 2. Open the project in VS code.
+
+#### 3. Open new VS code terminal.
+
+#### 4. Go inside the server folder, and install all the packages.
+```sh
+ cd server
+ npm install
+```
+#### 5. Create .env file and fill up the credentials inside config folder (still inside server folder).
+```
+MONGODB_URI=your_mongodb_url
+PORT=your_port
+  JWT_SECRET=your_secret_key
+  JWT_EXPIRES_IN=your_expires_in_number
+  EMAIL_USER=your_mail
+  EMAIL_PASS=your_mail_password
+  FRONTEND_URL=your_frontend_url
+```
 ## Features
 - Manage users, countries, and cities.
 - Handle access requests with approval/denial.
