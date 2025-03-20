@@ -55,6 +55,16 @@ npm run dev
 - API powered by Node.js and Express.
 - Data stored in MongoDB.
 
+### Security Measures
+
+To protect the application from common security threats, the following middleware is implemented:
+
+- **NoSQL Injection Protection** (`express-mongo-sanitize`):  
+  Prevents attackers from injecting malicious queries into MongoDB by sanitizing user input.  
+  ```js
+  import mongoSanitize from "express-mongo-sanitize";
+  app.use(mongoSanitize());
+
 ## Tech Stack
 
 ### client
