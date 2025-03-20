@@ -1,12 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IUser } from "../../types/user";
-import { addUser, deleteUser, updateUser } from "../../services/userServices";
+import { IUser } from "../types/user";
+import { addUser, deleteUser, updateUser } from "../services/userServices";
 import { showErrorToast, showSuccessToast } from "../../components/utils/Toast";
-import { registerUser } from "../../services/authService";
+import { registerUser } from "../services/authService";
 import { useNavigate } from "react-router-dom";
-import { isLoggedInState } from "../../state/atoms";
 import { useSetRecoilState } from "recoil";
-import { QUERY_KEYS, ROUTES, USER_MUTATION_MESSAGES } from "../../constants";
+import { userState } from "../../state/atoms";
+import {
+  LOCAL_STORAGE_KEYS,
+  QUERY_KEYS,
+  ROUTES,
+  USER_MUTATION_MESSAGES,
+} from "../../constants";
 
 export const useAddUser = () => {
   const queryClient = useQueryClient();
@@ -34,14 +39,16 @@ export const useAddUser = () => {
   return addMutation;
 };
 export const useRegisterUser = () => {
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+  const setUser = useSetRecoilState(userState);
+  const navigate = useNavigate();
 
-  const registerMutation = useMutation<{ token: string }, Error, FormData>({
-    mutationFn: (formData: FormData) => {
-      return registerUser(formData);
-    },
+  const registerMutation = useMutation<
+    { token: string; myId: string; myUsername: string; myProfileImage: string },
+    Error,
+    FormData
+  >({
+    mutationFn: (formData) => registerUser(formData),
     onSuccess: (newUser) => {
       queryClient.setQueryData(
         [QUERY_KEYS.USERS],
@@ -49,8 +56,17 @@ export const useRegisterUser = () => {
           return oldData ? [...oldData, newUser] : [newUser];
         }
       );
+
+      const { myId, myUsername, myProfileImage } = newUser;
+      const userData = { myId, myUsername, myProfileImage };
+      setUser(userData);
+
+      localStorage.setItem(
+        LOCAL_STORAGE_KEYS.USER_DATA,
+        JSON.stringify(userData)
+      );
+
       showSuccessToast(USER_MUTATION_MESSAGES.USER_REGISTERED);
-      setIsLoggedIn(true);
       navigate(ROUTES.HOME);
     },
     onError: (error) => {
@@ -66,6 +82,7 @@ export const useRegisterUser = () => {
 };
 export const useUpdateUser = () => {
   const queryClient = useQueryClient();
+  const setUser = useSetRecoilState(userState);
 
   const updateMutation = useMutation<
     IUser,
@@ -86,6 +103,25 @@ export const useUpdateUser = () => {
             : [];
         }
       );
+      const currentUser = JSON.parse(
+        localStorage.getItem(LOCAL_STORAGE_KEYS.USER_DATA) || "{}"
+      );
+      if (currentUser.myId === updatedUser._id && updatedUser.profileImage) {
+        const updatedUserData = {
+          ...currentUser,
+          myProfileImage: updatedUser.profileImage,
+        };
+        localStorage.setItem(
+          LOCAL_STORAGE_KEYS.USER_DATA,
+          JSON.stringify(updatedUserData)
+        );
+
+        setUser((prev) => ({
+          ...prev,
+          myProfileImage: updatedUser.profileImage ?? prev.myProfileImage,
+        }));
+      }
+
       console.log(USER_MUTATION_MESSAGES.USER_UPDATED);
       showSuccessToast(USER_MUTATION_MESSAGES.USER_UPDATED);
     },

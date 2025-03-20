@@ -4,7 +4,7 @@ import {
   API_ENDPOINTS_REQUEST_ACCESS,
   ERROR_MESSAGES_REQUEST_ACCESS,
   HEADERS,
-} from "../constants";
+} from "../../constants";
 
 export const fetchRequests = async (
   userId?: string

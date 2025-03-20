@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { VALIDATION_MESSAGES_CITY } from "../constants";
+import { VALIDATION_MESSAGES_CITY } from "../../constants";
 
 export const cityValidationSchema = Yup.object({
   name: Yup.string()

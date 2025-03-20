@@ -5,8 +5,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
-import { useFetchCountries } from "../../hooks/queries/useCountriesQuery";
-import { ICountry } from "../../types/country";
+import { useFetchCountries } from "../../api/queries/useCountriesQuery";
+import { ICountry } from "../../api/types/country";
 import AddCountryDialog from "./AddCountryDialog";
 
 import { useSetRecoilState, useRecoilValue } from "recoil";
@@ -18,11 +18,12 @@ import {
   useAddCountry,
   useDeleteCountry,
   useUpdateCountry,
-} from "../../hooks/mutations/useCountryMutation";
+} from "../../api/mutations/useCountryMutation";
 import CityDialog from "../city/CityDialog";
-import { ICity } from "../../types/city";
+import { ICity } from "../../api/types/city";
 import { ROUTES } from "../../constants";
 import EditNoteIcon from "@mui/icons-material/EditNote";
+import { AccessLevel } from "../../constants/accessLevelEnum";
 
 const CountriesTable: React.FC = () => {
   const navigate = useNavigate();
@@ -142,15 +143,23 @@ const CountriesTable: React.FC = () => {
       flex: 1,
       renderCell: (params) => {
         const cities = params.row.cities || [];
-        const cityNames = cities.map((city: ICity) => city.name);
-        const displayCities = cityNames.slice(0, 3).join(", ");
-        const showMore = cityNames.length > 3;
+        const cityNames = cities.map((city: ICity) => city.name).join(", ");
 
         return (
           <Box display="flex" alignItems="center">
-            <span>{displayCities}</span>
-            {showMore && <span>...</span>}
-
+            <Tooltip title={cityNames} placement="top">
+              <Typography
+                variant="body2"
+                sx={{
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  maxWidth: "100%",
+                }}
+              >
+                {cityNames}
+              </Typography>
+            </Tooltip>
             <IconButton
               color="primary"
               onClick={() => handleOpenCitiesDialog(params.row)}
@@ -162,6 +171,7 @@ const CountriesTable: React.FC = () => {
         );
       },
     },
+
     {
       field: "actions",
       type: "actions",
@@ -205,7 +215,7 @@ const CountriesTable: React.FC = () => {
 
   return (
     <div data-testid="countries-table" className="countries-table">
-      {userAccessLevel === 5 && (
+      {userAccessLevel === AccessLevel.ADMIN && (
         <button className="go-back-button" onClick={handleGoBack}>
           ← Go Back
         </button>
@@ -222,7 +232,7 @@ const CountriesTable: React.FC = () => {
           pageSizeOptions={[5, 10, 25]}
           disableRowSelectionOnClick
         />
-        {userAccessLevel && userAccessLevel >= 2 && (
+        {userAccessLevel && userAccessLevel >= AccessLevel.ADD && (
           <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
             <IconButton
               color="primary"

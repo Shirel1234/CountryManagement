@@ -3,8 +3,8 @@ import {
   deleteCountry,
   addCountry,
   updateCountry,
-} from "../../services/countryService";
-import { ICountry } from "../../types/country";
+} from "../services/countryService";
+import { ICountry } from "../types/country";
 import { showErrorToast, showSuccessToast } from "../../components/utils/Toast";
 import { COUNTRY_MUTATION_MESSAGES, QUERY_KEYS } from "../../constants";
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ICity } from "../types/city";
-import { API_ENDPOINTS_CITY, ERROR_MESSAGES_CITY, HEADERS } from "../constants";
+import { API_ENDPOINTS_CITY, ERROR_MESSAGES_CITY, HEADERS } from "../../constants";
 
 export const fetchCities = async (): Promise<ICity[]> => {
   try {

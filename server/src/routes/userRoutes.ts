@@ -34,7 +34,7 @@ router.post(
 );
 router.put(
   USER_ROUTES.UPDATE_USER,
-  checkAccessLevel(AccessLevel.UPDATE),
+  checkAccessLevel(AccessLevel.VIEWER),
   upload.single("profileImage"),
   updateUser
 );

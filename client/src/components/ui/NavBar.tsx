@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { isLoggedInState, selectedCountryState } from "../../state/atoms";
-import { logoutUser } from "../../services/authService";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { selectedCountryState, userState } from "../../state/atoms";
+import { logoutUser } from "../../api/services/authService";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -14,17 +14,16 @@ import {
 } from "@mui/material";
 import { AccountCircle, AdminPanelSettings, Logout } from "@mui/icons-material";
 import "../../styles/NavBar.scss";
-import { BASE_URL, LOCAL_STORAGE_KEYS, NAVBAR_ERROR_MESSAGES, ROUTES } from "../../constants";
+import {
+  BASE_URL,
+  LOCAL_STORAGE_KEYS,
+  NAVBAR_ERROR_MESSAGES,
+  ROUTES,
+} from "../../constants";
 
 const NavBar: React.FC = () => {
-  const [user, setUser] = useState<{
-    myId: string;
-    myUsername: string;
-    myProfileImage: string;
-  } | null>(null);
+  const [user, setUser] = useRecoilState(userState);
   const selectedCountry = useRecoilValue(selectedCountryState);
-  const isLoggedIn = useRecoilValue(isLoggedInState);
-  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -37,20 +36,27 @@ const NavBar: React.FC = () => {
   const handleLogout = async () => {
     try {
       await logoutUser();
-      setIsLoggedIn(false);
       localStorage.removeItem(LOCAL_STORAGE_KEYS.USER_DATA);
+      setUser({ myId: "", myUsername: "", myProfileImage: "" });
       handleClosePopup();
       navigate(ROUTES.LANDING_PAGE);
     } catch (error) {
       console.error(NAVBAR_ERROR_MESSAGES, error);
     }
   };
+
   useEffect(() => {
     const storedUserData = localStorage.getItem(LOCAL_STORAGE_KEYS.USER_DATA);
     if (storedUserData) {
-      setUser(JSON.parse(storedUserData));
+      try {
+        setUser(JSON.parse(storedUserData));
+      } catch (error) {
+        console.error("Error parsing user data from localStorage:", error);
+      }
+    } else {
+      setUser({ myId: "", myUsername: "", myProfileImage: "" });
     }
-  }, [isLoggedIn]);
+  }, [setUser, user.myId]);
 
   return (
     <nav className="navbar">
@@ -62,7 +68,7 @@ const NavBar: React.FC = () => {
           </span>
         )}
         <div className="navbar-buttons">
-          {isLoggedIn ? (
+          {user.myId ? (
             <div className="user-info">
               <div className="profile-info">
                 {user?.myProfileImage ? (

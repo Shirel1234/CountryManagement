@@ -1,7 +1,7 @@
 // src/components/ResetPassword.tsx
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { resetPassword } from "../../services/passwordResetService";
+import { resetPassword } from "../../api/services/passwordResetService";
 import { ROUTES } from "../../constants";
 
 const ResetPassword = () => {
@@ -10,7 +10,6 @@ const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  // Get token from URL query string
   const queryParams = new URLSearchParams(location.search);
   const token = queryParams.get("token"); 
 

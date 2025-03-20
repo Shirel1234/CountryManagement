@@ -56,7 +56,6 @@ app.use(`${API_PREFIX}${REQUEST_ACCESS_PREFIX}`, requestAccessRoutes);
 const startServer = async () => {
   try {
     await connect();
-    console.log("listennnnnn")
     app.listen(PORT, () => {
       logger.info(LOGGER_MESSAGES.SERVER_START(PORT));
     });
@@ -65,7 +64,5 @@ const startServer = async () => {
     throw new Error(LOGGER_MESSAGES.SERVER_ERROR);
   }
 };
-
-  // startServer();
 
   export { app, startServer };

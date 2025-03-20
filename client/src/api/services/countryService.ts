@@ -4,7 +4,7 @@ import {
   API_ENDPOINTS_COUNTRY,
   ERROR_MESSAGES_COUNTRY,
   HEADERS,
-} from "../constants";
+} from "../../constants";
 
 export const fetchCountries = async (): Promise<ICountry[]> => {
   try {

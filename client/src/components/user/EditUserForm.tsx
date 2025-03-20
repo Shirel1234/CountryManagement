@@ -3,14 +3,15 @@ import { useParams, useNavigate } from "react-router-dom";
 import { TextField, Button, Container, Typography, Grid } from "@mui/material";
 import { Formik, Field, Form } from "formik";
 import "../../styles/EditUserForm.scss";
-import { IUser } from "../../types/user";
+import { IUser } from "../../api/types/user";
 import ConfirmLeaveDialog from "../dialogs/ConfirmLeaveDialog";
-import { useUpdateUser } from "../../hooks/mutations/useUserMutation";
-import { userValidationSchema } from "../../validation/userValidation";
-import { getUserById } from "../../services/userServices";
+import { useUpdateUser } from "../../api/mutations/useUserMutation";
+import { userValidationSchema } from "../../utils/validation/userValidation";
+import { getUserById } from "../../api/services/userServices";
 import { BASE_URL } from "../../constants";
 import { useRecoilValue } from "recoil";
 import { userAccessLevelState } from "../../state/atoms";
+import { AccessLevel } from "../../constants/accessLevelEnum";
 
 const EditUserForm: React.FC = () => {
   const [user, setUser] = useState<IUser | null>(null);
@@ -178,7 +179,7 @@ const EditUserForm: React.FC = () => {
                     />
                   </Grid>
                 )}
-                {userAccessLevel === 5 && (
+                {userAccessLevel === AccessLevel.ADMIN && (
                   <Field
                     as={TextField}
                     label="Access Level"

@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { VALIDATION_MESSAGES_USER } from "../constants";
+import { VALIDATION_MESSAGES_USER } from "../../constants";
 
 export const userValidationSchema = Yup.object({
   firstName: Yup.string()

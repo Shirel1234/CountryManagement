@@ -14,16 +14,17 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
-import { ICountry } from "../../types/country";
-import { ICity } from "../../types/city";
+import { ICountry } from "../../api/types/country";
+import { ICity } from "../../api/types/city";
 import {
   useAddCity,
   useUpdateCity,
-} from "../../hooks/mutations/useCityMutation";
-import { useDeleteCity } from "../../hooks/mutations/useCityMutation";
+} from "../../api/mutations/useCityMutation";
+import { useDeleteCity } from "../../api/mutations/useCityMutation";
 import { useRecoilValue } from "recoil";
 import { userAccessLevelState } from "../../state/atoms";
 import { CITY_ERROR_MESSAGES } from "../../constants";
+import { AccessLevel } from "../../constants/accessLevelEnum";
 
 interface CityDialogProps {
   open: boolean;
@@ -104,12 +105,12 @@ const CityDialog: React.FC<CityDialogProps> = ({
               key={city._id}
               secondaryAction={
                 <>
-                  {userAccessLevel && userAccessLevel >= 3 && (
+                  {userAccessLevel && userAccessLevel >= AccessLevel.UPDATE && (
                     <IconButton onClick={() => handleEditCity(city)}>
                       <EditIcon />
                     </IconButton>
                   )}
-                  {userAccessLevel && userAccessLevel >= 4 && (
+                  {userAccessLevel && userAccessLevel >= AccessLevel.DELETE && (
                     <IconButton
                       onClick={() => handleDeleteCity(city)}
                       color="error"
@@ -124,7 +125,7 @@ const CityDialog: React.FC<CityDialogProps> = ({
             </ListItem>
           ))}
         </List>
-        {userAccessLevel && userAccessLevel >= 2 && (
+        {userAccessLevel && userAccessLevel >= AccessLevel.ADD && (
           <TextField
             label="City Name"
             fullWidth
@@ -146,7 +147,7 @@ const CityDialog: React.FC<CityDialogProps> = ({
           )
         )}
       </DialogContent>
-      {userAccessLevel && userAccessLevel >= 2 && (
+      {userAccessLevel && userAccessLevel >= AccessLevel.ADD && (
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
           <Button onClick={handleSaveChanges} color="primary">

@@ -22,10 +22,9 @@
     border: 1px solid colors.$gray;
 
     .MuiDataGrid-cell {
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .MuiDataGrid-row:hover {

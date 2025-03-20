@@ -31,13 +31,13 @@ describe("Password Reset Controller Tests", () => {
     expect(response.body.message).toBe(PASSWORD_RESET_MESSAGES.EMAIL_REQUIRED);
   });
 
-  // it("should send a password reset email", async () => {
-  //   const response = await request(app)
-  //     .post(`${API_PREFIX}${PASSWORD_RESET_ROUTES.REQUEST_PASSWORD_RESET}`)
-  //     .send({ email: "dan111@example.com" });
-  //   expect(response.status).toBe(HTTP_STATUS_CODES.OK);
-  //   expect(response.body.message).toBe(PASSWORD_RESET_MESSAGES.EMAIL_SENT);
-  // });
+  it("should send a password reset email", async () => {
+    const response = await request(app)
+      .post(`${API_PREFIX}${PASSWORD_RESET_ROUTES.REQUEST_PASSWORD_RESET}`)
+      .send({ email: "dan111@example.com" });
+    expect(response.status).toBe(HTTP_STATUS_CODES.OK);
+    expect(response.body.message).toBe(PASSWORD_RESET_MESSAGES.EMAIL_SENT);
+  });
 
   it("should return an error if token or newPassword is missing in resetPasswordHandler", async () => {
     const response = await request(app)
