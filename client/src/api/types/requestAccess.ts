@@ -1,4 +1,4 @@
-import { RequestAccessAction, RequestAccessStatus } from "../constants/requestAccessEnum";
+import { RequestAccessAction, RequestAccessStatus } from "../../constants/requestAccessEnum";
 
 export interface IRequestAccess {
   _id: string;

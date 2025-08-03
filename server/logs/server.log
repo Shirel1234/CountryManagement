@@ -6305,3 +6305,75 @@ Use mongoose.model(name, schema)
 2025-03-20 15:56:25 [[32minfo[39m]: Countries data already exists in the database!
 2025-03-20 15:56:25 [[32minfo[39m]: Initial country data fetched and stored.
 2025-03-20 15:56:25 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-06-05 11:20:07 [[32minfo[39m]: Connecting to MongoDB...
+2025-06-05 11:20:07 [[31merror[39m]: Error in connection to MongoDB: Error: querySrv ENOTFOUND _mongodb._tcp.clustercm.tt13t.mongodb.net
+2025-06-05 14:15:21 [[32minfo[39m]: Connecting to MongoDB...
+2025-06-05 14:15:21 [[31merror[39m]: Error in connection to MongoDB: Error: querySrv ENOTFOUND _mongodb._tcp.clustercm.tt13t.mongodb.net
+2025-06-05 16:37:37 [[32minfo[39m]: Connecting to MongoDB...
+2025-06-05 16:37:39 [[32minfo[39m]: MongoDB connection successful !!!
+2025-06-05 16:37:41 [[32minfo[39m]: Countries data already exists in the database!
+2025-06-05 16:37:41 [[32minfo[39m]: Initial country data fetched and stored.
+2025-06-05 16:37:41 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-06-05 20:08:25 [[32minfo[39m]: Connecting to MongoDB...
+2025-06-05 20:08:30 [[32minfo[39m]: MongoDB connection successful !!!
+2025-06-05 20:08:31 [[32minfo[39m]: Countries data already exists in the database!
+2025-06-05 20:08:31 [[32minfo[39m]: Initial country data fetched and stored.
+2025-06-05 20:08:31 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-06-08 15:45:33 [[32minfo[39m]: Connecting to MongoDB...
+2025-06-08 15:45:35 [[32minfo[39m]: MongoDB connection successful !!!
+2025-06-08 15:45:37 [[32minfo[39m]: Countries data already exists in the database!
+2025-06-08 15:45:37 [[32minfo[39m]: Initial country data fetched and stored.
+2025-06-08 15:45:37 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-06-08 15:50:08 [[32minfo[39m]: Connecting to MongoDB...
+2025-06-08 15:50:10 [[32minfo[39m]: MongoDB connection successful !!!
+2025-06-08 15:50:10 [[32minfo[39m]: Countries data already exists in the database!
+2025-06-08 15:50:10 [[32minfo[39m]: Initial country data fetched and stored.
+2025-06-08 15:50:10 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-06-08 15:55:00 [[32minfo[39m]: Connecting to MongoDB...
+2025-06-08 15:55:04 [[32minfo[39m]: MongoDB connection successful !!!
+2025-06-08 15:55:05 [[32minfo[39m]: Countries data already exists in the database!
+2025-06-08 15:55:05 [[32minfo[39m]: Initial country data fetched and stored.
+2025-06-08 15:55:05 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-06-08 16:04:02 [[32minfo[39m]: Connecting to MongoDB...
+2025-06-08 16:04:04 [[32minfo[39m]: MongoDB connection successful !!!
+2025-06-08 16:04:05 [[32minfo[39m]: Countries data already exists in the database!
+2025-06-08 16:04:05 [[32minfo[39m]: Initial country data fetched and stored.
+2025-06-08 16:04:05 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-06-08 16:09:53 [[32minfo[39m]: Connecting to MongoDB...
+2025-06-08 16:09:55 [[32minfo[39m]: MongoDB connection successful !!!
+2025-06-08 16:09:57 [[32minfo[39m]: Countries data already exists in the database!
+2025-06-08 16:09:57 [[32minfo[39m]: Initial country data fetched and stored.
+2025-06-08 16:09:57 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-06-08 16:13:28 [[32minfo[39m]: Connecting to MongoDB...
+2025-06-08 16:13:31 [[32minfo[39m]: MongoDB connection successful !!!
+2025-06-08 16:13:32 [[32minfo[39m]: Countries data already exists in the database!
+2025-06-08 16:13:32 [[32minfo[39m]: Initial country data fetched and stored.
+2025-06-08 16:13:32 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-06-08 16:30:57 [[33mwarn[39m]: Invalid username or password.
+2025-06-08 16:31:11 [[33mwarn[39m]: Invalid username or password.
+2025-06-08 16:32:46 [[32minfo[39m]: Password reset successful for user  67d8470ef98d03beee9e4b8b
+2025-06-08 16:32:49 [[32minfo[39m]: Password reset email sent to  sofri@g.jct.ac.il
+2025-06-08 16:36:39 [[32minfo[39m]: Password reset successful for user  67d8470ef98d03beee9e4b8b
+2025-06-08 16:36:52 [[32minfo[39m]: Access granted.
+2025-06-08 16:37:06 [[32minfo[39m]: Access granted.
+2025-06-08 16:37:07 [[32minfo[39m]: Access granted.
+2025-06-08 16:37:09 [[32minfo[39m]: Fetched 3 requests.
+2025-06-08 16:37:09 [[32minfo[39m]: Fetched 3 requests.
+2025-06-19 18:11:36 [[32minfo[39m]: Connecting to MongoDB...
+2025-06-19 18:11:38 [[32minfo[39m]: MongoDB connection successful !!!
+2025-06-19 18:11:38 [[32minfo[39m]: Countries data already exists in the database!
+2025-06-19 18:11:38 [[32minfo[39m]: Initial country data fetched and stored.
+2025-06-19 18:11:38 [[32minfo[39m]: Server is running on http://localhost:5000
+2025-06-19 18:12:29 [[33mwarn[39m]: Invalid username or password.
+2025-06-19 18:12:40 [[33mwarn[39m]: Invalid username or password.
+2025-06-19 18:12:48 [[32minfo[39m]: Access granted.
+2025-06-19 18:13:06 [[32minfo[39m]: Access granted.
+2025-06-19 18:13:07 [[32minfo[39m]: Country updated successfully!
+2025-06-19 18:13:15 [[32minfo[39m]: Access granted.
+2025-06-19 18:13:15 [[32minfo[39m]: City successfully added!
+2025-06-19 18:13:19 [[32minfo[39m]: Access granted.
+2025-06-19 18:13:19 [[32minfo[39m]: Country updated successfully!
+2025-06-19 18:13:39 [[32minfo[39m]: Fetched 3 requests.
+2025-06-19 18:13:39 [[32minfo[39m]: Fetched 3 requests.
+2025-06-19 18:13:50 [[32minfo[39m]: Access granted.
+2025-06-19 18:13:50 [[32minfo[39m]: Access granted.
